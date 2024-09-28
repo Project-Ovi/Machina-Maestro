@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"image/color"
 	"log"
@@ -14,6 +15,7 @@ import (
 	"fyne.io/fyne/v2/app"
 	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/container"
+	"fyne.io/fyne/v2/data/validation"
 	"fyne.io/fyne/v2/driver/desktop"
 	"fyne.io/fyne/v2/layout"
 	"fyne.io/fyne/v2/theme"
@@ -263,11 +265,85 @@ func modelSelectWindow(window fyne.Window) {
 	title.TextSize = 32
 	title.Alignment = fyne.TextAlignCenter
 
+	// Fetch models
+	objects := []fyne.CanvasObject{}
+	modelsDir, err := os.ReadDir(path.Join(workingDirectory, "/myModels"))
+	if err != nil {
+		fatalError(err)
+	}
+	for _, val := range modelsDir {
+		// Fetch
+		rawModelCard, err := os.ReadFile(path.Join(workingDirectory, "/myModels/", val.Name(), "/model.json"))
+		if err != nil {
+			log.Println("Failed to load model:", val.Name()+". Skipping...")
+			continue
+		}
+		var modelCard model
+		err = json.Unmarshal(rawModelCard, &modelCard)
+		if err != nil {
+			fatalError(err)
+		}
+
+		// Make title
+		title := canvas.NewText(modelCard.Name, theme.Color(theme.ColorNameForeground))
+		title.TextSize = 18
+
+		// Make trash button
+		deleteBTN := widget.NewButton("", func() {
+			err := os.RemoveAll(path.Join(workingDirectory, "/myModels/", val.Name()))
+			if err != nil {
+				fatalError(err)
+			}
+			time.Sleep(time.Millisecond * 100)
+			modelSelectWindow(window)
+		})
+		deleteBTN.Icon = theme.Icon(theme.IconNameDelete)
+
+		// Make a use button
+		useBTN := widget.NewButton("", func() {
+			thisModel = modelCard
+			OVIPlayground(window)
+		})
+		useBTN.Icon = theme.Icon(theme.IconNameMediaPlay)
+
+		// Build sidebar
+		sidebar := container.New(
+			layout.NewHBoxLayout(),
+			deleteBTN,
+			useBTN,
+		)
+
+		thisObject := container.New(
+			layout.NewStackLayout(),
+			canvas.NewRectangle(theme.Color(theme.ColorNameButton)),
+			container.New(
+				layout.NewHBoxLayout(),
+				title,
+				layout.NewSpacer(),
+				sidebar,
+			),
+		)
+
+		objects = append(objects, thisObject)
+
+	}
+
+	// Display available models
+	modelEntries := container.New(
+		layout.NewVBoxLayout(),
+		objects...,
+	)
+	modelsList := container.NewVScroll(modelEntries)
+	modelsList.SetMinSize(fyne.NewSize(0, 500))
+
 	// Arrange and draw
 	content := container.New(
 		layout.NewVBoxLayout(),
 		navbar,
 		title,
+		layout.NewSpacer(),
+		modelsList,
+		layout.NewSpacer(),
 	)
 	window.SetContent(content)
 }
@@ -295,6 +371,14 @@ func modelAddWindow(window fyne.Window, btnAdd *widget.Button) {
 	title.TextSize = 32
 	title.Alignment = fyne.TextAlignCenter
 
+	// Add a subtitle
+	subtitle := canvas.NewText("", colornames.Red)
+	subtitle.TextSize = 28
+	subtitle.Alignment = fyne.TextAlignCenter
+
+	// Combine title and subtitle
+	top := container.New(layout.NewVBoxLayout(), title, subtitle)
+
 	// Add name field
 	nameTitle := canvas.NewText("Name", theme.Color(theme.ColorNameForeground))
 	nameOption := widget.NewEntry()
@@ -317,7 +401,12 @@ func modelAddWindow(window fyne.Window, btnAdd *widget.Button) {
 
 	// Add a submit button
 	btn := bigBTN("Submit", 60, 15, func() {
-		saveSelector(form)
+		subtitle.Text = saveSelector(form)
+		subtitle.Refresh()
+		if subtitle.Text == "" {
+			addWindow.Close()
+			OVIPlayground(window)
+		}
 	})
 
 	selectOption.OnChanged = func(s string) {
@@ -329,7 +418,7 @@ func modelAddWindow(window fyne.Window, btnAdd *widget.Button) {
 	content := container.New(
 		layout.NewVBoxLayout(),
 		navbar,
-		title,
+		top,
 		layout.NewSpacer(),
 		form,
 		layout.NewSpacer(),
@@ -338,6 +427,10 @@ func modelAddWindow(window fyne.Window, btnAdd *widget.Button) {
 	addWindow.SetContent(content)
 	addWindow.Resize(fyne.NewSquareSize(512))
 	addWindow.Show()
+}
+
+func OVIPlayground(window fyne.Window) {
+
 }
 
 func main() {
@@ -378,6 +471,14 @@ var models []string = []string{
 	"OVI Mini",
 }
 
+type model struct {
+	Name  string            `json:"name"`
+	Model string            `json:"model_name"`
+	Other map[string]string `json:"other"`
+}
+
+var thisModel model
+
 func formSelector(s string, form *fyne.Container) {
 	switch s {
 	case "OVI MK2":
@@ -389,16 +490,18 @@ func formSelector(s string, form *fyne.Container) {
 	}
 }
 
-func saveSelector(form *fyne.Container) {
+func saveSelector(form *fyne.Container) string {
 	s := form.Objects[3].(*widget.Select).Selected
 	switch s {
 	case "OVI MK2":
-		save_OVI_MK2(form)
+		return save_OVI_MK2(form)
 	case "OVI MK3":
-		save_OVI_MK3(form)
+		return save_OVI_MK3(form)
 	case "OVI Mini":
-		save_OVI_Mini(form)
+		return save_OVI_Mini(form)
 	}
+
+	return "Please select a valid model"
 }
 
 func form_OVI_MK2(form *fyne.Container) {
@@ -406,27 +509,85 @@ func form_OVI_MK2(form *fyne.Container) {
 	ipName := canvas.NewText("IP", theme.Color(theme.ColorNameForeground))
 	ipEntry := widget.NewEntry()
 	ipEntry.Text = "192.168.4.1"
+	ipEntry.Validator = validation.NewRegexp("^((https?|ftp):\\/\\/)?((([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6})|(localhost)|(\\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b)|(\\b(([0-9a-fA-F]{1,4}:){7}([0-9a-fA-F]{1,4}|:)|(::([0-9a-fA-F]{1,4}:){0,6}([0-9a-fA-F]{1,4}|:)))\\b))(:(\\d{1,5}))?(\\/[a-zA-Z0-9_.~%-]*)*(\\?[a-zA-Z0-9_.~%-&=]*)?(\\#[a-zA-Z0-9_-]*)?$", "Invalid IP/URL")
+	ipEntry.Refresh()
 
 	form.Objects = append(form.Objects,
 		ipName, ipEntry,
 	)
-
 }
 
-func save_OVI_MK2(form *fyne.Container) {
-	fmt.Println("Saved a valid OVI MK2")
+func save_OVI_MK2(form *fyne.Container) string {
+	//
+	canContinue := true
+	errorMsg := ""
+
+	// Get model name and check if it is unique
+	name := form.Objects[1].(*widget.Entry).Text
+	models, err := os.ReadDir("myModels")
+	if err != nil {
+		fatalError(err)
+	}
+	for _, val := range models {
+		if val.IsDir() && val.Name() == name {
+			// The name is not unique
+			form.Objects[0].(*canvas.Text).Color = colornames.Red
+			canContinue = false
+			errorMsg = "A model with this name already exists"
+		}
+	}
+	if canContinue {
+		form.Objects[0].(*canvas.Text).Color = theme.Color(theme.ColorNameForeground)
+	}
+
+	// Get model IP and check it
+	IP := form.Objects[7].(*widget.Entry).Text
+	form.Refresh()
+	if form.Objects[7].(*widget.Entry).Validate() != nil {
+		form.Objects[6].(*canvas.Text).Color = colornames.Red
+		canContinue = false
+		errorMsg = "Invalid IP address"
+	} else {
+		form.Objects[6].(*canvas.Text).Color = theme.Color(theme.ColorNameForeground)
+	}
+
+	// If something is wrong, quit
+	if !canContinue {
+		return errorMsg
+	}
+
+	// Parse model information
+	thisModel.Name = name
+	thisModel.Model = "OVI MK2"
+	thisModel.Other = map[string]string{"IP": IP}
+
+	// Save model to file
+	os.Mkdir(path.Join(workingDirectory, "/myModels/", name), os.ModePerm)
+	information, err := json.Marshal(thisModel)
+	if err != nil {
+		errorMsg = err.Error()
+	}
+	err = os.WriteFile(path.Join(workingDirectory, "/myModels/", name, "/model.json"), information, os.ModePerm)
+	if err != nil {
+		errorMsg = err.Error()
+	}
+
+	// Return any error messages
+	return errorMsg
 }
 
 func form_OVI_MK3(form *fyne.Container) {
 }
 
-func save_OVI_MK3(form *fyne.Container) {
+func save_OVI_MK3(form *fyne.Container) string {
 	fmt.Println("Saved a valid OVI MK3")
+	return "Unimplemented"
 }
 
 func form_OVI_Mini(form *fyne.Container) {
 }
 
-func save_OVI_Mini(form *fyne.Container) {
+func save_OVI_Mini(form *fyne.Container) string {
 	fmt.Println("Saved a valid OVI Mini")
+	return "Unimplemented"
 }
