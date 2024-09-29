@@ -1099,21 +1099,21 @@ func load_OVI_Mini() {
 
 // * Action definitions
 type action struct {
-	Name        string
-	Description string
-	Commands    []command
+	Name        string    `json:"name"`
+	Description string    `json:"description"`
+	Commands    []command `json:"commands"`
 }
 
 type command struct {
-	DisplayName string
-	Arguments   []argument
+	DisplayName string     `json:"name"`
+	Arguments   []argument `json:"args"`
 	f           func([]argument) error
 }
 
 type argument struct {
-	Name    string
-	ArgType string
-	Value   interface{}
+	Name    string      `json:"name"`
+	ArgType string      `json:"type"`
+	Value   interface{} `json:"val"`
 }
 
 func (a action) Run() error {
