@@ -6,8 +6,11 @@ import (
 	"fmt"
 	"image/color"
 	"log"
+	"net/url"
 	"os"
+	"os/exec"
 	"path"
+	"runtime"
 	"strings"
 	"time"
 
@@ -60,6 +63,25 @@ func bigBTN(text string, extraPadding float32, size float32, f func()) *fyne.Con
 	}
 	btn := container.New(layout.NewCenterLayout(), btnBG, btnText)
 	return btn
+}
+func openExplorer(path string) error {
+	var cmd *exec.Cmd
+
+	switch runtime.GOOS {
+	case "windows":
+		// On Windows, use 'explorer'
+		cmd = exec.Command("explorer", path)
+	case "darwin":
+		// On macOS, use 'open'
+		cmd = exec.Command("open", path)
+	case "linux":
+		// On Linux, use 'xdg-open' or 'gio open' based on availability
+		cmd = exec.Command("xdg-open", path)
+	default:
+		return fmt.Errorf("unsupported platform")
+	}
+
+	return cmd.Start()
 }
 
 // * Particular windows
@@ -191,6 +213,57 @@ func fatalError(err error) {
 	errorPopup.Resize(fyne.NewSquareSize(popupSize))
 	errorPopup.Show()
 }
+func confirmWindow(title string, subtitle string, yes func(), no func()) {
+	// Make window
+	confirmWindow := App.NewWindow(title)
+	confirmWindow.SetFixedSize(true)
+	confirmWindow.SetCloseIntercept(func() {
+		confirmWindow.RequestFocus()
+	})
+
+	// Add title
+	titleWidget := canvas.NewText(title, theme.Color(theme.ColorNameForeground))
+	titleWidget.TextSize = 25
+	titleWidget.Alignment = fyne.TextAlignCenter
+
+	// Add subtitle
+	subtitleWidget := canvas.NewText(subtitle, theme.Color(theme.ColorNameForeground))
+	subtitleWidget.TextSize = 16
+	subtitleWidget.Alignment = fyne.TextAlignCenter
+
+	// Create buttons
+	yesBTN := widget.NewButtonWithIcon("YES", theme.Icon(theme.IconNameConfirm), func() {
+		yes()
+		confirmWindow.Close()
+	})
+	noBTN := widget.NewButtonWithIcon("NO", theme.Icon(theme.IconNameCancel), func() {
+		no()
+		confirmWindow.Close()
+	})
+	buttons := container.New(
+		layout.NewHBoxLayout(),
+		layout.NewSpacer(),
+		yesBTN,
+		layout.NewSpacer(),
+		noBTN,
+		layout.NewSpacer(),
+	)
+
+	// Assemble UI
+	content := container.New(
+		layout.NewVBoxLayout(),
+		layout.NewSpacer(),
+		titleWidget,
+		subtitleWidget,
+		layout.NewSpacer(),
+		buttons,
+		layout.NewSpacer(),
+	)
+
+	confirmWindow.SetContent(content)
+	confirmWindow.Resize(fyne.NewSize(500, 200))
+	confirmWindow.Show()
+}
 
 // Init function
 func Init() {
@@ -290,12 +363,16 @@ func modelSelectWindow(window fyne.Window) {
 
 		// Make trash button
 		deleteBTN := widget.NewButton("", func() {
-			err := os.RemoveAll(path.Join(workingDirectory, "/myModels/", val.Name()))
-			if err != nil {
-				fatalError(err)
-			}
-			time.Sleep(time.Millisecond * 100)
-			modelSelectWindow(window)
+			confirmWindow("Confirm", "You are about to delete "+modelCard.Name, func() {
+				err := os.RemoveAll(path.Join(workingDirectory, "/myModels/", val.Name()))
+				if err != nil {
+					fatalError(err)
+				}
+				time.Sleep(time.Millisecond * 100)
+				modelSelectWindow(window)
+			}, func() {
+
+			})
 		})
 		deleteBTN.Icon = theme.Icon(theme.IconNameDelete)
 
@@ -429,8 +506,126 @@ func modelAddWindow(window fyne.Window, btnAdd *widget.Button) {
 	addWindow.Show()
 }
 
-func OVIPlayground(window fyne.Window) {
+func helpWindow() {
+	// Make window
+	window := App.NewWindow("Help")
 
+	// Add logo
+	ICON_robot_hand_round.SetMinSize(fyne.NewSquareSize(100))
+
+	// Add title
+	title := canvas.NewText("Machina Maestro", theme.Color(theme.ColorNameForeground))
+	title.Alignment = fyne.TextAlignCenter
+	title.TextSize = 30
+
+	// Add subtitle
+	subtitle := widget.NewLabel("A comprehensive UI application for controlling OVI products.")
+	subtitle.Wrapping = fyne.TextWrapWord
+
+	// Add github button
+	btn := widget.NewButtonWithIcon("Github", theme.Icon(theme.IconNameComputer), func() {
+		url, err := url.Parse("https://github.com/Project-Ovi/Machina-Maestro")
+		if err != nil {
+			fatalError(err)
+		}
+		App.OpenURL(url)
+	})
+
+	// Assemble UI
+	content := container.New(
+		layout.NewVBoxLayout(),
+		layout.NewSpacer(),
+		container.New(
+			layout.NewHBoxLayout(),
+			layout.NewSpacer(),
+			ICON_robot_hand_round,
+			container.New(
+				layout.NewVBoxLayout(),
+				title,
+				subtitle,
+			),
+			layout.NewSpacer(),
+		),
+		layout.NewSpacer(),
+		btn,
+	)
+
+	// Show window
+	window.SetContent(content)
+	window.SetFixedSize(true)
+	window.Resize(fyne.NewSize(500, 200))
+	window.Show()
+}
+
+func playgroundNavbar(window fyne.Window) *fyne.Container {
+	// Add sidebar button
+	sidebarBTN := widget.NewButtonWithIcon("", theme.Icon(theme.IconNameList), func() {
+		fmt.Println("Pressed sidebar button!")
+		//TODO: Make this work
+	})
+
+	// Add home button
+	homeBTN := widget.NewButtonWithIcon("Home", theme.Icon(theme.IconNameHome), func() {
+		confirmWindow("Are you sure you want to exit?", "You are about to exit to the main menu", func() {
+			landingPage(window)
+		}, func() {})
+	})
+
+	// Add file button
+	fileBTN := widget.NewButtonWithIcon("Reveal File", theme.Icon(theme.IconNameFile), func() {
+		err := openExplorer(path.Join(workingDirectory, "/myModels/", thisModel.Name))
+		if err != nil {
+			fatalError(err)
+		}
+	})
+
+	// Add run button
+	runBTN := widget.NewButtonWithIcon("Run", theme.Icon(theme.IconNameMailSend), func() {
+		fmt.Println("Pressed run button!")
+		//TODO: Make this work
+	})
+
+	// Add tools button
+	toolsBTN := widget.NewButtonWithIcon("Tools", theme.Icon(theme.IconNameComputer), func() {
+		fmt.Println("Pressed tools button!")
+		//TODO: Make this work
+	})
+
+	// Add settings button
+	settingsBTN := widget.NewButtonWithIcon("Settings", theme.Icon(theme.IconNameSettings), func() {
+		fmt.Println("Pressed settings button!")
+		//TODO: Make this work
+	})
+
+	// Add help button
+	helpBTN := widget.NewButtonWithIcon("Help", theme.Icon(theme.IconNameHelp), helpWindow)
+
+	// Build navbar
+	navbar := container.New(
+		layout.NewStackLayout(),
+		canvas.NewRectangle(theme.Color(theme.ColorNameHeaderBackground)),
+		container.New(
+			layout.NewHBoxLayout(),
+			sidebarBTN,
+			fileBTN,
+			toolsBTN,
+			runBTN,
+			settingsBTN,
+			layout.NewSpacer(),
+			homeBTN,
+			helpBTN,
+		),
+	)
+
+	return navbar
+}
+func OVIPlayground(window fyne.Window) {
+	// Get navbar
+	navbar := playgroundNavbar(window)
+
+	// Display contents
+	content := container.NewBorder(navbar, nil, nil, nil)
+	window.SetContent(content)
 }
 
 func main() {
