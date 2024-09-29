@@ -5,7 +5,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"image/color"
+	"io"
 	"log"
+	"net/http"
 	"net/url"
 	"os"
 	"os/exec"
@@ -557,11 +559,16 @@ func helpWindow() {
 	window.Show()
 }
 
-func playgroundNavbar(window fyne.Window) *fyne.Container {
+func playgroundNavbar(window fyne.Window, sidebar fyne.CanvasObject) *fyne.Container {
 	// Add sidebar button
 	sidebarBTN := widget.NewButtonWithIcon("", theme.Icon(theme.IconNameList), func() {
-		fmt.Println("Pressed sidebar button!")
-		//TODO: Make this work
+		if sidebar.Visible() {
+			sidebar.Hide()
+			window.Canvas().Content().Refresh()
+		} else {
+			sidebar.Show()
+			window.Canvas().Content().Refresh()
+		}
 	})
 
 	// Add home button
@@ -619,12 +626,151 @@ func playgroundNavbar(window fyne.Window) *fyne.Container {
 
 	return navbar
 }
+
+func sidebarOverview(content **fyne.Container) {
+}
+
+func sidebarInfo(content **fyne.Container) {
+	// Display a loading
+	progressbar := widget.NewProgressBarInfinite()
+	progressbar.Start()
+	(*content).RemoveAll()
+	(*content).Add(
+		container.New(
+			layout.NewVBoxLayout(),
+			widget.NewLabel("Loading..."),
+			progressbar,
+			layout.NewSpacer(),
+		),
+	)
+
+	// Get markdown URL
+	mdURL := thisModel.Website
+
+	// Download markdown
+	markdown := ""
+	resp, err := http.Get(mdURL)
+	if err != nil {
+		markdown = "# Unable to connect to the internet"
+	} else {
+		defer resp.Body.Close()
+		body, err := io.ReadAll(resp.Body)
+		if err != nil {
+			markdown = "# Failed to decode response body"
+		} else {
+			markdown = string(body)
+		}
+	}
+
+	// Display markdown
+	markdownWidget := widget.NewRichTextFromMarkdown(markdown)
+	markdownWidget.Wrapping = fyne.TextWrapWord
+	(*content).RemoveAll()
+	(*content).Add(container.NewVScroll(markdownWidget))
+}
+
+func playgroundSidebar(window fyne.Window, mainContent **fyne.Container) fyne.CanvasObject {
+	// Add a overview button
+	overviewBTN := widget.NewButtonWithIcon("Overview", theme.Icon(theme.IconNameHome), func() {})
+	overviewBTN.Alignment = widget.ButtonAlignLeading
+
+	// Open this tab and invalidate the button
+	sidebarOverview(mainContent)
+	overviewBTN.Disable()
+
+	// Add info button
+	infoBTN := widget.NewButtonWithIcon("Info", theme.Icon(theme.IconNameInfo), func() {})
+	infoBTN.Alignment = widget.ButtonAlignLeading
+
+	// Add actions button
+	actionsBTN := widget.NewButtonWithIcon("Actions", theme.Icon(theme.IconNameMediaPlay), func() {})
+	actionsBTN.Alignment = widget.ButtonAlignLeading
+
+	// Add routines button
+	routinesBTN := widget.NewButtonWithIcon("Routines", theme.Icon(theme.IconNameMediaReplay), func() {})
+	routinesBTN.Alignment = widget.ButtonAlignLeading
+
+	// Add function to the buttons
+	overviewBTN.OnTapped = func() {
+		// Invalidate this button
+		overviewBTN.Disable()
+
+		// Validate everything else
+		infoBTN.Enable()
+		actionsBTN.Enable()
+		routinesBTN.Enable()
+
+		// Open the menu
+		sidebarOverview(mainContent)
+	}
+	infoBTN.OnTapped = func() {
+		// Invalidate this button
+		infoBTN.Disable()
+
+		// Validate everything else
+		overviewBTN.Enable()
+		actionsBTN.Enable()
+		routinesBTN.Enable()
+
+		// Open menu
+		sidebarInfo(mainContent)
+	}
+	actionsBTN.OnTapped = func() {
+		// Invalidate this button
+		actionsBTN.Disable()
+
+		// Validate everything else
+		overviewBTN.Enable()
+		infoBTN.Enable()
+		routinesBTN.Enable()
+
+		// Open menu
+		//TODO: Add a menu here
+	}
+	routinesBTN.OnTapped = func() {
+		// Invalidate this button
+		routinesBTN.Disable()
+
+		// Validate everything else
+		overviewBTN.Enable()
+		actionsBTN.Enable()
+		infoBTN.Enable()
+
+		// Open menu
+		// TODO: Add a menu here
+	}
+
+	// Assemble buttons
+	content := container.New(
+		layout.NewVBoxLayout(),
+		overviewBTN,
+		infoBTN,
+		actionsBTN,
+		routinesBTN,
+	)
+
+	// Tidy up and return
+	buttons := container.NewVScroll(content)
+	return container.New(
+		layout.NewStackLayout(),
+		canvas.NewRectangle(theme.Color(theme.ColorNameHeaderBackground)),
+		buttons,
+	)
+}
+
 func OVIPlayground(window fyne.Window) {
-	// Get navbar
-	navbar := playgroundNavbar(window)
+	// Load functions for this model
+	go loadSelector()
+
+	// Make a main content
+	mainContent := container.New(layout.NewStackLayout())
+
+	// Get navbar and sidebar
+	sidebar := playgroundSidebar(window, &mainContent)
+	navbar := playgroundNavbar(window, sidebar)
 
 	// Display contents
-	content := container.NewBorder(navbar, nil, nil, nil)
+	content := container.NewBorder(navbar, nil, sidebar, nil, mainContent)
 	window.SetContent(content)
 }
 
@@ -667,14 +813,17 @@ var models []string = []string{
 }
 
 type model struct {
-	Name  string            `json:"name"`
-	Model string            `json:"model_name"`
-	Other map[string]string `json:"other"`
+	Name    string            `json:"name"`
+	Model   string            `json:"model_name"`
+	Website string            `json:"website"`
+	Other   map[string]string `json:"other"`
 }
 
 var thisModel model
 
+// * Selectors
 func formSelector(s string, form *fyne.Container) {
+	log.Println("Creating form for model", s+"...")
 	switch s {
 	case "OVI MK2":
 		form_OVI_MK2(form)
@@ -684,9 +833,9 @@ func formSelector(s string, form *fyne.Container) {
 		form_OVI_Mini(form)
 	}
 }
-
 func saveSelector(form *fyne.Container) string {
 	s := form.Objects[3].(*widget.Select).Selected
+	log.Println("Saving model", s+"...")
 	switch s {
 	case "OVI MK2":
 		return save_OVI_MK2(form)
@@ -698,7 +847,19 @@ func saveSelector(form *fyne.Container) string {
 
 	return "Please select a valid model"
 }
+func loadSelector() {
+	log.Println("Loading model", thisModel.Model+"...")
+	switch thisModel.Model {
+	case "OVI MK2":
+		load_OVI_MK2()
+	case "OVI MK3":
+		load_OVI_MK3()
+	case "OVI Mini":
+		load_OVI_Mini()
+	}
+}
 
+// * OVI MK2
 func form_OVI_MK2(form *fyne.Container) {
 	// Add IP entry
 	ipName := canvas.NewText("IP", theme.Color(theme.ColorNameForeground))
@@ -711,7 +872,6 @@ func form_OVI_MK2(form *fyne.Container) {
 		ipName, ipEntry,
 	)
 }
-
 func save_OVI_MK2(form *fyne.Container) string {
 	//
 	canContinue := true
@@ -754,6 +914,7 @@ func save_OVI_MK2(form *fyne.Container) string {
 	// Parse model information
 	thisModel.Name = name
 	thisModel.Model = "OVI MK2"
+	thisModel.Website = "https://raw.githubusercontent.com/Project-Ovi/OVI-MK2/refs/heads/main/README.md"
 	thisModel.Other = map[string]string{"IP": IP}
 
 	// Save model to file
@@ -770,19 +931,200 @@ func save_OVI_MK2(form *fyne.Container) string {
 	// Return any error messages
 	return errorMsg
 }
+func load_OVI_MK2() {
+	// * Helper functions
+	post := func(url string, args map[string]string) error {
+		payload := []byte(`{"key1":"value1", "key2":"value2"}`)
 
-func form_OVI_MK3(form *fyne.Container) {
+		// Create a new POST request
+		req, err := http.NewRequest("POST", url, bytes.NewBuffer(payload))
+		if err != nil {
+			return fmt.Errorf("error creating request: %w", err)
+		}
+
+		// Add custom headers from the args map
+		for key, value := range args {
+			req.Header.Set(key, value)
+		}
+
+		// Create an HTTP client
+		client := &http.Client{}
+
+		// Send the request
+		resp, err := client.Do(req)
+		if err != nil {
+			return fmt.Errorf("error sending request: %w", err)
+		}
+		defer resp.Body.Close()
+
+		return nil
+	}
+
+	// * Load commands
+	// Load rotate command
+	rotCom := command{
+		DisplayName: "Set rotation speed",
+		Arguments: []argument{
+			{Name: "Speed", ArgType: "int"},
+		},
+		f: func(a []argument) error {
+			var R1, R2 int
+			if a[0].Value.(int) > 0 {
+				R1 = a[0].Value.(int)
+				R2 = 0
+			} else {
+				R1 = 0
+				R2 = -a[0].Value.(int)
+			}
+
+			if R1 > 255 || R2 > 255 {
+				return fmt.Errorf("value out of range. allowed: -256 < speed < 256")
+			}
+
+			return post(thisModel.Other["IP"], map[string]string{
+				"R1": fmt.Sprint(R1),
+				"R2": fmt.Sprint(R2),
+			})
+		},
+	}
+
+	// Load move up command
+	moveupCom := command{
+		DisplayName: "Move up with speed",
+		Arguments: []argument{
+			{Name: "Speed", ArgType: "int"},
+		},
+		f: func(a []argument) error {
+			var U1, U2 int
+			if a[0].Value.(int) > 0 {
+				U1 = a[0].Value.(int)
+				U2 = 0
+			} else {
+				U1 = 0
+				U2 = -a[0].Value.(int)
+			}
+
+			if U1 > 255 || U2 > 255 {
+				return fmt.Errorf("value out of range. allowed: -256 < speed < 256")
+			}
+
+			return post(thisModel.Other["IP"], map[string]string{
+				"U1": fmt.Sprint(U1),
+				"U2": fmt.Sprint(U2),
+			})
+		},
+	}
+
+	// Load extend forward command
+	extendCom := command{
+		DisplayName: "Extend forward with speed",
+		Arguments: []argument{
+			{Name: "Speed", ArgType: "int"},
+		},
+		f: func(a []argument) error {
+			var E1, E2 int
+			if a[0].Value.(int) > 0 {
+				E1 = a[0].Value.(int)
+				E2 = 0
+			} else {
+				E1 = 0
+				E2 = -a[0].Value.(int)
+			}
+
+			if E1 > 255 || E2 > 255 {
+				return fmt.Errorf("value out of range. allowed: -256 < speed < 256")
+			}
+
+			return post(thisModel.Other["IP"], map[string]string{
+				"E1": fmt.Sprint(E1),
+				"E2": fmt.Sprint(E2),
+			})
+		},
+	}
+
+	// Load grip command
+	gripCom := command{
+		DisplayName: "Set gripper state",
+		Arguments: []argument{
+			{Name: "Grip", ArgType: "bool"},
+		},
+		f: func(a []argument) error {
+			var G1 = int(0)
+
+			if a[0].Value.(bool) {
+				G1 = int(255)
+			}
+
+			return post(thisModel.Other["IP"], map[string]string{
+				"G1": fmt.Sprint(G1),
+			})
+		},
+	}
+
+	// Load wait time command
+	waitCom := command{
+		DisplayName: "Wait",
+		Arguments: []argument{
+			{Name: "Milliseconds", ArgType: "int"},
+		},
+		f: func(a []argument) error {
+			time.Sleep(time.Millisecond * time.Duration(a[0].Value.(int)))
+			return nil
+		},
+	}
+
+	// Append Commands to the default commands list
+	defaultCommands = append(defaultCommands, rotCom, moveupCom, extendCom, gripCom, waitCom)
 }
 
+// * OVI MK3
+func form_OVI_MK3(form *fyne.Container) {
+}
 func save_OVI_MK3(form *fyne.Container) string {
 	fmt.Println("Saved a valid OVI MK3")
 	return "Unimplemented"
 }
-
-func form_OVI_Mini(form *fyne.Container) {
+func load_OVI_MK3() {
 }
 
+// * OVI Mini
+func form_OVI_Mini(form *fyne.Container) {
+}
 func save_OVI_Mini(form *fyne.Container) string {
 	fmt.Println("Saved a valid OVI Mini")
 	return "Unimplemented"
 }
+func load_OVI_Mini() {
+}
+
+// * Action definitions
+type action struct {
+	Name        string
+	Description string
+	Commands    []command
+}
+
+type command struct {
+	DisplayName string
+	Arguments   []argument
+	f           func([]argument) error
+}
+
+type argument struct {
+	Name    string
+	ArgType string
+	Value   interface{}
+}
+
+func (a action) Run() error {
+	for _, val := range a.Commands {
+		if err := val.f(val.Arguments); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+var defaultCommands []command
+var actionCollection []action
