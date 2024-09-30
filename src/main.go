@@ -13,6 +13,7 @@ import (
 	"os/exec"
 	"path"
 	"runtime"
+	"strconv"
 	"strings"
 	"time"
 
@@ -47,7 +48,6 @@ func bigBTN(text string, extraPadding float32, size float32, f func()) *fyne.Con
 	for {
 		desiredValue := fyne.MeasureText(btnText.Text, btnText.TextSize, btnText.TextStyle)
 		actualValue := fyne.MeasureText(btnBG.Text, theme.TextSize(), btnText.TextStyle)
-		// fmt.Println("Desired: ", desiredValue, "\nActual: ", actualValue)
 		if desiredValue.Width+extraPadding > actualValue.Width {
 			btnBG.Text += " "
 			btnBG.Refresh()
@@ -282,7 +282,7 @@ func Init() {
 	ICON_robot_hand_round = canvas.NewImageFromFile(path.Join(workingDirectory, "/assets/robot_hand_round.png"))
 }
 
-// Main page
+// * Main page
 func landingPage(window fyne.Window) {
 	// Make title
 	title := canvas.NewText("Machina Maestro", colornames.Orange)
@@ -314,6 +314,7 @@ func landingPage(window fyne.Window) {
 	window.CenterOnScreen()
 }
 
+// * Model selection
 func modelSelectWindow(window fyne.Window) {
 	// Make a navbar
 	btnBack := widget.NewButton("", func() { landingPage(window) })
@@ -508,6 +509,8 @@ func modelAddWindow(window fyne.Window, btnAdd *widget.Button) {
 	addWindow.Show()
 }
 
+// * Playground additional windows
+
 func helpWindow() {
 	// Make window
 	window := App.NewWindow("Help")
@@ -559,6 +562,7 @@ func helpWindow() {
 	window.Show()
 }
 
+// * Playground elements
 func playgroundNavbar(window fyne.Window, sidebar fyne.CanvasObject) *fyne.Container {
 	// Add sidebar button
 	sidebarBTN := widget.NewButtonWithIcon("", theme.Icon(theme.IconNameList), func() {
@@ -627,49 +631,7 @@ func playgroundNavbar(window fyne.Window, sidebar fyne.CanvasObject) *fyne.Conta
 	return navbar
 }
 
-func sidebarOverview(content **fyne.Container) {
-}
-
-func sidebarInfo(content **fyne.Container) {
-	// Display a loading
-	progressbar := widget.NewProgressBarInfinite()
-	progressbar.Start()
-	(*content).RemoveAll()
-	(*content).Add(
-		container.New(
-			layout.NewVBoxLayout(),
-			widget.NewLabel("Loading..."),
-			progressbar,
-			layout.NewSpacer(),
-		),
-	)
-
-	// Get markdown URL
-	mdURL := thisModel.Website
-
-	// Download markdown
-	markdown := ""
-	resp, err := http.Get(mdURL)
-	if err != nil {
-		markdown = "# Unable to connect to the internet"
-	} else {
-		defer resp.Body.Close()
-		body, err := io.ReadAll(resp.Body)
-		if err != nil {
-			markdown = "# Failed to decode response body"
-		} else {
-			markdown = string(body)
-		}
-	}
-
-	// Display markdown
-	markdownWidget := widget.NewRichTextFromMarkdown(markdown)
-	markdownWidget.Wrapping = fyne.TextWrapWord
-	(*content).RemoveAll()
-	(*content).Add(container.NewVScroll(markdownWidget))
-}
-
-func playgroundSidebar(window fyne.Window, mainContent **fyne.Container) fyne.CanvasObject {
+func playgroundSidebar(mainContent **fyne.Container) fyne.CanvasObject {
 	// Add a overview button
 	overviewBTN := widget.NewButtonWithIcon("Overview", theme.Icon(theme.IconNameHome), func() {})
 	overviewBTN.Alignment = widget.ButtonAlignLeading
@@ -725,7 +687,7 @@ func playgroundSidebar(window fyne.Window, mainContent **fyne.Container) fyne.Ca
 		routinesBTN.Enable()
 
 		// Open menu
-		//TODO: Add a menu here
+		sidebarActions(mainContent)
 	}
 	routinesBTN.OnTapped = func() {
 		// Invalidate this button
@@ -758,7 +720,404 @@ func playgroundSidebar(window fyne.Window, mainContent **fyne.Container) fyne.Ca
 	)
 }
 
+// * Sidebar elements
+func sidebarOverview(content **fyne.Container) {
+}
+
+func sidebarInfo(content **fyne.Container) {
+	// Display a loading
+	progressbar := widget.NewProgressBarInfinite()
+	progressbar.Start()
+	(*content).RemoveAll()
+	(*content).Add(
+		container.New(
+			layout.NewVBoxLayout(),
+			widget.NewLabel("Loading..."),
+			progressbar,
+			layout.NewSpacer(),
+		),
+	)
+
+	// Get markdown URL
+	mdURL := thisModel.Website
+
+	// Download markdown
+	markdown := ""
+	resp, err := http.Get(mdURL)
+	if err != nil {
+		markdown = "# Unable to connect to the internet"
+	} else {
+		defer resp.Body.Close()
+		body, err := io.ReadAll(resp.Body)
+		if err != nil {
+			markdown = "# Failed to decode response body"
+		} else {
+			markdown = string(body)
+		}
+	}
+
+	// Display markdown
+	markdownWidget := widget.NewRichTextFromMarkdown(markdown)
+	markdownWidget.Wrapping = fyne.TextWrapWord
+	(*content).RemoveAll()
+	(*content).Add(container.NewVScroll(markdownWidget))
+}
+
+func sidebarActions(content **fyne.Container) {
+	// Save actions
+	saveAllActions()
+
+	// Add title
+	title := canvas.NewText("Actions", theme.Color(theme.ColorNameForeground))
+	title.Alignment = fyne.TextAlignCenter
+	title.TextSize = 32
+
+	// Add navbar
+	btn := widget.NewButtonWithIcon("", theme.Icon(theme.IconNameContentAdd), func() {})
+	btn.OnTapped = func() {
+		actionCreate(btn, content)
+	}
+	navbar := container.New(
+		layout.NewStackLayout(),
+		canvas.NewRectangle(theme.Color(theme.ColorNameHeaderBackground)),
+		container.New(
+			layout.NewHBoxLayout(),
+			layout.NewSpacer(),
+			btn,
+		),
+	)
+
+	// Build topbar
+	topbar := container.New(
+		layout.NewVBoxLayout(),
+		navbar,
+		title,
+	)
+
+	// Get actions list
+	actionsDisp := container.New(
+		layout.NewVBoxLayout(),
+	)
+	for i, val := range actionCollection {
+		// Make buttons
+		editBTN := widget.NewButtonWithIcon("", theme.Icon(theme.IconNameDocumentCreate), func() { actionEditor(&actionCollection[i], content) })
+		trashBTN := widget.NewButtonWithIcon("", theme.Icon(theme.IconNameDelete), func() {
+			confirmWindow("Confirm", "You are about to delete "+val.Name, func() {
+				actionCollection = append(actionCollection[:i], actionCollection[i+1:]...)
+				sidebarActions(content)
+			}, func() {})
+		})
+		playBTN := widget.NewButtonWithIcon("", theme.Icon(theme.IconNameMediaPlay), func() {
+			val.Run()
+			sidebarActions(content)
+		})
+		buttons := container.New(
+			layout.NewHBoxLayout(),
+			editBTN,
+			trashBTN,
+			playBTN,
+		)
+
+		// Make backdrop
+		var backdrop fyne.CanvasObject
+		if !val.running {
+			backdrop = canvas.NewRectangle(theme.Color(theme.ColorNameHeaderBackground))
+		} else {
+			backdrop = widget.NewProgressBarInfinite()
+			backdrop.(*widget.ProgressBarInfinite).Start()
+		}
+
+		actionsDisp.Add(container.New(
+			layout.NewStackLayout(),
+			backdrop,
+			container.New(
+				layout.NewHBoxLayout(),
+				widget.NewLabel(val.Name),
+				layout.NewSpacer(),
+				buttons,
+			),
+		))
+	}
+
+	// Build actions list
+	actionsList := container.NewVScroll(actionsDisp)
+
+	// Build UI
+	myContent := container.NewBorder(topbar, nil, nil, nil, actionsList)
+
+	// Display contents
+	(*content).RemoveAll()
+	(*content).Add(myContent)
+}
+
+// * Additional windows
+func actionCreate(summoner *widget.Button, parent **fyne.Container) {
+	// Make sure we can't create new windows while this one is open
+	summoner.Disable()
+
+	// Create a window
+	window := App.NewWindow("Create Action")
+	window.SetFixedSize(true)
+
+	// Allow further creation after this window is closed
+	window.SetCloseIntercept(func() {
+		summoner.Enable()
+		window.Close()
+	})
+
+	// Create a title
+	title := canvas.NewText("Create a new action", theme.Color(theme.ColorNameForeground))
+	title.TextSize = 32
+	title.Alignment = fyne.TextAlignCenter
+
+	// Create an entry for name
+	nameText := widget.NewLabel("Name")
+	nameEntry := widget.NewEntry()
+	nameEntry.Validator = validation.NewRegexp("^.+$", "String can't be empty")
+
+	// Create an entry for description
+	descText := widget.NewLabel("Description")
+	descEntry := widget.NewEntry()
+	descEntry.Validator = validation.NewRegexp("^.+$", "String can't be empty")
+
+	// Build form
+	form := container.New(
+		layout.NewFormLayout(),
+		nameText, nameEntry,
+		descText, descEntry,
+	)
+
+	// Add create button
+	btn := widget.NewButtonWithIcon("Create", theme.Icon(theme.IconNameDocumentCreate), func() {
+		// Get data
+		name := nameEntry.Text
+		desc := descEntry.Text
+
+		// Make sure the data is correct
+		if nameEntry.Validate() != nil || descEntry.Validate() != nil {
+			return
+		}
+
+		// Make a  new action
+		this := action{
+			Name:        name,
+			Description: desc,
+			Commands:    []command{},
+			running:     false,
+		}
+
+		// Add the action to the list of actions
+		actionCollection = append(actionCollection, this)
+
+		// Close this window
+		summoner.Enable()
+		sidebarActions(parent)
+		window.Close()
+	})
+
+	// Build UI
+	content := container.New(
+		layout.NewVBoxLayout(),
+		title,
+		layout.NewSpacer(),
+		form,
+		layout.NewSpacer(),
+		btn,
+		layout.NewSpacer(),
+	)
+
+	window.SetContent(content)
+	window.Resize(fyne.NewSize(400, 200))
+	window.Show()
+}
+
+// * Action editor
+func actionEditor(act *action, content **fyne.Container) {
+	// Make a navbar
+	navbar := container.New(
+		layout.NewStackLayout(),
+		canvas.NewRectangle(theme.Color(theme.ColorNameHeaderBackground)),
+		container.New(
+			layout.NewHBoxLayout(),
+			widget.NewButtonWithIcon("", theme.Icon(theme.IconNameNavigateBack), func() { sidebarActions(content) }),
+		),
+	)
+
+	// Make a topbar
+	title := canvas.NewText((*act).Name, theme.Color(theme.ColorNameForeground))
+	subtitle := canvas.NewText((*act).Description, theme.Color(theme.ColorNameForeground))
+	title.Alignment = fyne.TextAlignCenter
+	subtitle.Alignment = fyne.TextAlignCenter
+	title.TextSize = 32
+	subtitle.TextSize = 18
+	topbar := container.New(
+		layout.NewVBoxLayout(),
+		navbar,
+		title,
+		subtitle,
+	)
+
+	// Make actions editor
+	commandsDisplay := []fyne.CanvasObject{}
+	for i, val := range (*act).Commands {
+		// Make name
+		functionsNames := []string{}
+		for _, com := range defaultCommands {
+			functionsNames = append(functionsNames, com.DisplayName)
+		}
+		name := widget.NewSelect(functionsNames, func(s string) {
+			// Find the function associated and replace it with it
+			for j, com := range defaultCommands {
+				if s != com.DisplayName {
+					continue
+				}
+				(*act).Commands[i] = defaultCommands[j]
+			}
+
+			actionEditor(act, content)
+		})
+		name.Selected = val.DisplayName
+
+		// Get arguments
+		argsDisplay := []fyne.CanvasObject{}
+		for j, arg := range val.Arguments {
+			// Make arg label
+			argName := widget.NewLabel(arg.Name)
+
+			// Make arg entry
+			var argEntry fyne.CanvasObject
+			switch arg.ArgType {
+			case "int":
+				this := widget.NewEntry()
+				this.Validator = validation.NewRegexp("^-?\\d+$", "Invalid integer")
+				if arg.Value != nil {
+					this.Text = fmt.Sprint(arg.Value)
+				}
+				this.OnChanged = func(s string) {
+					if this.Validate() != nil {
+						return
+					}
+					num, err := strconv.Atoi(s)
+					if err != nil {
+						return
+					}
+
+					(*act).Commands[i].Arguments[j].Value = num
+					saveAllActions()
+				}
+				argEntry = this
+			case "float":
+				this := widget.NewEntry()
+				this.Validator = validation.NewRegexp("^-?\\d+(\\.\\d+)?$", "Invalid integer")
+				if arg.Value != nil {
+					this.Text = fmt.Sprint(arg.Value)
+				}
+				this.OnChanged = func(s string) {
+					if this.Validate() != nil {
+						return
+					}
+					num, err := strconv.ParseFloat(s, 64)
+					if err != nil {
+						return
+					}
+
+					(*act).Commands[i].Arguments[j].Value = num
+					saveAllActions()
+				}
+				argEntry = this
+			case "string":
+				this := widget.NewEntry()
+				if arg.Value != nil {
+					this.Text = fmt.Sprint(arg.Value)
+				}
+				this.OnChanged = func(s string) {
+					if this.Validate() != nil {
+						return
+					}
+
+					(*act).Commands[i].Arguments[j].Value = s
+					saveAllActions()
+				}
+				argEntry = this
+			case "bool":
+				this := widget.NewCheck("", func(b bool) {})
+				if arg.Value != nil && arg.Value.(bool) {
+					this.Checked = true
+				}
+				this.OnChanged = func(b bool) {
+					(*act).Commands[i].Arguments[j].Value = b
+					saveAllActions()
+				}
+				argEntry = this
+			}
+
+			// Assemble arg element
+			argElement := container.New(
+				layout.NewFormLayout(),
+				argName, argEntry,
+			)
+			argsDisplay = append(argsDisplay, argElement)
+		}
+
+		// Assemble command arguments
+		argsAssembled := container.New(
+			layout.NewHBoxLayout(),
+			argsDisplay...,
+		)
+
+		// Assemble command display
+		commandAssembled := container.New(
+			layout.NewStackLayout(),
+			canvas.NewRectangle(theme.Color(theme.ColorNameButton)),
+			container.New(
+				layout.NewHBoxLayout(),
+				name,
+				layout.NewSpacer(),
+				argsAssembled,
+				layout.NewSpacer(),
+			),
+		)
+
+		commandsDisplay = append(commandsDisplay, commandAssembled)
+	}
+
+	// Make a add button
+	addBTN := widget.NewButtonWithIcon("New Instruction", theme.Icon(theme.IconNameContentAdd), func() {
+		(*act).Commands = append((*act).Commands, defaultCommands[0])
+		actionEditor(act, content)
+	})
+
+	// Make editor context
+	editor := container.New(
+		layout.NewVBoxLayout(),
+		commandsDisplay...,
+	)
+	editor.Add(addBTN)
+	scrollingEditor := container.NewVScroll(editor)
+
+	// Display
+	(*content).RemoveAll()
+	(*content).Add(container.NewBorder(
+		topbar, nil, nil, nil,
+		scrollingEditor,
+	))
+}
+
+// * Playground
 func OVIPlayground(window fyne.Window) {
+	// Reset defaults
+	defaultCommands = []command{}
+
+	// Fetch actions
+	b, err := os.ReadFile(path.Join(workingDirectory, "/myModels/", thisModel.Name, "/actions.json"))
+	if err != nil {
+		fatalError(err)
+	}
+	err = json.Unmarshal(b, &actionCollection)
+	if err != nil {
+		fatalError(err)
+	}
+
 	// Load functions for this model
 	go loadSelector()
 
@@ -766,7 +1125,7 @@ func OVIPlayground(window fyne.Window) {
 	mainContent := container.New(layout.NewStackLayout())
 
 	// Get navbar and sidebar
-	sidebar := playgroundSidebar(window, &mainContent)
+	sidebar := playgroundSidebar(&mainContent)
 	navbar := playgroundNavbar(window, sidebar)
 
 	// Display contents
@@ -774,6 +1133,7 @@ func OVIPlayground(window fyne.Window) {
 	window.SetContent(content)
 }
 
+// ! MAIN
 func main() {
 	// Start fyne
 	App = app.New()
@@ -806,6 +1166,7 @@ func main() {
 	MainWindow.ShowAndRun()
 }
 
+// * Model definitions
 var models []string = []string{
 	"OVI MK2",
 	"OVI MK3",
@@ -879,6 +1240,9 @@ func save_OVI_MK2(form *fyne.Container) string {
 
 	// Get model name and check if it is unique
 	name := form.Objects[1].(*widget.Entry).Text
+	if name == "" {
+		name = "Unnamed"
+	}
 	models, err := os.ReadDir("myModels")
 	if err != nil {
 		fatalError(err)
@@ -1102,6 +1466,7 @@ type action struct {
 	Name        string    `json:"name"`
 	Description string    `json:"description"`
 	Commands    []command `json:"commands"`
+	running     bool
 }
 
 type command struct {
@@ -1116,14 +1481,27 @@ type argument struct {
 	Value   interface{} `json:"val"`
 }
 
-func (a action) Run() error {
-	for _, val := range a.Commands {
+func (a *action) Run() error {
+	(*a).running = true
+	for _, val := range (*a).Commands {
 		if err := val.f(val.Arguments); err != nil {
 			return err
 		}
 	}
+	(*a).running = false
 
 	return nil
+}
+
+func saveAllActions() error {
+	// Marshall
+	b, err := json.Marshal(actionCollection)
+	if err != nil {
+		return err
+	}
+
+	// Save to file
+	return os.WriteFile(path.Join(workingDirectory, "/myModels/", thisModel.Name, "/actions.json"), b, os.ModePerm)
 }
 
 var defaultCommands []command
