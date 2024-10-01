@@ -808,7 +808,13 @@ func sidebarActions(content **fyne.Container) {
 			}, func() {})
 		})
 		playBTN := widget.NewButtonWithIcon("", theme.Icon(theme.IconNameMediaPlay), func() {
-			val.Run()
+			actionCollection[i].running = true
+			go func() {
+				val.Run()
+				actionCollection[i].running = false
+				sidebarActions(content)
+			}()
+			time.Sleep(time.Millisecond * 5)
 			sidebarActions(content)
 		})
 		buttons := container.New(
@@ -933,6 +939,7 @@ func actionCreate(summoner *widget.Button, parent **fyne.Container) {
 
 // * Action editor
 func actionEditor(act *action, content **fyne.Container) {
+	saveAllActions()
 	// Make a navbar
 	navbar := container.New(
 		layout.NewStackLayout(),
@@ -1059,6 +1066,27 @@ func actionEditor(act *action, content **fyne.Container) {
 			argsDisplay = append(argsDisplay, argElement)
 		}
 
+		// Make command toolbar
+		toolbar := container.New(
+			layout.NewHBoxLayout(),
+			widget.NewButtonWithIcon("", theme.Icon(theme.IconNameContentRemove), func() {
+				(*act).Commands = append((*act).Commands[:i], (*act).Commands[i+1:]...)
+				actionEditor(act, content)
+			}),
+			widget.NewButtonWithIcon("", theme.Icon(theme.IconNameMoveUp), func() {
+				if i > 0 {
+					(*act).Commands[i], (*act).Commands[i-1] = (*act).Commands[i-1], (*act).Commands[i]
+				}
+				actionEditor(act, content)
+			}),
+			widget.NewButtonWithIcon("", theme.Icon(theme.IconNameMoveDown), func() {
+				if i < len((*act).Commands)-1 {
+					(*act).Commands[i], (*act).Commands[i+1] = (*act).Commands[i+1], (*act).Commands[i]
+				}
+				actionEditor(act, content)
+			}),
+		)
+
 		// Assemble command arguments
 		argsAssembled := container.New(
 			layout.NewHBoxLayout(),
@@ -1075,6 +1103,7 @@ func actionEditor(act *action, content **fyne.Container) {
 				layout.NewSpacer(),
 				argsAssembled,
 				layout.NewSpacer(),
+				toolbar,
 			),
 		)
 
@@ -1157,6 +1186,19 @@ func main() {
 
 	// Render app
 	go func() {
+		// Make sure we don't crash
+		defer func() {
+			if r := recover(); r != nil {
+				fatalError(fmt.Errorf("unhandled crash"))
+			}
+
+			if err := os.WriteFile("log.txt", logger.Bytes(), os.ModePerm); err != nil {
+				log.Println(err)
+				fmt.Println(logger.String())
+				panic(err)
+			}
+		}()
+
 		startup(1)
 
 		landingPage(MainWindow)
@@ -1329,9 +1371,14 @@ func load_OVI_MK2() {
 	rotCom := command{
 		DisplayName: "Set rotation speed",
 		Arguments: []argument{
-			{Name: "Speed", ArgType: "int"},
+			{Name: "Speed", ArgType: "int", Value: int(0)},
 		},
 		f: func(a []argument) error {
+			// Fix up data
+			if val, ok := a[0].Value.(float64); ok {
+				a[0].Value = int(val)
+			}
+
 			var R1, R2 int
 			if a[0].Value.(int) > 0 {
 				R1 = a[0].Value.(int)
@@ -1356,9 +1403,14 @@ func load_OVI_MK2() {
 	moveupCom := command{
 		DisplayName: "Move up with speed",
 		Arguments: []argument{
-			{Name: "Speed", ArgType: "int"},
+			{Name: "Speed", ArgType: "int", Value: int(0)},
 		},
 		f: func(a []argument) error {
+			// Fix up data
+			if val, ok := a[0].Value.(float64); ok {
+				a[0].Value = int(val)
+			}
+
 			var U1, U2 int
 			if a[0].Value.(int) > 0 {
 				U1 = a[0].Value.(int)
@@ -1383,9 +1435,14 @@ func load_OVI_MK2() {
 	extendCom := command{
 		DisplayName: "Extend forward with speed",
 		Arguments: []argument{
-			{Name: "Speed", ArgType: "int"},
+			{Name: "Speed", ArgType: "int", Value: int(0)},
 		},
 		f: func(a []argument) error {
+			// Fix up data
+			if val, ok := a[0].Value.(float64); ok {
+				a[0].Value = int(val)
+			}
+
 			var E1, E2 int
 			if a[0].Value.(int) > 0 {
 				E1 = a[0].Value.(int)
@@ -1410,7 +1467,7 @@ func load_OVI_MK2() {
 	gripCom := command{
 		DisplayName: "Set gripper state",
 		Arguments: []argument{
-			{Name: "Grip", ArgType: "bool"},
+			{Name: "Grip", ArgType: "bool", Value: bool(false)},
 		},
 		f: func(a []argument) error {
 			var G1 = int(0)
@@ -1429,9 +1486,14 @@ func load_OVI_MK2() {
 	waitCom := command{
 		DisplayName: "Wait",
 		Arguments: []argument{
-			{Name: "Milliseconds", ArgType: "int"},
+			{Name: "Milliseconds", ArgType: "int", Value: int(0)},
 		},
 		f: func(a []argument) error {
+			// Fix up data
+			if val, ok := a[0].Value.(float64); ok {
+				a[0].Value = int(val)
+			}
+
 			time.Sleep(time.Millisecond * time.Duration(a[0].Value.(int)))
 			return nil
 		},
@@ -1482,15 +1544,28 @@ type argument struct {
 }
 
 func (a *action) Run() error {
-	(*a).running = true
+	// Fix function
+	a.Fix()
+
+	// Run
 	for _, val := range (*a).Commands {
 		if err := val.f(val.Arguments); err != nil {
 			return err
 		}
 	}
-	(*a).running = false
 
+	// Return
 	return nil
+}
+
+func (a *action) Fix() {
+	for i, val1 := range (*a).Commands {
+		for _, val2 := range defaultCommands {
+			if val1.DisplayName == val2.DisplayName {
+				(*a).Commands[i].f = val2.f
+			}
+		}
+	}
 }
 
 func saveAllActions() error {
