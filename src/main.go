@@ -271,6 +271,12 @@ func confirmWindow(title string, subtitle string, yes func(), no func()) {
 func Init() {
 	var err error
 
+	// Create directories
+	err = os.Mkdir("myModels", os.ModePerm)
+	if err != nil {
+		log.Println(err)
+	}
+
 	// Get working directory
 	log.Println("Fetching working directory...")
 	workingDirectory, err = os.Getwd()
@@ -1330,6 +1336,10 @@ func save_OVI_MK2(form *fyne.Container) string {
 		errorMsg = err.Error()
 	}
 	err = os.WriteFile(path.Join(workingDirectory, "/myModels/", name, "/model.json"), information, os.ModePerm)
+	if err != nil {
+		errorMsg = err.Error()
+	}
+	err = os.WriteFile(path.Join(workingDirectory, "/myModels/", name, "/actions.json"), []byte("[{}]"), os.ModePerm)
 	if err != nil {
 		errorMsg = err.Error()
 	}
