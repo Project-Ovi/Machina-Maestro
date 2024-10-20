@@ -9,7 +9,7 @@ import (
 	"fyne.io/fyne/v2/widget"
 )
 
-func confirmWindow(App fyne.App, title string, subtitle string, yes func(), no func()) {
+func Show(App fyne.App, title string, subtitle string, yes func(), no func()) {
 	// Make window
 	confirmWindow := App.NewWindow(title)
 	confirmWindow.SetFixedSize(true)
