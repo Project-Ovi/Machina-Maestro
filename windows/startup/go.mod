@@ -3,12 +3,12 @@ module github.com/Project-Ovi/Machina-Maestro/windows/startup
 go 1.22.7
 
 require (
-	fyne.io/fyne v1.4.3
 	fyne.io/fyne/v2 v2.5.2
 	golang.org/x/image v0.21.0
 )
 
 require (
+	github.com/Project-Ovi/Machina-Maestro/windows/fatalerror v0.0.0-20241020182118-b17bb1cf877a
 	github.com/fredbi/uri v1.1.0 // indirect
 	github.com/fyne-io/gl-js v0.0.0-20220119005834-d2da28d9ccfe // indirect
 	github.com/go-gl/gl v0.0.0-20211210172815-726fda9656d6 // indirect

@@ -12,10 +12,11 @@ import (
 	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/driver/desktop"
+	"github.com/Project-Ovi/Machina-Maestro/windows/fatalerror"
 	"golang.org/x/image/colornames"
 )
 
-func Show(minLoadingTime int, logger bytes.Buffer, MainWindow fyne.Window, Init func()) {
+func Show(minLoadingTime int, logger bytes.Buffer, MainWindow fyne.Window, App fyne.App, Init func()) {
 	// Initialize logger
 	log.SetOutput(&logger)
 	log.Println("Initialized a new logger")
@@ -57,7 +58,7 @@ func Show(minLoadingTime int, logger bytes.Buffer, MainWindow fyne.Window, Init 
 		MainWindow.Hide()
 	} else {
 		log.Println("Failed to show loading splash screen")
-		fatalError(fmt.Errorf("unexpected error getting desktop driver"))
+		fatalerror.Show(fmt.Errorf("unexpected error getting desktop driver"), logger, MainWindow, App)
 	}
 	log.Println("Started loading")
 	startTime := time.Now()

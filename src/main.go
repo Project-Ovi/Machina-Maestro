@@ -87,7 +87,7 @@ func openExplorer(path string) error {
 }
 
 // * Particular windows
-func startup(minLoadingTime int) {
+func startup1(minLoadingTime int) {
 	// Initialize logger
 	log.SetOutput(&logger)
 	log.Println("Initialized a new logger")
@@ -1205,7 +1205,7 @@ func main() {
 			}
 		}()
 
-		startup(1)
+		startup1(1)
 
 		landingPage(MainWindow)
 	}()
