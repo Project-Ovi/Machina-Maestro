@@ -25,6 +25,7 @@ import (
 	"fyne.io/fyne/v2/widget"
 	"golang.org/x/image/colornames"
 
+	"github.com/Project-Ovi/Machina-Maestro/windows/fatalerror"
 	"github.com/Project-Ovi/Machina-Maestro/windows/startup"
 )
 
@@ -83,61 +84,6 @@ func openExplorer(path string) error {
 	}
 
 	return cmd.Start()
-}
-
-func fatalError(err error) {
-	App.SendNotification(fyne.NewNotification("Crash report", "Machina-Maestro ran into a problem and crashed"))
-	const popupSize = 512
-
-	// Create window
-	errorPopup := App.NewWindow(err.Error())
-	errorPopup.SetOnClosed(func() { log.Fatal(err) })
-	MainWindow.SetOnClosed(func() { log.Fatal(err) })
-	errorPopup.SetFixedSize(true)
-	errorPopup.Hide()
-
-	// Make logging widget
-	logWidget := widget.NewRichTextWithText(logger.String())
-	// logWidget.ShowLineNumbers = true
-
-	// Make titles
-	title := canvas.NewText("A fatal error has occured:", colornames.White)
-	subtitle := canvas.NewText(err.Error(), colornames.Orange)
-
-	// Wrap everything into containers
-	cntScrolling := container.NewScroll(logWidget)
-	wincnt := container.NewWithoutLayout(title, subtitle, cntScrolling)
-	errorPopup.SetContent(wincnt)
-	cntScrolling.ScrollToBottom()
-
-	// Move title into the view
-	title.TextSize = 25
-	title.Alignment = fyne.TextAlignCenter
-	title.Move(fyne.NewPos(popupSize/2, 0))
-	title.Refresh()
-
-	// Move subtitle into view
-	subtitle.Alignment = fyne.TextAlignCenter
-	subtitle.TextSize = 1
-	for i := 1; i < 30; i++ {
-		if fyne.MeasureText(err.Error(), subtitle.TextSize, subtitle.TextStyle).Width < float32(popupSize) {
-			subtitle.TextSize = float32(i)
-		} else {
-			break
-		}
-	}
-	subtitle.Move(fyne.NewPos(popupSize/2, fyne.MeasureText(title.Text, title.TextSize, title.TextStyle).Height))
-	subtitle.Refresh()
-
-	// Move scrollbar into view
-	cntScrolling.Move(fyne.NewPos(popupSize*.1/2, 2*(fyne.MeasureText(title.Text, title.TextSize, title.TextStyle).Height+fyne.MeasureText(err.Error(), subtitle.TextSize, subtitle.TextStyle).Height)))
-	cntScrolling.Resize(fyne.NewSize(popupSize*.9, popupSize/2))
-
-	// Refresh
-	title.Refresh()
-	subtitle.Refresh()
-	errorPopup.Resize(fyne.NewSquareSize(popupSize))
-	errorPopup.Show()
 }
 func confirmWindow(title string, subtitle string, yes func(), no func()) {
 	// Make window
@@ -205,7 +151,7 @@ func Init() {
 	log.Println("Fetching working directory...")
 	workingDirectory, err = os.Getwd()
 	if err != nil {
-		fatalError(err)
+		fatalerror.Show(err, logger, MainWindow, App)
 	}
 
 	// Reading Icons
@@ -275,7 +221,7 @@ func modelSelectWindow(window fyne.Window) {
 	objects := []fyne.CanvasObject{}
 	modelsDir, err := os.ReadDir(path.Join(workingDirectory, "/myModels"))
 	if err != nil {
-		fatalError(err)
+		fatalerror.Show(err, logger, MainWindow, App)
 	}
 	for _, val := range modelsDir {
 		// Fetch
@@ -287,7 +233,7 @@ func modelSelectWindow(window fyne.Window) {
 		var modelCard model
 		err = json.Unmarshal(rawModelCard, &modelCard)
 		if err != nil {
-			fatalError(err)
+			fatalerror.Show(err, logger, MainWindow, App)
 		}
 
 		// Make title
@@ -299,7 +245,7 @@ func modelSelectWindow(window fyne.Window) {
 			confirmWindow("Confirm", "You are about to delete "+modelCard.Name, func() {
 				err := os.RemoveAll(path.Join(workingDirectory, "/myModels/", val.Name()))
 				if err != nil {
-					fatalError(err)
+					fatalerror.Show(err, logger, MainWindow, App)
 				}
 				time.Sleep(time.Millisecond * 100)
 				modelSelectWindow(window)
@@ -461,7 +407,7 @@ func helpWindow() {
 	btn := widget.NewButtonWithIcon("Github", theme.Icon(theme.IconNameComputer), func() {
 		url, err := url.Parse("https://github.com/Project-Ovi/Machina-Maestro")
 		if err != nil {
-			fatalError(err)
+			fatalerror.Show(err, logger, MainWindow, App)
 		}
 		App.OpenURL(url)
 	})
@@ -516,7 +462,7 @@ func playgroundNavbar(window fyne.Window, sidebar fyne.CanvasObject) *fyne.Conta
 	fileBTN := widget.NewButtonWithIcon("Reveal File", theme.Icon(theme.IconNameFile), func() {
 		err := openExplorer(path.Join(workingDirectory, "/myModels/", thisModel.Name))
 		if err != nil {
-			fatalError(err)
+			fatalerror.Show(err, logger, MainWindow, App)
 		}
 	})
 
@@ -1070,11 +1016,11 @@ func OVIPlayground(window fyne.Window) {
 	// Fetch actions
 	b, err := os.ReadFile(path.Join(workingDirectory, "/myModels/", thisModel.Name, "/actions.json"))
 	if err != nil {
-		fatalError(err)
+		fatalerror.Show(err, logger, MainWindow, App)
 	}
 	err = json.Unmarshal(b, &actionCollection)
 	if err != nil {
-		fatalError(err)
+		fatalerror.Show(err, logger, MainWindow, App)
 	}
 
 	// Load functions for this model
@@ -1104,7 +1050,8 @@ func main() {
 	// Make sure we don't crash
 	defer func() {
 		if r := recover(); r != nil {
-			fatalError(fmt.Errorf("unhandled crash"))
+			err := fmt.Errorf("unhandled crash")
+			fatalerror.Show(err, logger, MainWindow, App)
 		}
 
 		if err := os.WriteFile("log.txt", logger.Bytes(), os.ModePerm); err != nil {
@@ -1119,7 +1066,8 @@ func main() {
 		// Make sure we don't crash
 		defer func() {
 			if r := recover(); r != nil {
-				fatalError(fmt.Errorf("unhandled crash"))
+				err := fmt.Errorf("unhandled crash")
+				fatalerror.Show(err, logger, MainWindow, App)
 			}
 
 			if err := os.WriteFile("log.txt", logger.Bytes(), os.ModePerm); err != nil {
@@ -1217,7 +1165,7 @@ func save_OVI_MK2(form *fyne.Container) string {
 	}
 	models, err := os.ReadDir("myModels")
 	if err != nil {
-		fatalError(err)
+		fatalerror.Show(err, logger, MainWindow, App)
 	}
 	for _, val := range models {
 		if val.IsDir() && val.Name() == name {

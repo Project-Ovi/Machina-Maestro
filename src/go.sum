@@ -45,8 +45,8 @@ github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03
 github.com/BurntSushi/toml v1.4.0 h1:kuoIxZQy2WRRk1pttg9asf+WVv6tWQuBNVmK8+nqPr0=
 github.com/BurntSushi/toml v1.4.0/go.mod h1:ukJfTF/6rtPPRCnwkur4qwRxa8vTRFBF0uk2lLoLwho=
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
-github.com/Project-Ovi/Machina-Maestro/windows/fatalerror v0.0.0-20241020182118-b17bb1cf877a h1:Tfn3C/AiZalzdL3lzdGWsJIwaq7qgEvjuGqDYT/QCoE=
-github.com/Project-Ovi/Machina-Maestro/windows/fatalerror v0.0.0-20241020182118-b17bb1cf877a/go.mod h1:gmWstj6+Hwl2yCTPCNvc7xpPUhZNrBOV2yetTugWP3I=
+github.com/Project-Ovi/Machina-Maestro/windows/fatalerror v0.0.0-20241020183323-00651846f21f h1:AC9/LT6lMdxT8MC6fypExbRf5tbVWG5uXK8lEFSoTRw=
+github.com/Project-Ovi/Machina-Maestro/windows/fatalerror v0.0.0-20241020183323-00651846f21f/go.mod h1:gmWstj6+Hwl2yCTPCNvc7xpPUhZNrBOV2yetTugWP3I=
 github.com/Project-Ovi/Machina-Maestro/windows/startup v0.0.0-20241020182920-d714e2493bee h1:cX0QS2ANgO+cVoOZ6ZooxSVcnZOxZdVwYxMc+132MD8=
 github.com/Project-Ovi/Machina-Maestro/windows/startup v0.0.0-20241020182920-d714e2493bee/go.mod h1:TNOIbUMGO8CojrX+pC7lLgIfIBhrSqyRt/U5uY/knF0=
 github.com/antihax/optional v1.0.0/go.mod h1:uupD/76wgC+ih3iEmQUL+0Ugr19nfwCT1kdvxnR2qWY=
