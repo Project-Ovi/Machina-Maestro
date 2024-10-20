@@ -27,6 +27,8 @@ import (
 	"fyne.io/fyne/v2/theme"
 	"fyne.io/fyne/v2/widget"
 	"golang.org/x/image/colornames"
+
+	"github.com/Project-Ovi/Machina-Maestro/blob/main/windows/startup"
 )
 
 // Images
@@ -1205,7 +1207,8 @@ func main() {
 			}
 		}()
 
-		startup1(1)
+		start
+		startup.Sow(1, logger, MainWindow, App, Init)
 
 		landingPage(MainWindow)
 	}()
