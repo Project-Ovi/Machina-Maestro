@@ -25,6 +25,7 @@ import (
 	"fyne.io/fyne/v2/widget"
 	"golang.org/x/image/colornames"
 
+	"github.com/Project-Ovi/Machina-Maestro/windows/confirm"
 	"github.com/Project-Ovi/Machina-Maestro/windows/fatalerror"
 	"github.com/Project-Ovi/Machina-Maestro/windows/startup"
 )
@@ -84,57 +85,6 @@ func openExplorer(path string) error {
 	}
 
 	return cmd.Start()
-}
-func confirmWindow(title string, subtitle string, yes func(), no func()) {
-	// Make window
-	confirmWindow := App.NewWindow(title)
-	confirmWindow.SetFixedSize(true)
-	confirmWindow.SetCloseIntercept(func() {
-		confirmWindow.RequestFocus()
-	})
-
-	// Add title
-	titleWidget := canvas.NewText(title, theme.Color(theme.ColorNameForeground))
-	titleWidget.TextSize = 25
-	titleWidget.Alignment = fyne.TextAlignCenter
-
-	// Add subtitle
-	subtitleWidget := canvas.NewText(subtitle, theme.Color(theme.ColorNameForeground))
-	subtitleWidget.TextSize = 16
-	subtitleWidget.Alignment = fyne.TextAlignCenter
-
-	// Create buttons
-	yesBTN := widget.NewButtonWithIcon("YES", theme.Icon(theme.IconNameConfirm), func() {
-		yes()
-		confirmWindow.Close()
-	})
-	noBTN := widget.NewButtonWithIcon("NO", theme.Icon(theme.IconNameCancel), func() {
-		no()
-		confirmWindow.Close()
-	})
-	buttons := container.New(
-		layout.NewHBoxLayout(),
-		layout.NewSpacer(),
-		yesBTN,
-		layout.NewSpacer(),
-		noBTN,
-		layout.NewSpacer(),
-	)
-
-	// Assemble UI
-	content := container.New(
-		layout.NewVBoxLayout(),
-		layout.NewSpacer(),
-		titleWidget,
-		subtitleWidget,
-		layout.NewSpacer(),
-		buttons,
-		layout.NewSpacer(),
-	)
-
-	confirmWindow.SetContent(content)
-	confirmWindow.Resize(fyne.NewSize(500, 200))
-	confirmWindow.Show()
 }
 
 // Init function
@@ -242,7 +192,7 @@ func modelSelectWindow(window fyne.Window) {
 
 		// Make trash button
 		deleteBTN := widget.NewButton("", func() {
-			confirmWindow("Confirm", "You are about to delete "+modelCard.Name, func() {
+			confirm.Show(App, "Confirm", "You are about to delete "+modelCard.Name, func() {
 				err := os.RemoveAll(path.Join(workingDirectory, "/myModels/", val.Name()))
 				if err != nil {
 					fatalerror.Show(err, logger, MainWindow, App)
@@ -453,7 +403,7 @@ func playgroundNavbar(window fyne.Window, sidebar fyne.CanvasObject) *fyne.Conta
 
 	// Add home button
 	homeBTN := widget.NewButtonWithIcon("Home", theme.Icon(theme.IconNameHome), func() {
-		confirmWindow("Are you sure you want to exit?", "You are about to exit to the main menu", func() {
+		confirm.Show(App, "Are you sure you want to exit?", "You are about to exit to the main menu", func() {
 			landingPage(window)
 		}, func() {})
 	})
@@ -678,7 +628,7 @@ func sidebarActions(content **fyne.Container) {
 		// Make buttons
 		editBTN := widget.NewButtonWithIcon("", theme.Icon(theme.IconNameDocumentCreate), func() { actionEditor(&actionCollection[i], content) })
 		trashBTN := widget.NewButtonWithIcon("", theme.Icon(theme.IconNameDelete), func() {
-			confirmWindow("Confirm", "You are about to delete "+val.Name, func() {
+			confirm.Show(App, "Confirm", "You are about to delete "+val.Name, func() {
 				actionCollection = append(actionCollection[:i], actionCollection[i+1:]...)
 				sidebarActions(content)
 			}, func() {})
