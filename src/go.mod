@@ -4,6 +4,7 @@ go 1.22.7
 
 require (
 	fyne.io/fyne/v2 v2.5.2
+	github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241021105339-d3c3adb7e6c4
 	github.com/Project-Ovi/Machina-Maestro/windows/confirm v0.0.0-20241020184345-b4e47a45cf69
 	github.com/Project-Ovi/Machina-Maestro/windows/fatalerror v0.0.0-20241020183323-00651846f21f
 	github.com/Project-Ovi/Machina-Maestro/windows/startup v0.0.0-20241020182920-d714e2493bee
@@ -13,7 +14,6 @@ require (
 require (
 	fyne.io/systray v1.11.0 // indirect
 	github.com/BurntSushi/toml v1.4.0 // indirect
-	github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241021105150-04f258939fbf // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/fredbi/uri v1.1.0 // indirect
 	github.com/fsnotify/fsnotify v1.7.0 // indirect

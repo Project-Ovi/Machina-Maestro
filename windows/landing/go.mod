@@ -4,6 +4,7 @@ go 1.22.7
 
 require (
 	fyne.io/fyne/v2 v2.5.2
+	github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241021105339-d3c3adb7e6c4
 	golang.org/x/image v0.21.0
 )
 

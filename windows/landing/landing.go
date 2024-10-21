@@ -5,6 +5,7 @@ import (
 	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/layout"
+	"github.com/Project-Ovi/Machina-Maestro/helper"
 	"golang.org/x/image/colornames"
 )
 
@@ -19,7 +20,7 @@ func landingPage(window fyne.Window, ICON_robot_hand_round *canvas.Image) {
 	ICON_robot_hand_round.FillMode = canvas.ImageFillContain
 
 	// Make button
-	btn := bigBTN("Select your OVI", 40, 20, func() {
+	btn := helper.BigBTN("Select your OVI", 40, 20, func() {
 		modelSelectWindow(window)
 	})
 
