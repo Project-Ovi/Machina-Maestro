@@ -25,6 +25,7 @@ import (
 	"fyne.io/fyne/v2/widget"
 	"golang.org/x/image/colornames"
 
+	"github.com/Project-Ovi/Machina-Maestro/helper"
 	"github.com/Project-Ovi/Machina-Maestro/windows/confirm"
 	"github.com/Project-Ovi/Machina-Maestro/windows/fatalerror"
 	"github.com/Project-Ovi/Machina-Maestro/windows/startup"
@@ -41,32 +42,32 @@ var workingDirectory string
 var App fyne.App
 var MainWindow fyne.Window
 
-func bigBTN(text string, extraPadding float32, size float32, f func()) *fyne.Container {
-	btnText := canvas.NewText(text, theme.Color(theme.ColorNameForeground))
-	btnText.TextSize = size
-	btnBG := widget.NewButton(" ", f)
-	btnBGHeightIncrements := 1
-	for {
-		desiredValue := fyne.MeasureText(btnText.Text, btnText.TextSize, btnText.TextStyle)
-		actualValue := fyne.MeasureText(btnBG.Text, theme.TextSize(), btnText.TextStyle)
-		if desiredValue.Width+extraPadding > actualValue.Width {
-			btnBG.Text += " "
-			btnBG.Refresh()
-			continue
-		}
+// func bigBTN(text string, extraPadding float32, size float32, f func()) *fyne.Container {
+// 	btnText := canvas.NewText(text, theme.Color(theme.ColorNameForeground))
+// 	btnText.TextSize = size
+// 	btnBG := widget.NewButton(" ", f)
+// 	btnBGHeightIncrements := 1
+// 	for {
+// 		desiredValue := fyne.MeasureText(btnText.Text, btnText.TextSize, btnText.TextStyle)
+// 		actualValue := fyne.MeasureText(btnBG.Text, theme.TextSize(), btnText.TextStyle)
+// 		if desiredValue.Width+extraPadding > actualValue.Width {
+// 			btnBG.Text += " "
+// 			btnBG.Refresh()
+// 			continue
+// 		}
 
-		if desiredValue.Height > actualValue.Height*float32(btnBGHeightIncrements) {
-			btnBG.Text += "\n"
-			btnBGHeightIncrements++
-			btnBG.Refresh()
-			// continue
-		}
+// 		if desiredValue.Height > actualValue.Height*float32(btnBGHeightIncrements) {
+// 			btnBG.Text += "\n"
+// 			btnBGHeightIncrements++
+// 			btnBG.Refresh()
+// 			// continue
+// 		}
 
-		break
-	}
-	btn := container.New(layout.NewCenterLayout(), btnBG, btnText)
-	return btn
-}
+//			break
+//		}
+//		btn := container.New(layout.NewCenterLayout(), btnBG, btnText)
+//		return btn
+//	}
 func openExplorer(path string) error {
 	var cmd *exec.Cmd
 
@@ -120,7 +121,7 @@ func landingPage(window fyne.Window) {
 	ICON_robot_hand_round.FillMode = canvas.ImageFillContain
 
 	// Make button
-	btn := bigBTN("Select your OVI", 40, 20, func() {
+	btn := helper.BigBTN("Select your OVI", 40, 20, func() {
 		modelSelectWindow(window)
 	})
 
@@ -306,7 +307,7 @@ func modelAddWindow(window fyne.Window, btnAdd *widget.Button) {
 	buildForm(form)
 
 	// Add a submit button
-	btn := bigBTN("Submit", 60, 15, func() {
+	btn := helper.BigBTN("Submit", 60, 15, func() {
 		subtitle.Text = saveSelector(form)
 		subtitle.Refresh()
 		if subtitle.Text == "" {

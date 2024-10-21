@@ -13,7 +13,7 @@ import (
 	"fyne.io/fyne/v2/widget"
 )
 
-func bigBTN(text string, extraPadding float32, size float32, f func()) *fyne.Container {
+func BigBTN(text string, extraPadding float32, size float32, f func()) *fyne.Container {
 	btnText := canvas.NewText(text, theme.Color(theme.ColorNameForeground))
 	btnText.TextSize = size
 	btnBG := widget.NewButton(" ", f)
@@ -39,7 +39,7 @@ func bigBTN(text string, extraPadding float32, size float32, f func()) *fyne.Con
 	btn := container.New(layout.NewCenterLayout(), btnBG, btnText)
 	return btn
 }
-func openExplorer(path string) error {
+func OpenExplorer(path string) error {
 	var cmd *exec.Cmd
 
 	switch runtime.GOOS {
