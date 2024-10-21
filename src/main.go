@@ -982,8 +982,10 @@ func main() {
 			}
 		}()
 
+		// Load up the app
 		startup.Show(1, logger, MainWindow, App, Init)
 
+		// Load pages
 		landingPage(MainWindow)
 	}()
 
