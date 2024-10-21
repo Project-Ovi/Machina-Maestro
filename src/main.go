@@ -946,8 +946,10 @@ func main() {
 	// Start fyne
 	App = app.New()
 	MainWindow = App.NewWindow("Machina Maestro")
-	MainWindow.SetOnClosed(func() {
-		App.Quit()
+	MainWindow.SetCloseIntercept(func() {
+		confirm.Show(App, "Confirm", "Are you sure you want to quit?", func() {
+			App.Quit()
+		}, func() {})
 	})
 
 	// Make sure we don't crash
