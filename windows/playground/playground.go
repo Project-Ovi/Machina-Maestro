@@ -126,7 +126,7 @@ func playgroundNavbar(window fyne.Window, sidebar fyne.CanvasObject) *fyne.Conta
 	})
 
 	// Add help button
-	helpBTN := widget.NewButtonWithIcon("Help", theme.Icon(theme.IconNameHelp), helpWindow)
+	helpBTN := widget.NewButtonWithIcon("Help", theme.Icon(theme.IconNameHelp), HelpWindow)
 
 	// Build navbar
 	navbar := container.New(
@@ -455,7 +455,7 @@ func actionCreate(summoner *widget.Button, parent **fyne.Container) {
 }
 
 // * Action editor
-func actionEditor(act *action, content **fyne.Container) {
+func actionEditor(act *helper.Action, content **fyne.Container) {
 	saveAllActions()
 	// Make a navbar
 	navbar := container.New(
