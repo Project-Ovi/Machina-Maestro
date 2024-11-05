@@ -327,7 +327,7 @@ func sidebarActions(content **fyne.Container) {
 		playBTN := widget.NewButtonWithIcon("", theme.Icon(theme.IconNameMediaPlay), func() {
 			actionCollection[i].Running = true
 			go func() {
-				val.Run()
+				val.Run(defaultCommands)
 				actionCollection[i].Running = false
 				sidebarActions(content)
 			}()
@@ -343,7 +343,7 @@ func sidebarActions(content **fyne.Container) {
 
 		// Make backdrop
 		var backdrop fyne.CanvasObject
-		if !val.running {
+		if !val.Running {
 			backdrop = canvas.NewRectangle(theme.Color(theme.ColorNameHeaderBackground))
 		} else {
 			backdrop = widget.NewProgressBarInfinite()
@@ -422,11 +422,11 @@ func actionCreate(summoner *widget.Button, parent **fyne.Container) {
 		}
 
 		// Make a  new action
-		this := action{
+		this := helper.Action{
 			Name:        name,
 			Description: desc,
-			Commands:    []command{},
-			running:     false,
+			Commands:    []helper.Command{},
+			Running:     false,
 		}
 
 		// Add the action to the list of actions
