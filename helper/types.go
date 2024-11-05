@@ -13,7 +13,7 @@ type Action struct {
 	Name        string    `json:"name"`
 	Description string    `json:"description"`
 	Commands    []Command `json:"commands"`
-	running     bool
+	Running     bool
 }
 
 type Command struct {
