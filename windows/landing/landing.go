@@ -9,7 +9,7 @@ import (
 	"golang.org/x/image/colornames"
 )
 
-func landingPage(window fyne.Window, ICON_robot_hand_round *canvas.Image) {
+func Launch(window fyne.Window, ICON_robot_hand_round *canvas.Image) {
 	// Make title
 	title := canvas.NewText("Machina Maestro", colornames.Orange)
 	title.Alignment = fyne.TextAlignCenter
