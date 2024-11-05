@@ -19,7 +19,7 @@ type Action struct {
 type Command struct {
 	DisplayName string     `json:"name"`
 	Arguments   []Argument `json:"args"`
-	f           func([]Argument) error
+	F           func([]Argument) error
 }
 
 type Argument struct {
@@ -34,7 +34,7 @@ func (a *Action) Run(defaultCommands []Command) error {
 
 	// Run
 	for _, val := range (*a).Commands {
-		if err := val.f(val.Arguments); err != nil {
+		if err := val.F(val.Arguments); err != nil {
 			return err
 		}
 	}
@@ -47,7 +47,7 @@ func (a *Action) Fix(defaultCommands []Command) {
 	for i, val1 := range (*a).Commands {
 		for _, val2 := range defaultCommands {
 			if val1.DisplayName == val2.DisplayName {
-				(*a).Commands[i].f = val2.f
+				(*a).Commands[i].F = val2.F
 			}
 		}
 	}
