@@ -4,7 +4,7 @@ go 1.22.7
 
 require (
 	fyne.io/fyne/v2 v2.5.2
-	github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241021112014-58bfb2b2b4f5
+	github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241105211201-e633ba482ca1
 	github.com/Project-Ovi/Machina-Maestro/windows/confirm v0.0.0-20241020184345-b4e47a45cf69
 	github.com/Project-Ovi/Machina-Maestro/windows/fatalerror v0.0.0-20241020183323-00651846f21f
 	github.com/Project-Ovi/Machina-Maestro/windows/startup v0.0.0-20241020182920-d714e2493bee

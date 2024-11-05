@@ -58,7 +58,8 @@ func Init() {
 	}
 
 	// Reading Icons
-	ICON_robot_hand_round = canvas.NewImageFromFile(path.Join(workingDirectory, "/assets/robot_hand_round.png"))
+	helper.LoadIcons(path.Join(workingDirectory, "/assets/"))
+	ICON_robot_hand_round = helper.ICON_robot_hand_round
 }
 
 // * Main page
