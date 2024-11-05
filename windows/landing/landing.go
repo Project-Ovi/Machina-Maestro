@@ -9,13 +9,14 @@ import (
 	"golang.org/x/image/colornames"
 )
 
-func Launch(window fyne.Window, ICON_robot_hand_round *canvas.Image) {
+func Launch(window fyne.Window) {
 	// Make title
 	title := canvas.NewText("Machina Maestro", colornames.Orange)
 	title.Alignment = fyne.TextAlignCenter
 	title.TextSize = 32
 
 	// Make icon
+	ICON_robot_hand_round := helper.ICON_robot_hand_round
 	ICON_robot_hand_round.SetMinSize(fyne.NewSquareSize(512))
 	ICON_robot_hand_round.FillMode = canvas.ImageFillContain
 
