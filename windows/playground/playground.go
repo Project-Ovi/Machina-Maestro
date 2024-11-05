@@ -325,10 +325,10 @@ func sidebarActions(content **fyne.Container) {
 			}, func() {})
 		})
 		playBTN := widget.NewButtonWithIcon("", theme.Icon(theme.IconNameMediaPlay), func() {
-			actionCollection[i].running = true
+			actionCollection[i].Running = true
 			go func() {
 				val.Run()
-				actionCollection[i].running = false
+				actionCollection[i].Running = false
 				sidebarActions(content)
 			}()
 			time.Sleep(time.Millisecond * 5)

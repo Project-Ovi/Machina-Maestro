@@ -27,3 +27,28 @@ type Argument struct {
 	ArgType string      `json:"type"`
 	Value   interface{} `json:"val"`
 }
+
+func (a *Action) Run(defaultCommands []Command) error {
+	// Fix function
+	a.Fix(defaultCommands)
+
+	// Run
+	for _, val := range (*a).Commands {
+		if err := val.f(val.Arguments); err != nil {
+			return err
+		}
+	}
+
+	// Return
+	return nil
+}
+
+func (a *Action) Fix(defaultCommands []Command) {
+	for i, val1 := range (*a).Commands {
+		for _, val2 := range defaultCommands {
+			if val1.DisplayName == val2.DisplayName {
+				(*a).Commands[i].f = val2.f
+			}
+		}
+	}
+}
