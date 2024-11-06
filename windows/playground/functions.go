@@ -14,5 +14,5 @@ func saveAllActions() error {
 	}
 
 	// Save to file
-	return os.WriteFile(path.Join(workingDirectory, "/myModels/", thisModel.Name, "/actions.json"), b, os.ModePerm)
+	return os.WriteFile(path.Join(workingDirectory, "/myModels/", ThisModel.Name, "/actions.json"), b, os.ModePerm)
 }

@@ -4,10 +4,11 @@ go 1.22.7
 
 require (
 	fyne.io/fyne/v2 v2.5.2
-	github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241105210908-423036c8e676
+	github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241105212311-79d420d9d324
 	github.com/Project-Ovi/Machina-Maestro/windows/confirm v0.0.0-20241021112014-58bfb2b2b4f5
 	github.com/Project-Ovi/Machina-Maestro/windows/fatalerror v0.0.0-20241021110153-8f84512bc65e
 	github.com/Project-Ovi/Machina-Maestro/windows/landing v0.0.0-20241105211201-e633ba482ca1
+	github.com/Project-Ovi/ovi-mk2-machina-maestro-plugin v0.0.0-20241106192817-fecd1798e15a
 )
 
 require (

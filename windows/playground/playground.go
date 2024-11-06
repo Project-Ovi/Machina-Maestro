@@ -35,9 +35,9 @@ var App fyne.App
 // Collections
 var defaultCommands []helper.Command //! Uninitialized
 var actionCollection []helper.Action //! Uninitialized
-var thisModel *helper.Model
+var ThisModel *helper.Model
 
-func Load(wd string, loggerObj bytes.Buffer, masterWindow fyne.Window, app fyne.App, model *helper.Model) {
+func Load(wd string, loggerObj bytes.Buffer, masterWindow fyne.Window, app fyne.App) {
 	// Load system variables
 	workingDirectory = wd
 	logger = loggerObj
@@ -45,10 +45,6 @@ func Load(wd string, loggerObj bytes.Buffer, masterWindow fyne.Window, app fyne.
 	// Load fyne elements
 	MainWindow = masterWindow
 	App = app
-
-	// Load collections
-	thisModel = model
-
 }
 
 func Launch(window fyne.Window) {
@@ -56,7 +52,7 @@ func Launch(window fyne.Window) {
 	defaultCommands = []helper.Command{}
 
 	// Fetch actions
-	b, err := os.ReadFile(path.Join(workingDirectory, "/myModels/", (*thisModel).Name, "/actions.json"))
+	b, err := os.ReadFile(path.Join(workingDirectory, "/myModels/", (*ThisModel).Name, "/actions.json"))
 	if err != nil {
 		fatalerror.Show(err, logger, MainWindow, App)
 	}
@@ -66,7 +62,7 @@ func Launch(window fyne.Window) {
 	}
 
 	// Load functions for this model
-	go loadSelector()
+	go LoadSelector()
 
 	// Make a main content
 	mainContent := container.New(layout.NewStackLayout())
@@ -102,7 +98,7 @@ func playgroundNavbar(window fyne.Window, sidebar fyne.CanvasObject) *fyne.Conta
 
 	// Add file button
 	fileBTN := widget.NewButtonWithIcon("Reveal File", theme.Icon(theme.IconNameFile), func() {
-		err := helper.OpenExplorer(path.Join(workingDirectory, "/myModels/", thisModel.Name))
+		err := helper.OpenExplorer(path.Join(workingDirectory, "/myModels/", ThisModel.Name))
 		if err != nil {
 			fatalerror.Show(err, logger, MainWindow, App)
 		}
@@ -257,7 +253,7 @@ func sidebarInfo(content **fyne.Container) {
 	)
 
 	// Get markdown URL
-	mdURL := thisModel.Website
+	mdURL := ThisModel.Website
 
 	// Download markdown
 	markdown := ""
