@@ -7,7 +7,7 @@ require (
 	github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241105212311-79d420d9d324
 	github.com/Project-Ovi/Machina-Maestro/windows/confirm v0.0.0-20241105212311-79d420d9d324
 	github.com/Project-Ovi/Machina-Maestro/windows/fatalerror v0.0.0-20241105212311-79d420d9d324
-	github.com/Project-Ovi/Machina-Maestro/windows/landing v0.0.0-20241106203256-632a21916e84
+	github.com/Project-Ovi/Machina-Maestro/windows/landing v0.0.0-20241106203446-58299d3261ed
 	github.com/Project-Ovi/Machina-Maestro/windows/startup v0.0.0-20241020182920-d714e2493bee
 	golang.org/x/image v0.21.0
 )
@@ -15,8 +15,8 @@ require (
 require (
 	fyne.io/systray v1.11.0 // indirect
 	github.com/BurntSushi/toml v1.4.0 // indirect
-	github.com/Project-Ovi/Machina-Maestro/windows/model-select v0.0.0-20241106201748-6c2ecfcfe55a // indirect
-	github.com/Project-Ovi/Machina-Maestro/windows/playground v0.0.0-20241106200029-594b89daf0bf // indirect
+	github.com/Project-Ovi/Machina-Maestro/windows/model-select v0.0.0-20241106203256-632a21916e84 // indirect
+	github.com/Project-Ovi/Machina-Maestro/windows/playground v0.0.0-20241106201748-6c2ecfcfe55a // indirect
 	github.com/Project-Ovi/ovi-mk2-machina-maestro-plugin v0.0.0-20241106192817-fecd1798e15a // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/fredbi/uri v1.1.0 // indirect
