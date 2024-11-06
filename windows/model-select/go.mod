@@ -12,7 +12,6 @@ require (
 )
 
 require (
-	github.com/Project-Ovi/Machina-Maestro/windows/landing v0.0.0-20241105211201-e633ba482ca1 // indirect
 	github.com/Project-Ovi/ovi-mk2-machina-maestro-plugin v0.0.0-20241106192817-fecd1798e15a // indirect
 	github.com/fredbi/uri v1.1.0 // indirect
 	github.com/fyne-io/gl-js v0.0.0-20220119005834-d2da28d9ccfe // indirect

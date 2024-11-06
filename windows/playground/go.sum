@@ -49,8 +49,8 @@ github.com/Project-Ovi/Machina-Maestro/windows/confirm v0.0.0-20241021112014-58b
 github.com/Project-Ovi/Machina-Maestro/windows/confirm v0.0.0-20241021112014-58bfb2b2b4f5/go.mod h1:Hwxv9WMItyqyYAqS+rzUhMLHOUwLczrv18weWc2UM/k=
 github.com/Project-Ovi/Machina-Maestro/windows/fatalerror v0.0.0-20241021110153-8f84512bc65e h1:DpJGQFOB230I5FqKLHgLD4yaMnuSwZlGGC1hAaJngZQ=
 github.com/Project-Ovi/Machina-Maestro/windows/fatalerror v0.0.0-20241021110153-8f84512bc65e/go.mod h1:gmWstj6+Hwl2yCTPCNvc7xpPUhZNrBOV2yetTugWP3I=
-github.com/Project-Ovi/ovi-mk2-machina-maestro-plugin v0.0.0-20241106192817-fecd1798e15a h1:bOultpc5XdgD6X/sNIVUX/H6lZ/CevviGp2ARGYuX2c=
-github.com/Project-Ovi/ovi-mk2-machina-maestro-plugin v0.0.0-20241106192817-fecd1798e15a/go.mod h1:Nsq67THyXTz7OPXdfc+LXNDMxtRLo3/+Hn1Xe5Q2uGA=
+github.com/Project-Ovi/ovi-mk2-machina-maestro-plugin v0.0.0-20241106204103-9fca9a6c2007 h1:yixbij57wbCCvjHc27D2/FIR1nTjQFfUaQ6MnKh2QxA=
+github.com/Project-Ovi/ovi-mk2-machina-maestro-plugin v0.0.0-20241106204103-9fca9a6c2007/go.mod h1:Nsq67THyXTz7OPXdfc+LXNDMxtRLo3/+Hn1Xe5Q2uGA=
 github.com/antihax/optional v1.0.0/go.mod h1:uupD/76wgC+ih3iEmQUL+0Ugr19nfwCT1kdvxnR2qWY=
 github.com/armon/circbuf v0.0.0-20150827004946-bbbad097214e/go.mod h1:3U/XgcO3hCbHZ8TKRvWD2dDTCfh9M9ya+I9JpbB7O8o=
 github.com/armon/go-metrics v0.0.0-20180917152333-f0300d1749da/go.mod h1:Q73ZrmVTwzkszR9V5SSuryQ31EELlFMUz1kKyl939pY=

@@ -49,10 +49,6 @@ github.com/Project-Ovi/Machina-Maestro/windows/confirm v0.0.0-20241105212311-79d
 github.com/Project-Ovi/Machina-Maestro/windows/confirm v0.0.0-20241105212311-79d420d9d324/go.mod h1:Hwxv9WMItyqyYAqS+rzUhMLHOUwLczrv18weWc2UM/k=
 github.com/Project-Ovi/Machina-Maestro/windows/fatalerror v0.0.0-20241105212311-79d420d9d324 h1:fi5WqpVs/jMkpAk4Nyn15foedSlKZ5sGUSn2WZ8cbW8=
 github.com/Project-Ovi/Machina-Maestro/windows/fatalerror v0.0.0-20241105212311-79d420d9d324/go.mod h1:gmWstj6+Hwl2yCTPCNvc7xpPUhZNrBOV2yetTugWP3I=
-github.com/Project-Ovi/Machina-Maestro/windows/landing v0.0.0-20241105211201-e633ba482ca1 h1:xOLsGDXRgLcm/m0kto/bgBCZnUqW1I5wzvzN/vK3xrw=
-github.com/Project-Ovi/Machina-Maestro/windows/landing v0.0.0-20241105211201-e633ba482ca1/go.mod h1:6sa/N2JkZVpE4AaChxxVIbw7n869kDLwJoYFvFyP0n4=
-github.com/Project-Ovi/Machina-Maestro/windows/playground v0.0.0-20241106200029-594b89daf0bf h1:hjc6CvQxlk80sJQuv6fyj0PZuB58oUfnnsp29Ad5IGQ=
-github.com/Project-Ovi/Machina-Maestro/windows/playground v0.0.0-20241106200029-594b89daf0bf/go.mod h1:agA+XzbYnYZ50rYvzCeSF9xNghm/a6qifhx8aMM2qt0=
 github.com/Project-Ovi/Machina-Maestro/windows/playground v0.0.0-20241106201748-6c2ecfcfe55a h1:KNMcyhOtmfnmFdDaXElbumqOv3xw4d6jRsITalV6/JU=
 github.com/Project-Ovi/Machina-Maestro/windows/playground v0.0.0-20241106201748-6c2ecfcfe55a/go.mod h1:uxRvOOvnPDrWd2ccL1QhoqdPwtgTXT+TupXbPnYqHdE=
 github.com/Project-Ovi/ovi-mk2-machina-maestro-plugin v0.0.0-20241106192817-fecd1798e15a h1:bOultpc5XdgD6X/sNIVUX/H6lZ/CevviGp2ARGYuX2c=
