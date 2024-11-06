@@ -7,7 +7,7 @@ require (
 	github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241105212311-79d420d9d324
 	github.com/Project-Ovi/Machina-Maestro/windows/confirm v0.0.0-20241105212311-79d420d9d324
 	github.com/Project-Ovi/Machina-Maestro/windows/fatalerror v0.0.0-20241105212311-79d420d9d324
-	github.com/Project-Ovi/Machina-Maestro/windows/landing v0.0.0-20241106203446-58299d3261ed
+	github.com/Project-Ovi/Machina-Maestro/windows/landing v0.0.0-20241106204703-4a305b916fbe
 	github.com/Project-Ovi/Machina-Maestro/windows/startup v0.0.0-20241020182920-d714e2493bee
 	golang.org/x/image v0.21.0
 )

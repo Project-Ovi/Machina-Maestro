@@ -57,6 +57,8 @@ github.com/Project-Ovi/Machina-Maestro/windows/landing v0.0.0-20241106203256-632
 github.com/Project-Ovi/Machina-Maestro/windows/landing v0.0.0-20241106203256-632a21916e84/go.mod h1:kxftx/zhCt22iDyoNFF02SUN78ghOPh41Ld/rZ510Nk=
 github.com/Project-Ovi/Machina-Maestro/windows/landing v0.0.0-20241106203446-58299d3261ed h1:N7iy784PDXzYMFD+GxJjII4enVrdqF8JSThc6cnTTes=
 github.com/Project-Ovi/Machina-Maestro/windows/landing v0.0.0-20241106203446-58299d3261ed/go.mod h1:Y8dy9IVbBP84JXV1CRktYZNaYic7exK8YW9XJvlzf9I=
+github.com/Project-Ovi/Machina-Maestro/windows/landing v0.0.0-20241106204703-4a305b916fbe h1:ac4SE3k+4Wbd4LiRiQmEAZ1rR8+CAED/MsN5ZiDMxL4=
+github.com/Project-Ovi/Machina-Maestro/windows/landing v0.0.0-20241106204703-4a305b916fbe/go.mod h1:Y8dy9IVbBP84JXV1CRktYZNaYic7exK8YW9XJvlzf9I=
 github.com/Project-Ovi/Machina-Maestro/windows/model-select v0.0.0-20241106200558-ea8b868ae578 h1:+LTzuTWsPOaaAAB5yq84zvgKI7JtHiLrSHCTC6xk/+Y=
 github.com/Project-Ovi/Machina-Maestro/windows/model-select v0.0.0-20241106200558-ea8b868ae578/go.mod h1:lYUZpKuVhO1DyyEL61rDR4KRK4A74j33vrQFnz1QkvI=
 github.com/Project-Ovi/Machina-Maestro/windows/model-select v0.0.0-20241106201748-6c2ecfcfe55a h1:t/zIKo9dNpF1a7hNvLHTV6LcnoMxNlMXHtJHtQv199k=
