@@ -1,15 +1,18 @@
 package landing
 
 import (
+	"bytes"
+
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/layout"
 	"github.com/Project-Ovi/Machina-Maestro/helper"
+	modelselect "github.com/Project-Ovi/Machina-Maestro/windows/model-select"
 	"golang.org/x/image/colornames"
 )
 
-func Launch(window fyne.Window) {
+func Launch(window fyne.Window, workingDirectory string, logger bytes.Buffer, App fyne.App) {
 	// Make title
 	title := canvas.NewText("Machina Maestro", colornames.Orange)
 	title.Alignment = fyne.TextAlignCenter
@@ -22,7 +25,7 @@ func Launch(window fyne.Window) {
 
 	// Make button
 	btn := helper.BigBTN("Select your OVI", 40, 20, func() {
-		modelSelectWindow(window)
+		modelselect.Launch(window, workingDirectory, logger, window, App)
 	})
 
 	// Assemble UI

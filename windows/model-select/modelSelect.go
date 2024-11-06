@@ -17,7 +17,6 @@ import (
 	"github.com/Project-Ovi/Machina-Maestro/helper"
 	"github.com/Project-Ovi/Machina-Maestro/windows/confirm"
 	"github.com/Project-Ovi/Machina-Maestro/windows/fatalerror"
-	"github.com/Project-Ovi/Machina-Maestro/windows/landing"
 	"github.com/Project-Ovi/Machina-Maestro/windows/playground"
 )
 
@@ -34,7 +33,10 @@ func Launch(window fyne.Window, wd string, loggerObj bytes.Buffer, MasterWindow 
 	App = MasterApp
 
 	// Make a navbar
-	btnBack := widget.NewButton("", func() { landing.Launch(window) })
+	btnBack := widget.NewButton("", func() {
+		// landing.Launch(window)
+		log.Println("Back button not implemented yet!")
+	})
 	btnBack.SetIcon(theme.Icon(theme.IconNameNavigateBack))
 	btnAdd := widget.NewButton("", func() {})
 	btnAdd.OnTapped = func() {

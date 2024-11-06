@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"os"
 	"path"
@@ -21,7 +22,6 @@ import (
 	"github.com/Project-Ovi/Machina-Maestro/helper"
 	"github.com/Project-Ovi/Machina-Maestro/windows/confirm"
 	"github.com/Project-Ovi/Machina-Maestro/windows/fatalerror"
-	"github.com/Project-Ovi/Machina-Maestro/windows/landing"
 )
 
 // System variables
@@ -92,7 +92,8 @@ func playgroundNavbar(window fyne.Window, sidebar fyne.CanvasObject) *fyne.Conta
 	// Add home button
 	homeBTN := widget.NewButtonWithIcon("Home", theme.Icon(theme.IconNameHome), func() {
 		confirm.Show(App, "Are you sure you want to exit?", "You are about to exit to the main menu", func() {
-			landing.Launch(window)
+			// landing.Launch(window)
+			log.Println("The home button is not implemented yet")
 		}, func() {})
 	})
 
