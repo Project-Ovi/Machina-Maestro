@@ -5,14 +5,14 @@ go 1.22.7
 require (
 	fyne.io/fyne/v2 v2.5.2
 	github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241105212311-79d420d9d324
-	github.com/Project-Ovi/Machina-Maestro/windows/model-select v0.0.0-20241106201748-6c2ecfcfe55a
+	github.com/Project-Ovi/Machina-Maestro/windows/model-select v0.0.0-20241106203256-632a21916e84
 	golang.org/x/image v0.21.0
 )
 
 require (
 	github.com/Project-Ovi/Machina-Maestro/windows/confirm v0.0.0-20241105212311-79d420d9d324 // indirect
 	github.com/Project-Ovi/Machina-Maestro/windows/fatalerror v0.0.0-20241105212311-79d420d9d324 // indirect
-	github.com/Project-Ovi/Machina-Maestro/windows/playground v0.0.0-20241106200029-594b89daf0bf // indirect
+	github.com/Project-Ovi/Machina-Maestro/windows/playground v0.0.0-20241106201748-6c2ecfcfe55a // indirect
 	github.com/Project-Ovi/ovi-mk2-machina-maestro-plugin v0.0.0-20241106192817-fecd1798e15a // indirect
 	github.com/fredbi/uri v1.1.0 // indirect
 	github.com/fyne-io/gl-js v0.0.0-20220119005834-d2da28d9ccfe // indirect

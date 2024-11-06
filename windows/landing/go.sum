@@ -53,8 +53,12 @@ github.com/Project-Ovi/Machina-Maestro/windows/model-select v0.0.0-2024110620055
 github.com/Project-Ovi/Machina-Maestro/windows/model-select v0.0.0-20241106200558-ea8b868ae578/go.mod h1:lYUZpKuVhO1DyyEL61rDR4KRK4A74j33vrQFnz1QkvI=
 github.com/Project-Ovi/Machina-Maestro/windows/model-select v0.0.0-20241106201748-6c2ecfcfe55a h1:t/zIKo9dNpF1a7hNvLHTV6LcnoMxNlMXHtJHtQv199k=
 github.com/Project-Ovi/Machina-Maestro/windows/model-select v0.0.0-20241106201748-6c2ecfcfe55a/go.mod h1:R+T0hVzR+ZaN4y0JDN5DH+Ru6VxdHKTIlDmRH/5XuIE=
+github.com/Project-Ovi/Machina-Maestro/windows/model-select v0.0.0-20241106203256-632a21916e84 h1:tsPS9edvXmpmrr6WGMfHh7k+QmJ9rvO90Z7YjlflNk8=
+github.com/Project-Ovi/Machina-Maestro/windows/model-select v0.0.0-20241106203256-632a21916e84/go.mod h1:iADEoYPBqRSj9nWooL0L3XLZ5hGH0ABHCpNIjJloWPk=
 github.com/Project-Ovi/Machina-Maestro/windows/playground v0.0.0-20241106200029-594b89daf0bf h1:hjc6CvQxlk80sJQuv6fyj0PZuB58oUfnnsp29Ad5IGQ=
 github.com/Project-Ovi/Machina-Maestro/windows/playground v0.0.0-20241106200029-594b89daf0bf/go.mod h1:agA+XzbYnYZ50rYvzCeSF9xNghm/a6qifhx8aMM2qt0=
+github.com/Project-Ovi/Machina-Maestro/windows/playground v0.0.0-20241106201748-6c2ecfcfe55a h1:KNMcyhOtmfnmFdDaXElbumqOv3xw4d6jRsITalV6/JU=
+github.com/Project-Ovi/Machina-Maestro/windows/playground v0.0.0-20241106201748-6c2ecfcfe55a/go.mod h1:uxRvOOvnPDrWd2ccL1QhoqdPwtgTXT+TupXbPnYqHdE=
 github.com/Project-Ovi/ovi-mk2-machina-maestro-plugin v0.0.0-20241106192817-fecd1798e15a h1:bOultpc5XdgD6X/sNIVUX/H6lZ/CevviGp2ARGYuX2c=
 github.com/Project-Ovi/ovi-mk2-machina-maestro-plugin v0.0.0-20241106192817-fecd1798e15a/go.mod h1:Nsq67THyXTz7OPXdfc+LXNDMxtRLo3/+Hn1Xe5Q2uGA=
 github.com/antihax/optional v1.0.0/go.mod h1:uupD/76wgC+ih3iEmQUL+0Ugr19nfwCT1kdvxnR2qWY=
