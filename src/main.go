@@ -26,6 +26,7 @@ import (
 	"github.com/Project-Ovi/Machina-Maestro/helper"
 	"github.com/Project-Ovi/Machina-Maestro/windows/confirm"
 	"github.com/Project-Ovi/Machina-Maestro/windows/fatalerror"
+	"github.com/Project-Ovi/Machina-Maestro/windows/landing"
 	"github.com/Project-Ovi/Machina-Maestro/windows/startup"
 )
 
@@ -987,7 +988,7 @@ func main() {
 		startup.Show(1, logger, MainWindow, App, Init)
 
 		// Load pages
-		landingPage(MainWindow)
+		landing.Launch(MainWindow, workingDirectory, logger, App)
 	}()
 
 	// Display app

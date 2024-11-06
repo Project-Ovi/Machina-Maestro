@@ -5,7 +5,7 @@ go 1.22.7
 require (
 	fyne.io/fyne/v2 v2.5.2
 	github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241105212311-79d420d9d324
-	github.com/Project-Ovi/Machina-Maestro/windows/model-select v0.0.0-20241106200558-ea8b868ae578
+	github.com/Project-Ovi/Machina-Maestro/windows/model-select v0.0.0-20241106201748-6c2ecfcfe55a
 	golang.org/x/image v0.21.0
 )
 

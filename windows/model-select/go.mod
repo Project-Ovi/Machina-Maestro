@@ -7,7 +7,7 @@ require (
 	github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241105212311-79d420d9d324
 	github.com/Project-Ovi/Machina-Maestro/windows/confirm v0.0.0-20241105212311-79d420d9d324
 	github.com/Project-Ovi/Machina-Maestro/windows/fatalerror v0.0.0-20241105212311-79d420d9d324
-	github.com/Project-Ovi/Machina-Maestro/windows/playground v0.0.0-20241106200029-594b89daf0bf
+	github.com/Project-Ovi/Machina-Maestro/windows/playground v0.0.0-20241106201748-6c2ecfcfe55a
 	golang.org/x/image v0.21.0
 )
 

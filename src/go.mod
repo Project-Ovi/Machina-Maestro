@@ -4,9 +4,10 @@ go 1.22.7
 
 require (
 	fyne.io/fyne/v2 v2.5.2
-	github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241105211201-e633ba482ca1
-	github.com/Project-Ovi/Machina-Maestro/windows/confirm v0.0.0-20241020184345-b4e47a45cf69
-	github.com/Project-Ovi/Machina-Maestro/windows/fatalerror v0.0.0-20241020183323-00651846f21f
+	github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241105212311-79d420d9d324
+	github.com/Project-Ovi/Machina-Maestro/windows/confirm v0.0.0-20241105212311-79d420d9d324
+	github.com/Project-Ovi/Machina-Maestro/windows/fatalerror v0.0.0-20241105212311-79d420d9d324
+	github.com/Project-Ovi/Machina-Maestro/windows/landing v0.0.0-20241106201748-6c2ecfcfe55a
 	github.com/Project-Ovi/Machina-Maestro/windows/startup v0.0.0-20241020182920-d714e2493bee
 	golang.org/x/image v0.21.0
 )
@@ -14,6 +15,9 @@ require (
 require (
 	fyne.io/systray v1.11.0 // indirect
 	github.com/BurntSushi/toml v1.4.0 // indirect
+	github.com/Project-Ovi/Machina-Maestro/windows/model-select v0.0.0-20241106200558-ea8b868ae578 // indirect
+	github.com/Project-Ovi/Machina-Maestro/windows/playground v0.0.0-20241106200029-594b89daf0bf // indirect
+	github.com/Project-Ovi/ovi-mk2-machina-maestro-plugin v0.0.0-20241106192817-fecd1798e15a // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/fredbi/uri v1.1.0 // indirect
 	github.com/fsnotify/fsnotify v1.7.0 // indirect
