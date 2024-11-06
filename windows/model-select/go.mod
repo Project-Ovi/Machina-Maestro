@@ -1,4 +1,4 @@
-module github.com/Project-Ovi/windows/model-select
+module github.com/Project-Ovi/Machina-Maestro/windows/model-select
 
 go 1.22.7
 
