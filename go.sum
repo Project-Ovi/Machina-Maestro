@@ -45,10 +45,12 @@ github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03
 github.com/BurntSushi/toml v1.4.0 h1:kuoIxZQy2WRRk1pttg9asf+WVv6tWQuBNVmK8+nqPr0=
 github.com/BurntSushi/toml v1.4.0/go.mod h1:ukJfTF/6rtPPRCnwkur4qwRxa8vTRFBF0uk2lLoLwho=
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
-github.com/Project-Ovi/Machina-Maestro/windows/home_screen v0.0.0-20241117123614-d7202abdc8aa h1:BZt5ho5oO96NeFBCQgpg+nUN6aLJ6FjeuoU5J0Gs06I=
-github.com/Project-Ovi/Machina-Maestro/windows/home_screen v0.0.0-20241117123614-d7202abdc8aa/go.mod h1:4SjJPxyId2KZJlSApKy6iMmNzfMFHvH2sCfeoZc3wK0=
-github.com/Project-Ovi/Machina-Maestro/windows/splash_screen v0.0.0-20241117123614-d7202abdc8aa h1:ePpj3Jc8b7/4zFxGpvHMPJ7EfnTqIlRCtHjh0tbpGu8=
-github.com/Project-Ovi/Machina-Maestro/windows/splash_screen v0.0.0-20241117123614-d7202abdc8aa/go.mod h1:cC0+Y+8zM0YzgNsvNz+psz62wtLJS/bye4JXvyR7kX8=
+github.com/Project-Ovi/Machina-Maestro/windows/home_screen v0.0.0-20241117131159-530d654e2a5f h1:IUH8CM+AdH+HTB5Gd5rmCzmiOw/IAQRPf/fR0RDFttQ=
+github.com/Project-Ovi/Machina-Maestro/windows/home_screen v0.0.0-20241117131159-530d654e2a5f/go.mod h1:4SjJPxyId2KZJlSApKy6iMmNzfMFHvH2sCfeoZc3wK0=
+github.com/Project-Ovi/Machina-Maestro/windows/ovi_picker v0.0.0-20241117131159-530d654e2a5f h1:Nrpaba9rhe4Q9+VZxkITOILbXaBVWl+tuenUkF9iZ0I=
+github.com/Project-Ovi/Machina-Maestro/windows/ovi_picker v0.0.0-20241117131159-530d654e2a5f/go.mod h1:3Xf94bFabsAK8xuRsuk8r5CpEY6uijuFP/XxgMiAZDA=
+github.com/Project-Ovi/Machina-Maestro/windows/splash_screen v0.0.0-20241117131159-530d654e2a5f h1:FvNY3aPTYAGGrjbuafYVXUCLOR3qau/7wSq1HQao/6U=
+github.com/Project-Ovi/Machina-Maestro/windows/splash_screen v0.0.0-20241117131159-530d654e2a5f/go.mod h1:cC0+Y+8zM0YzgNsvNz+psz62wtLJS/bye4JXvyR7kX8=
 github.com/antihax/optional v1.0.0/go.mod h1:uupD/76wgC+ih3iEmQUL+0Ugr19nfwCT1kdvxnR2qWY=
 github.com/armon/circbuf v0.0.0-20150827004946-bbbad097214e/go.mod h1:3U/XgcO3hCbHZ8TKRvWD2dDTCfh9M9ya+I9JpbB7O8o=
 github.com/armon/go-metrics v0.0.0-20180917152333-f0300d1749da/go.mod h1:Q73ZrmVTwzkszR9V5SSuryQ31EELlFMUz1kKyl939pY=

@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
 	"time"
@@ -9,6 +8,7 @@ import (
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
 	homescreen "github.com/Project-Ovi/Machina-Maestro/windows/home_screen"
+	ovipicker "github.com/Project-Ovi/Machina-Maestro/windows/ovi_picker"
 	splashscreen "github.com/Project-Ovi/Machina-Maestro/windows/splash_screen"
 )
 
@@ -34,9 +34,14 @@ func Init() {
 func maini() {
 	splashscreen.Launch(Init)
 
+home:
 	homescreen.Launch(MainWindow)
+	time.Sleep(time.Millisecond * 200)
 
-	fmt.Println("Pressed!")
+	if ovipicker.Launch(MainWindow) == "home" {
+		time.Sleep(time.Millisecond * 200)
+		goto home
+	}
 }
 
 func main() {
