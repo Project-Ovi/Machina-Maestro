@@ -33,5 +33,5 @@ func Launch(loadFunc func()) {
 
 	// Load and exit
 	loadFunc()
-	w.Hide()
+	w.Close()
 }
