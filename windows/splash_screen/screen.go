@@ -2,7 +2,9 @@ package splashscreen
 
 import (
 	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/driver/desktop"
+	"fyne.io/fyne/v2/layout"
 )
 
 func Launch() {
@@ -11,7 +13,12 @@ func Launch() {
 
 		img := getBGIMG()
 
-		w.SetContent(img)
+		content := container.New(
+			layout.NewBorderLayout(nil, nil, nil, nil),
+			img,
+		)
+
+		w.SetContent(content)
 		w.Show()
 	}
 }
