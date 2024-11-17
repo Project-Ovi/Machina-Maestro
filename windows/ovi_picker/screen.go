@@ -37,6 +37,8 @@ func Launch(window fyne.Window) string {
 
 	// Update scrollable items
 	go func() {
+		for {
+		}
 		// Get working directory
 		WD, err := os.Getwd()
 		if err != nil {
