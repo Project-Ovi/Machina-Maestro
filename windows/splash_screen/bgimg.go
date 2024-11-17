@@ -52,7 +52,7 @@ func getBGIMG() *canvas.Image {
 				log.Println("Failed to decode file: ", err)
 				continue
 			} else {
-				log.Println("Discarded", val.Name()+".", "Reason: ", err)
+				log.Println("Loaded file", val.Name())
 			}
 
 			// Convert file
