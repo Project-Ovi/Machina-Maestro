@@ -1,6 +1,8 @@
 package ovipicker
 
 import (
+	"fmt"
+
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/container"
@@ -30,10 +32,23 @@ func modelAddWindow() {
 	nameEntry := widget.NewEntry()
 	nameEntry.SetPlaceHolder("My OVI")
 
+	// Create description form
+	descriptionTitle := widget.NewLabel("Description:")
+	descriptionEntry := widget.NewEntry()
+	descriptionEntry.SetPlaceHolder("My OVI")
+
+	// Create product form
+	productTitle := widget.NewLabel("Description:")
+	productEntry := widget.NewSelect([]string{"Option 1", "Option 2", "Option 3"}, func(s string) {
+		fmt.Println("Changed to", s)
+	})
+
 	// Create form
 	form := container.New(
 		layout.NewFormLayout(),
 		nameTitle, nameEntry,
+		descriptionTitle, descriptionEntry,
+		productTitle, productEntry,
 	)
 
 	// Make content
