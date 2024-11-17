@@ -56,7 +56,9 @@ func getBGIMG() *canvas.Image {
 			}
 
 			// Convert file
-			return canvas.NewImageFromImage(img)
+			imgObj := canvas.NewImageFromImage(img)
+			imgObj.FillMode = canvas.ImageFillOriginal
+			return imgObj
 		}
 	}
 	return brokenIMG()
