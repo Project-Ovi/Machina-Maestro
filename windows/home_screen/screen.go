@@ -30,7 +30,6 @@ func Launch(window fyne.Window) {
 		waitPressGroup.Done()
 		btn.Disable()
 		btn.SetText("Loading...")
-		btn.Refresh()
 	}
 
 	// Make content
