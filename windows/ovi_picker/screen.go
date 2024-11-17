@@ -176,7 +176,7 @@ func Launch(window fyne.Window) string {
 
 	// Make content
 	content := container.New(
-		layout.NewBorderLayout(navbar(), nil, nil, nil),
+		layout.NewBorderLayout(container.New(layout.NewVBoxLayout(), navbar()), nil, nil, nil),
 		scrollable,
 	)
 
