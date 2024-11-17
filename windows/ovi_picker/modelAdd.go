@@ -23,6 +23,7 @@ func modelAddWindow() {
 	title := canvas.NewText(window.Title(), theme.Color(theme.ColorNameForeground))
 	title.TextSize = theme.Size(theme.SizeNameHeadingText)
 	title.TextStyle.Bold = true
+	title.Alignment = fyne.TextAlignCenter
 
 	// Create name form
 	nameTitle := widget.NewLabel("Name:")
