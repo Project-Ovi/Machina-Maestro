@@ -35,7 +35,7 @@ func modelAddWindow() {
 	// Create description form
 	descriptionTitle := widget.NewLabel("Description:")
 	descriptionEntry := widget.NewEntry()
-	descriptionEntry.SetPlaceHolder("My OVI")
+	descriptionEntry.SetPlaceHolder("My beloved OVI")
 
 	// Create product form
 	productTitle := widget.NewLabel("Product:")
