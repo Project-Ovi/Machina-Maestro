@@ -38,7 +38,7 @@ func modelAddWindow() {
 	descriptionEntry.SetPlaceHolder("My OVI")
 
 	// Create product form
-	productTitle := widget.NewLabel("Description:")
+	productTitle := widget.NewLabel("Product:")
 	productEntry := widget.NewSelect([]string{"Option 1", "Option 2", "Option 3"}, func(s string) {
 		fmt.Println("Changed to", s)
 	})
