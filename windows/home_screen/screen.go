@@ -17,7 +17,7 @@ func Launch(window fyne.Window) {
 
 	// Make Logo
 	logo := getLogo()
-	logo.SetMinSize(fyne.NewSquareSize(120))
+	logo.SetMinSize(fyne.NewSquareSize(400))
 
 	// Make content
 	content := container.New(
