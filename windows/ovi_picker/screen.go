@@ -34,11 +34,10 @@ func Launch(window fyne.Window) string {
 	scrollable := container.NewVScroll(container.New(
 		layout.NewVBoxLayout(),
 	))
+	scrollable.Hide()
 
 	// Update scrollable items
 	go func() {
-		for {
-		}
 		// Get working directory
 		WD, err := os.Getwd()
 		if err != nil {
@@ -181,7 +180,6 @@ func Launch(window fyne.Window) string {
 	// Make content
 	content := container.New(
 		layout.NewBorderLayout(Navbar, nil, nil, nil),
-		scrollable,
 	)
 
 	// Set content
