@@ -1,6 +1,9 @@
 package ovipicker
 
-import "fyne.io/fyne/v2"
+import (
+	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/theme"
+)
 
 type StackWithNavbar struct{}
 
@@ -36,7 +39,7 @@ func (l *StackWithNavbar) Layout(objects []fyne.CanvasObject, containerSize fyne
 		}
 
 		// Stack them here
-		val.Resize(fyne.NewSize(containerSize.Width, containerSize.Height-objects[0].MinSize().Height))
-		val.Move(fyne.NewPos(0, objects[0].MinSize().Height))
+		val.Resize(fyne.NewSize(containerSize.Width, containerSize.Height-objects[0].MinSize().Height-theme.LineSpacing()))
+		val.Move(fyne.NewPos(0, objects[0].MinSize().Height+theme.LineSpacing()))
 	}
 }
