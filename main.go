@@ -11,10 +11,11 @@ import (
 )
 
 var App fyne.App
+var MainWindow fyne.Window
 
 var logFile *os.File
 
-func initi() {
+func preInit() {
 	// Set logger output
 	var err error
 	logFile, err = os.OpenFile("app.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
@@ -24,14 +25,26 @@ func initi() {
 	log.SetOutput(logFile)
 }
 
+func Init() {
+	time.Sleep(time.Second * 3)
+}
+
+func maini() {
+	splashscreen.Launch(Init)
+}
+
 func main() {
-	initi()
+	// Run preinitialization
+	preInit()
 
+	// Create App
 	App = app.New()
+	MainWindow = App.NewWindow("Machina Maestro")
+	MainWindow.SetMaster()
 
-	splashscreen.Launch(func() {
-		time.Sleep(5 * time.Second)
-	})
+	// Launch main function
+	go maini()
 
+	// Run app
 	App.Run()
 }

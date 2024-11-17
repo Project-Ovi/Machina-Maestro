@@ -19,10 +19,15 @@ func Launch(loadFunc func()) {
 
 		// Make a text that will output the logger's status
 		descriptiveText := widget.NewLabel("Loading...")
+		textBox := container.New(
+			layout.NewHBoxLayout(),
+			descriptiveText,
+			layout.NewSpacer(),
+		)
 
 		// Create content
 		content := container.New(
-			layout.NewBorderLayout(nil, descriptiveText, nil, nil),
+			layout.NewBorderLayout(nil, textBox, nil, nil),
 			img,
 		)
 
