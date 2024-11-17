@@ -1,7 +1,17 @@
 package main
 
-import "fmt"
+import (
+	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/app"
+	splashscreen "github.com/Project-Ovi/Machina-Maestro/windows/splash_screen"
+)
+
+var App fyne.App
 
 func main() {
-	fmt.Println("Hello, World!")
+	App = app.New()
+
+	splashscreen.Launch(App)
+
+	App.Run()
 }
