@@ -170,7 +170,8 @@ func Launch(window fyne.Window) string {
 			)
 
 			// Append the object to the scrollable list
-			scrollable.Content.(*fyne.Container).Add(modelBanner)
+			modelBanner.Hide()
+			// scrollable.Content.(*fyne.Container).Add(modelBanner)
 
 		}
 	}()
