@@ -25,7 +25,7 @@ func Launch(window fyne.Window) {
 	// Make a button
 	var waitPressGroup sync.WaitGroup
 	waitPressGroup.Add(1)
-	btn := widget.NewButton("Pick your OVI", func() {})
+	btn := widget.NewButtonWithIcon("Pick your OVI", theme.LoginIcon(), func() {})
 	btn.OnTapped = func() {
 		waitPressGroup.Done()
 		btn.Disable()
