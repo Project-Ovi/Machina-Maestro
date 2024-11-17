@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"time"
@@ -38,10 +39,17 @@ home:
 	homescreen.Launch(MainWindow)
 	time.Sleep(time.Millisecond * 200)
 
-	if ovipicker.Launch(MainWindow) == "home" {
+picker:
+	pickerOutput := ovipicker.Launch(MainWindow)
+	switch pickerOutput {
+	case "home":
 		time.Sleep(time.Millisecond * 200)
 		goto home
+	case "picker":
+		goto picker
 	}
+
+	fmt.Println(pickerOutput)
 }
 
 func main() {
