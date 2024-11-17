@@ -11,7 +11,7 @@ var App fyne.App
 func main() {
 	App = app.New()
 
-	splashscreen.Launch(App)
+	splashscreen.Launch()
 
 	App.Run()
 }

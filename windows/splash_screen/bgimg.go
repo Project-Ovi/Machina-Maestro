@@ -20,7 +20,7 @@ func brokenIMG() *canvas.Image {
 func getBGIMG() *canvas.Image {
 	log.Println("Started loading splash screen backgorund image")
 	// Read current directory
-	dir, err := os.ReadDir("")
+	dir, err := os.ReadDir("/")
 	if err != nil {
 		log.Println("Failed to read current dir: ", err)
 		return brokenIMG()
