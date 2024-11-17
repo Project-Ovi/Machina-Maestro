@@ -1,4 +1,4 @@
-package ovipicker
+package helper
 
 import (
 	"fyne.io/fyne/v2"

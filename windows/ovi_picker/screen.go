@@ -176,7 +176,7 @@ func Launch(window fyne.Window) string {
 
 	// Make content
 	content := container.New(
-		&StackWithNavbar{},
+		&helper.StackWithNavbar{},
 		navbar(),
 		scrollable,
 	)
