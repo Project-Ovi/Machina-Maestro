@@ -3,13 +3,15 @@ package splashscreen
 import (
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/driver/desktop"
-	"fyne.io/fyne/v2/widget"
 )
 
-func Launch(App fyne.App) {
+func Launch() {
 	if drv, ok := fyne.CurrentApp().Driver().(desktop.Driver); ok {
 		w := drv.CreateSplashWindow()
-		w.SetContent(widget.NewLabel("Hello World"))
+
+		img := getBGIMG()
+
+		w.SetContent(img)
 		w.Show()
 	}
 }
