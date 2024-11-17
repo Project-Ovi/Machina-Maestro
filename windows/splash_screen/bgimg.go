@@ -17,7 +17,7 @@ const brokenXSize = 550
 func brokenIMG() *canvas.Image {
 	imgObj := canvas.NewImageFromResource(theme.BrokenImageIcon())
 	imgObj.FillMode = canvas.ImageFillContain
-	imgObj.Resize(fyne.NewSize(brokenXSize, backgorundYSize))
+	imgObj.SetMinSize(fyne.NewSize(brokenXSize, backgorundYSize))
 
 	return imgObj
 }
@@ -63,7 +63,7 @@ func getBGIMG() *canvas.Image {
 			// Convert file
 			imgObj := canvas.NewImageFromImage(img)
 			imgObj.FillMode = canvas.ImageFillStretch
-			imgObj.Resize(fyne.NewSize(imgObj.Size().Width/imgObj.Size().Height*backgorundYSize, backgorundYSize))
+			imgObj.SetMinSize(fyne.NewSize(imgObj.Size().Width/imgObj.Size().Height*backgorundYSize, backgorundYSize))
 			return imgObj
 		}
 	}
