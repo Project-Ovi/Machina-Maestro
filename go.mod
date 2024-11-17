@@ -4,8 +4,8 @@ go 1.22.7
 
 require (
 	fyne.io/fyne/v2 v2.5.2
-	github.com/Project-Ovi/Machina-Maestro/windows/home_screen v0.0.0-20241117121705-c525227e2577
-	github.com/Project-Ovi/Machina-Maestro/windows/splash_screen v0.0.0-20241117121705-c525227e2577
+	github.com/Project-Ovi/Machina-Maestro/windows/home_screen v0.0.0-20241117122632-c6a99a8c2a28
+	github.com/Project-Ovi/Machina-Maestro/windows/splash_screen v0.0.0-20241117122632-c6a99a8c2a28
 )
 
 require (

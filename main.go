@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"time"
@@ -34,6 +35,8 @@ func maini() {
 	splashscreen.Launch(Init)
 
 	homescreen.Launch(MainWindow)
+
+	fmt.Println("Pressed!")
 }
 
 func main() {
