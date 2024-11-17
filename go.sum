@@ -45,8 +45,10 @@ github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03
 github.com/BurntSushi/toml v1.4.0 h1:kuoIxZQy2WRRk1pttg9asf+WVv6tWQuBNVmK8+nqPr0=
 github.com/BurntSushi/toml v1.4.0/go.mod h1:ukJfTF/6rtPPRCnwkur4qwRxa8vTRFBF0uk2lLoLwho=
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
-github.com/Project-Ovi/Machina-Maestro/windows/splash_screen v0.0.0-20241117115225-9ce3d5794c82 h1:uZye2f028Nj3lljXSmOv+yybYMuaSpCwLQNmqsIEmzg=
-github.com/Project-Ovi/Machina-Maestro/windows/splash_screen v0.0.0-20241117115225-9ce3d5794c82/go.mod h1:cC0+Y+8zM0YzgNsvNz+psz62wtLJS/bye4JXvyR7kX8=
+github.com/Project-Ovi/Machina-Maestro/windows/home_screen v0.0.0-20241117120833-c1b0ead42ffd h1:QviBGm9dQSdhEgLwZmfJkuYenqZUoaEk6UoVoBcECHM=
+github.com/Project-Ovi/Machina-Maestro/windows/home_screen v0.0.0-20241117120833-c1b0ead42ffd/go.mod h1:4SjJPxyId2KZJlSApKy6iMmNzfMFHvH2sCfeoZc3wK0=
+github.com/Project-Ovi/Machina-Maestro/windows/splash_screen v0.0.0-20241117120833-c1b0ead42ffd h1:WxSzxZihnFCBU8nzMiJyijRyMBPx/GuaZ742uthItoA=
+github.com/Project-Ovi/Machina-Maestro/windows/splash_screen v0.0.0-20241117120833-c1b0ead42ffd/go.mod h1:cC0+Y+8zM0YzgNsvNz+psz62wtLJS/bye4JXvyR7kX8=
 github.com/antihax/optional v1.0.0/go.mod h1:uupD/76wgC+ih3iEmQUL+0Ugr19nfwCT1kdvxnR2qWY=
 github.com/armon/circbuf v0.0.0-20150827004946-bbbad097214e/go.mod h1:3U/XgcO3hCbHZ8TKRvWD2dDTCfh9M9ya+I9JpbB7O8o=
 github.com/armon/go-metrics v0.0.0-20180917152333-f0300d1749da/go.mod h1:Q73ZrmVTwzkszR9V5SSuryQ31EELlFMUz1kKyl939pY=

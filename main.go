@@ -7,6 +7,7 @@ import (
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
+	homescreen "github.com/Project-Ovi/Machina-Maestro/windows/home_screen"
 	splashscreen "github.com/Project-Ovi/Machina-Maestro/windows/splash_screen"
 )
 
@@ -31,6 +32,8 @@ func Init() {
 
 func maini() {
 	splashscreen.Launch(Init)
+
+	homescreen.Launch(MainWindow)
 }
 
 func main() {
@@ -41,6 +44,7 @@ func main() {
 	App = app.New()
 	MainWindow = App.NewWindow("Machina Maestro")
 	MainWindow.SetMaster()
+	MainWindow.Show()
 
 	// Launch main function
 	go maini()

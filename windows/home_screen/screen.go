@@ -11,11 +11,13 @@ import (
 func Launch(window fyne.Window) {
 	// Make title
 	title := canvas.NewText(window.Title(), theme.Color(theme.ColorNameForeground))
+	title.Alignment = fyne.TextAlignCenter
 	title.TextSize = 35
 	title.TextStyle.Bold = true
 
 	// Make Logo
 	logo := getLogo()
+	logo.SetMinSize(fyne.NewSquareSize(120))
 
 	// Make content
 	content := container.New(
