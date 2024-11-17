@@ -175,7 +175,6 @@ func Launch(window fyne.Window) string {
 	}()
 
 	// Make content
-	scrollable.SetMinSize(fyne.NewSize(scrollable.MinSize().Width, 500))
 	content := container.New(
 		&StackWithNavbar{},
 		navbar(),
