@@ -31,7 +31,7 @@ func Launch(window fyne.Window) string {
 	scrollable := container.NewVScroll(container.New(
 		layout.NewVBoxLayout(),
 	))
-	scrollable.Hide()
+	scrollable.Show()
 
 	// Update scrollable items
 	go func() {
@@ -178,6 +178,7 @@ func Launch(window fyne.Window) string {
 	content := container.New(
 		layout.NewVBoxLayout(),
 		navbar(),
+		scrollable,
 	)
 
 	// Set content
