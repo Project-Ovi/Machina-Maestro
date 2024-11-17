@@ -63,7 +63,7 @@ func getBGIMG() *canvas.Image {
 			// Convert file
 			imgObj := canvas.NewImageFromImage(img)
 			imgObj.FillMode = canvas.ImageFillStretch
-			imgObj.Resize(fyne.NewSize(imgObj.Size().Width/imgObj.Size().Height*backgorundYSize, backgorundYSize))
+			// imgObj.Resize(fyne.NewSize(imgObj.Size().Width/imgObj.Size().Height*backgorundYSize, backgorundYSize))
 			return imgObj
 		}
 	}
