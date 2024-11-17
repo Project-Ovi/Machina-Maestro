@@ -29,6 +29,7 @@ func navbar() fyne.CanvasObject {
 	addBTN := widget.NewButtonWithIcon("", theme.Icon(theme.IconNameContentAdd), func() {})
 	addBTN.OnTapped = func() {
 		addBTN.Disable()
+		modelAddWindow()
 	}
 	log.Println("Picker navbar: Loaded add button")
 
