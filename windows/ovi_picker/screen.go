@@ -27,8 +27,8 @@ func Launch(window fyne.Window) string {
 	// Initialize wait group
 	waitPressGroup.Add(1)
 
-	// Make the navbar
-	navbar := navbar()
+	// Make the Navbar
+	Navbar := navbar()
 
 	// Make scroll
 	scrollable := container.NewVScroll(container.New(
@@ -180,7 +180,7 @@ func Launch(window fyne.Window) string {
 
 	// Make content
 	content := container.New(
-		layout.NewBorderLayout(navbar, nil, nil, nil),
+		layout.NewBorderLayout(Navbar, nil, nil, nil),
 		scrollable,
 	)
 
