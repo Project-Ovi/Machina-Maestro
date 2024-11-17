@@ -29,6 +29,8 @@ func Launch(window fyne.Window) {
 	btn.OnTapped = func() {
 		waitPressGroup.Done()
 		btn.Disable()
+		btn.SetText("Loading...")
+		btn.Refresh()
 	}
 
 	// Make content
@@ -38,7 +40,12 @@ func Launch(window fyne.Window) {
 		layout.NewSpacer(),
 		logo,
 		layout.NewSpacer(),
-		btn,
+		container.New(
+			layout.NewHBoxLayout(),
+			layout.NewSpacer(),
+			btn,
+			layout.NewSpacer(),
+		),
 		layout.NewSpacer(),
 	)
 
