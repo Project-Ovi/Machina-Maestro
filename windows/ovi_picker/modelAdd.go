@@ -14,6 +14,10 @@ func modelAddWindow() {
 	// Create window
 	App := fyne.CurrentApp()
 	window := App.NewWindow("Add model")
+	window.SetOnClosed(func() {
+		returnedText = "picker"
+		waitPressGroup.Done()
+	})
 
 	// Create title
 	title := canvas.NewText(window.Title(), theme.Color(theme.ColorNameForeground))
