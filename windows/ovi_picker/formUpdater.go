@@ -15,7 +15,7 @@ func returnModelSpecificForm(name string) []fyne.CanvasObject {
 	// Read the options file
 	f, err := os.ReadFile(path.Join(WD, "models", name, "options.json"))
 	if err != nil {
-		log.Println("Failed to open options file for", name)
+		log.Println("Failed to open options file for", name, err)
 		return nil
 	}
 
@@ -23,7 +23,7 @@ func returnModelSpecificForm(name string) []fyne.CanvasObject {
 	var options map[string]interface{}
 	err = json.Unmarshal(f, &options)
 	if err != nil {
-		log.Println("Failed to decode options file for", name)
+		log.Println("Failed to decode options file for", name, err)
 		return nil
 	}
 
