@@ -19,6 +19,9 @@ import (
 var thisModel helper.OVI
 
 func modelAddWindow() {
+	// Make sure the model options are initialized
+	thisModel.Others = make(map[string]string)
+
 	// Create window
 	App := fyne.CurrentApp()
 	window := App.NewWindow("Add model")
