@@ -84,6 +84,7 @@ func modelAddWindow() {
 		layout.NewSpacer(),
 		form,
 		modelOptions,
+		layout.NewSpacer(),
 	)
 
 	// Update model options based on the product select Select
