@@ -39,6 +39,9 @@ func returnModelSpecificForm(name string) []fyne.CanvasObject {
 		if v, ok := value.(string); ok {
 			objEntry = widget.NewEntry()
 			objEntry.(*widget.Entry).Validator = validation.NewRegexp(v, "Invalid text")
+			objEntry.(*widget.Entry).OnChanged = func(s string) {
+				thisModel.Others[key] = s
+			}
 		}
 
 		// Try to make a select
@@ -53,6 +56,9 @@ func returnModelSpecificForm(name string) []fyne.CanvasObject {
 			}
 
 			objEntry = widget.NewSelect(selectOptions, func(s string) {})
+			objEntry.(*widget.Select).OnChanged = func(s string) {
+				thisModel.Others[key] = s
+			}
 		}
 
 		// Make sure we have at leas one entry
