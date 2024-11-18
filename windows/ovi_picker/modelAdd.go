@@ -46,6 +46,7 @@ func modelAddWindow() {
 		}
 		fmt.Println(thisModel.Name)
 	}
+	thisModel.Name = "My OVI"
 
 	// Create description form
 	descriptionTitle := widget.NewLabel("Description:")
@@ -59,6 +60,7 @@ func modelAddWindow() {
 			thisModel.Description = s
 		}
 	}
+	thisModel.Description = "My beloved OVI"
 
 	// Fetch products
 	var productsNames []string
