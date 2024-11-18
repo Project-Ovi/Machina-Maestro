@@ -20,7 +20,7 @@ import (
 var thisModel helper.OVI
 
 func modelAddWindow() {
-	// Make sure the model options are initialized
+	// Init
 	thisModel.Others = make(map[string]string)
 
 	// Create window
@@ -107,6 +107,30 @@ func modelAddWindow() {
 
 	// Make a submit button
 	submitBTN := widget.NewButtonWithIcon("Submit", theme.Icon(theme.IconNameLogin), func() {
+		// Make sure a product is selected
+		if thisModel.ProductName == "" || thisModel.ProductName == "Get more online..." {
+			return
+		}
+
+		// Validate model specific options
+		for _, val := range modelOptions.Objects {
+			// Validate entries
+			if v, ok := val.(*widget.Entry); ok {
+				if err := v.Validate(); err != nil {
+					log.Println("Couldn't submit form. Reason:", err)
+					return
+				}
+			}
+
+			// Validate selects
+			if v, ok := val.(*widget.Select); ok {
+				if v.Selected == "" {
+					log.Println("Can't save an empty select value")
+					return
+				}
+			}
+		}
+
 		saveThisModel()
 		window.Close()
 	})
