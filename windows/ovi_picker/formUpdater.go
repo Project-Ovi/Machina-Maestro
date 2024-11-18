@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 	"path"
+	"reflect"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/data/validation"
@@ -48,7 +49,7 @@ func returnModelSpecificForm(name string) []fyne.CanvasObject {
 		// Make sure we have at leas one entry
 		if objEntry == nil {
 			log.Println("Invalid option entry:", key)
-			log.Println("Value of", key, ":", value)
+			log.Println("Value of", key, ":", reflect.TypeOf(value))
 			continue
 		}
 
