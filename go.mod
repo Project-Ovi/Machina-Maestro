@@ -4,15 +4,15 @@ go 1.22.7
 
 require (
 	fyne.io/fyne/v2 v2.5.2
-	github.com/Project-Ovi/Machina-Maestro/windows/home_screen v0.0.0-20241117212823-ba0a97a2d6cd
-	github.com/Project-Ovi/Machina-Maestro/windows/ovi_picker v0.0.0-20241117212823-ba0a97a2d6cd
-	github.com/Project-Ovi/Machina-Maestro/windows/splash_screen v0.0.0-20241117212823-ba0a97a2d6cd
+	github.com/Project-Ovi/Machina-Maestro/windows/home_screen v0.0.0-20241118174529-8e48a0da7bd6
+	github.com/Project-Ovi/Machina-Maestro/windows/ovi_picker v0.0.0-20241118174529-8e48a0da7bd6
+	github.com/Project-Ovi/Machina-Maestro/windows/splash_screen v0.0.0-20241118174529-8e48a0da7bd6
 )
 
 require (
 	fyne.io/systray v1.11.0 // indirect
 	github.com/BurntSushi/toml v1.4.0 // indirect
-	github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241117212823-ba0a97a2d6cd // indirect
+	github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241118174529-8e48a0da7bd6 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/fredbi/uri v1.1.0 // indirect
 	github.com/fsnotify/fsnotify v1.8.0 // indirect

@@ -1,7 +1,6 @@
 package ovipicker
 
 import (
-	"fmt"
 	"log"
 	"os"
 	"path"
@@ -12,7 +11,6 @@ import (
 	"fyne.io/fyne/v2/layout"
 	"fyne.io/fyne/v2/theme"
 	"fyne.io/fyne/v2/widget"
-	"github.com/Project-Ovi/Machina-Maestro/helper"
 )
 
 func modelAddWindow() {
@@ -64,9 +62,7 @@ func modelAddWindow() {
 
 	// Create product form
 	productTitle := widget.NewLabel("Product:")
-	productEntry := widget.NewSelect(append(productsNames, "Get more online..."), func(s string) {
-		fmt.Println("Changed to", s)
-	})
+	productEntry := widget.NewSelect(append(productsNames, "Get more online..."), func(s string) {})
 
 	// Create form
 	form := container.New(
@@ -76,12 +72,30 @@ func modelAddWindow() {
 		productTitle, productEntry,
 	)
 
+	// Make model options
+	modelOptions := container.New(
+		layout.NewFormLayout(),
+	)
+
 	// Make content
 	content := container.New(
-		&helper.StackWithNavbar{},
+		layout.NewVBoxLayout(),
 		title,
+		layout.NewSpacer(),
 		form,
+		modelOptions,
 	)
+
+	// Update model options based on the product select Select
+	productEntry.OnChanged = func(s string) {
+		if s == "Get more online..." {
+			return
+		}
+
+		modelOptions.Objects = returnModelSpecificForm(s)
+		content.Refresh()
+
+	}
 
 	// Set window content
 	window.SetContent(content)
