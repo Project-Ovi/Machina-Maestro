@@ -154,7 +154,7 @@ func saveThisModel() error {
 	}
 
 	// Save config file
-	err = os.WriteFile(path.Join(saveDirPath, "config.json"), b, 0666)
+	err = os.WriteFile(path.Join(saveDirPath, "config.json"), b, 0766)
 
 	return err
 }
