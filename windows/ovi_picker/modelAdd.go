@@ -1,6 +1,7 @@
 package ovipicker
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"os"
@@ -101,7 +102,8 @@ func modelAddWindow() {
 
 	// Make a submit button
 	submitBTN := widget.NewButtonWithIcon("Submit", theme.Icon(theme.IconNameLogin), func() {
-		fmt.Println(thisModel)
+		b, _ := json.Marshal(thisModel)
+		fmt.Println(string(b))
 		window.Close()
 	})
 
