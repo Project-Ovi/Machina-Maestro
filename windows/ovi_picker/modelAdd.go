@@ -38,14 +38,13 @@ func modelAddWindow() {
 	nameEntry := widget.NewEntry()
 	nameEntry.SetPlaceHolder("My OVI")
 	nameEntry.OnChanged = func(s string) {
-		// Make sure we have a valid value
+		// Update name
 		if s == "" {
 			thisModel.Name = "My OVI"
-			return
+		} else {
+			thisModel.Name = s
 		}
-
-		// Update name
-		thisModel.Name = s
+		fmt.Println(thisModel.Name)
 	}
 
 	// Create description form
@@ -53,14 +52,12 @@ func modelAddWindow() {
 	descriptionEntry := widget.NewEntry()
 	descriptionEntry.SetPlaceHolder("My beloved OVI")
 	descriptionEntry.OnChanged = func(s string) {
-		// Make sure we have a valid value
+		// Update description
 		if s == "" {
 			thisModel.Description = "My beloved OVI"
-			return
+		} else {
+			thisModel.Description = s
 		}
-
-		// Update description
-		thisModel.Description = s
 	}
 
 	// Fetch products
