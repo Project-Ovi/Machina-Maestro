@@ -42,8 +42,17 @@ func returnModelSpecificForm(name string) []fyne.CanvasObject {
 		}
 
 		// Try to make a select
-		if v, ok := value.([]string); ok {
-			objEntry = widget.NewSelect(v, func(s string) {})
+		if v, ok := value.([]interface{}); ok {
+			selectOptions := make([]string, len(v))
+			for _, val := range v {
+				if val, ok := val.(string); ok {
+					selectOptions = append(selectOptions, val)
+				} else {
+					log.Println("Unexpected select option:", val)
+				}
+			}
+
+			objEntry = widget.NewSelect(selectOptions, func(s string) {})
 		}
 
 		// Make sure we have at leas one entry
