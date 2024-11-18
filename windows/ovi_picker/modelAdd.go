@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"path"
+	"time"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"
@@ -106,8 +107,7 @@ func modelAddWindow() {
 
 	// Make a submit button
 	submitBTN := widget.NewButtonWithIcon("Submit", theme.Icon(theme.IconNameLogin), func() {
-		b, _ := json.Marshal(thisModel)
-		fmt.Println(string(b))
+		saveThisModel()
 		window.Close()
 	})
 
@@ -137,4 +137,24 @@ func modelAddWindow() {
 	// Set window content
 	window.SetContent(content)
 	window.Show()
+}
+
+func saveThisModel() error {
+	// Make the directory to save all models
+	saveDirPath := path.Join(WD, "myModels", time.Now().Format(tFormat))
+	err := os.Mkdir(saveDirPath, 0666)
+	if err != nil {
+		return err
+	}
+
+	// Marshall model
+	b, err := json.Marshal(thisModel)
+	if err != nil {
+		return err
+	}
+
+	// Save config file
+	err = os.WriteFile(path.Join(saveDirPath, "config.json"), b, 0666)
+
+	return err
 }
