@@ -2,7 +2,6 @@ package ovipicker
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 	"os"
 	"path"
@@ -48,7 +47,6 @@ func modelAddWindow() {
 		} else {
 			thisModel.Name = s
 		}
-		fmt.Println(thisModel.Name)
 	}
 	thisModel.Name = "My OVI"
 
