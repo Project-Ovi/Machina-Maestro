@@ -40,7 +40,7 @@ func modelAddWindow() {
 	nameEntry.OnChanged = func(s string) {
 		// Make sure we have a valid value
 		if s == "" {
-			s = "My OVI"
+			thisModel.Name = "My OVI"
 		}
 
 		// Update name
@@ -54,7 +54,7 @@ func modelAddWindow() {
 	descriptionEntry.OnChanged = func(s string) {
 		// Make sure we have a valid value
 		if s == "" {
-			s = "My beloved OVI"
+			thisModel.Description = "My beloved OVI"
 		}
 
 		// Update description
