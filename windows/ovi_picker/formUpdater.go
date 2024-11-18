@@ -44,9 +44,9 @@ func returnModelSpecificForm(name string) []fyne.CanvasObject {
 		// Try to make a select
 		if v, ok := value.([]interface{}); ok {
 			selectOptions := make([]string, len(v))
-			for _, val := range v {
-				if val, ok := val.(string); ok {
-					selectOptions = append(selectOptions, val)
+			for i, val := range v {
+				if vali, ok := val.(string); ok {
+					selectOptions[i] = vali
 				} else {
 					log.Println("Unexpected select option:", val)
 				}
