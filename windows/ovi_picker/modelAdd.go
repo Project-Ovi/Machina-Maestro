@@ -1,6 +1,7 @@
 package ovipicker
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"path"
@@ -11,7 +12,10 @@ import (
 	"fyne.io/fyne/v2/layout"
 	"fyne.io/fyne/v2/theme"
 	"fyne.io/fyne/v2/widget"
+	"github.com/Project-Ovi/Machina-Maestro/helper"
 )
+
+var thisModel helper.OVI
 
 func modelAddWindow() {
 	// Create window
@@ -32,11 +36,29 @@ func modelAddWindow() {
 	nameTitle := widget.NewLabel("Name:")
 	nameEntry := widget.NewEntry()
 	nameEntry.SetPlaceHolder("My OVI")
+	nameEntry.OnChanged = func(s string) {
+		// Make sure we have a valid value
+		if s == "" {
+			s = "My OVI"
+		}
+
+		// Update name
+		thisModel.Name = s
+	}
 
 	// Create description form
 	descriptionTitle := widget.NewLabel("Description:")
 	descriptionEntry := widget.NewEntry()
 	descriptionEntry.SetPlaceHolder("My beloved OVI")
+	descriptionEntry.OnChanged = func(s string) {
+		// Make sure we have a valid value
+		if s == "" {
+			s = "My beloved OVI"
+		}
+
+		// Update description
+		thisModel.Description = s
+	}
 
 	// Fetch products
 	var productsNames []string
@@ -77,6 +99,12 @@ func modelAddWindow() {
 		layout.NewFormLayout(),
 	)
 
+	// Make a submit button
+	submitBTN := widget.NewButtonWithIcon("Submit", theme.Icon(theme.IconNameLogin), func() {
+		fmt.Println(thisModel)
+		window.Close()
+	})
+
 	// Make content
 	content := container.New(
 		layout.NewVBoxLayout(),
@@ -85,6 +113,7 @@ func modelAddWindow() {
 		form,
 		modelOptions,
 		layout.NewSpacer(),
+		submitBTN,
 	)
 
 	// Update model options based on the product select Select
@@ -94,6 +123,7 @@ func modelAddWindow() {
 		}
 
 		modelOptions.Objects = returnModelSpecificForm(s)
+		thisModel.ProductName = s
 		content.Refresh()
 
 	}
