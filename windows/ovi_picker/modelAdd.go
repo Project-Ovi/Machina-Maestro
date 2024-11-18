@@ -41,6 +41,7 @@ func modelAddWindow() {
 		// Make sure we have a valid value
 		if s == "" {
 			thisModel.Name = "My OVI"
+			return
 		}
 
 		// Update name
@@ -55,6 +56,7 @@ func modelAddWindow() {
 		// Make sure we have a valid value
 		if s == "" {
 			thisModel.Description = "My beloved OVI"
+			return
 		}
 
 		// Update description
