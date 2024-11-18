@@ -74,7 +74,7 @@ func modelAddWindow() {
 		if err != nil {
 			log.Println("Failed to read", productsDirPath, ". Reason:", err)
 			// Attempt to create the directory
-			err := os.Mkdir(productsDirPath, 0666)
+			err := os.Mkdir(productsDirPath, 0766)
 			if err != nil {
 				log.Println("Failed to create", productsDirPath)
 				return

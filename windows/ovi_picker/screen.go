@@ -53,7 +53,7 @@ func Launch(window fyne.Window) string {
 		dir, err = os.ReadDir(dirName)
 		if err != nil {
 			log.Println("Failed to open", dirName)
-			err = os.Mkdir("myModels", 0666)
+			err = os.Mkdir("myModels", 0766)
 			if err != nil {
 				log.Println("Failed to create", dirName)
 				log.Println("Aborting loading other OVI models")
