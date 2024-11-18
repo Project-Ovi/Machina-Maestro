@@ -23,6 +23,8 @@ var returnedText string
 
 const tFormat = "20060102150405000"
 
+var WD string
+
 func Launch(window fyne.Window) string {
 	// Initialize wait group
 	waitPressGroup.Add(1)
@@ -37,7 +39,8 @@ func Launch(window fyne.Window) string {
 	go func() {
 		log.Println("Fetching models...")
 		// Get working directory
-		WD, err := os.Getwd()
+		var err error
+		WD, err = os.Getwd()
 		if err != nil {
 			log.Println(err)
 			log.Println("Aborting loading other OVI models")

@@ -2,6 +2,9 @@ package ovipicker
 
 import (
 	"fmt"
+	"log"
+	"os"
+	"path"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"
@@ -37,9 +40,31 @@ func modelAddWindow() {
 	descriptionEntry := widget.NewEntry()
 	descriptionEntry.SetPlaceHolder("My beloved OVI")
 
+	// Fetch products
+	var productsNames []string
+	func() {
+		productsDirPath := path.Join(WD, "models")
+		productsDir, err := os.ReadDir(productsDirPath)
+		if err != nil {
+			log.Println("Failed to read", productsDirPath, ". Reason:", err)
+			// Attempt to create the directory
+			err := os.Mkdir(productsDirPath, 0666)
+			if err != nil {
+				log.Println("Failed to create", productsDirPath)
+				return
+			}
+			log.Println("Created", productsDirPath)
+		}
+		for _, val := range productsDir {
+			if val.IsDir() {
+				productsNames = append(productsNames, val.Name())
+			}
+		}
+	}()
+
 	// Create product form
 	productTitle := widget.NewLabel("Product:")
-	productEntry := widget.NewSelect([]string{"Option 1", "Option 2", "Option 3"}, func(s string) {
+	productEntry := widget.NewSelect(append(productsNames, "Get more online..."), func(s string) {
 		fmt.Println("Changed to", s)
 	})
 
