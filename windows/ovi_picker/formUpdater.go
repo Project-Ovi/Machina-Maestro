@@ -48,6 +48,7 @@ func returnModelSpecificForm(name string) []fyne.CanvasObject {
 		// Make sure we have at leas one entry
 		if objEntry == nil {
 			log.Println("Invalid option entry:", key)
+			log.Println("Value of", key, ":", value)
 			continue
 		}
 
