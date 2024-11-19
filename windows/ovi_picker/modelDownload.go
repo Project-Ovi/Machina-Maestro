@@ -71,7 +71,28 @@ func fetchAvailableToDownloadModels() []modelPresentation {
 		})
 	}
 
+	checkModelsDownloaded(availableModelsToDownload)
 	return availableModelsToDownload
+}
+
+func checkModelsDownloaded(models []modelPresentation) {
+	// Read directory
+	downloadedDirs, err := os.ReadDir(path.Join(WD, "models"))
+	if err != nil {
+		log.Println(err)
+		return
+	}
+
+	// Compare the models to the downloaded models
+	for i, requested := range models {
+		for _, available := range downloadedDirs {
+			if requested.name == available.Name() && available.IsDir() {
+				log.Println("Found downloaded model:", requested.name)
+				models[i].downloaded = true
+				break
+			}
+		}
+	}
 }
 
 func convertModelAddToModelDownload(window fyne.Window) {
