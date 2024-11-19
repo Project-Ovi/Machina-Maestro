@@ -33,6 +33,7 @@ func fetchAvailableToDownloadModels() []modelPresentation {
 		log.Println("Error in converting model add to model download. Failed to join URL: ", err)
 		return nil
 	}
+	fmt.Println(modelRepoMDOrigin)
 
 	// Make a HTTP GET request
 	log.Println("Making HTTP GET request to:", modelRepoMDOrigin)
