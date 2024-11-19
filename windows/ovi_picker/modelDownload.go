@@ -105,15 +105,22 @@ func convertModelAddToModelDownload(window fyne.Window) {
 	// Add scroll functionality to the model list
 	scrollModelsObj := container.NewVScroll(modelListObjs)
 
+	// Create submit button
+	submitBTN := widget.NewButtonWithIcon("Submit and download", theme.Icon(theme.IconNameDownload), func() {})
+
 	// Assemble UI
 	content := container.New(
 		&helper.StackWithNavbar{},
 		titleObj,
 		container.New(
-			layout.NewHBoxLayout(),
-			layout.NewSpacer(),
-			scrollModelsObj,
-			layout.NewSpacer(),
+			&helper.StackWithFooter{},
+			submitBTN,
+			container.New(
+				layout.NewHBoxLayout(),
+				layout.NewSpacer(),
+				scrollModelsObj,
+				layout.NewSpacer(),
+			),
 		),
 	)
 

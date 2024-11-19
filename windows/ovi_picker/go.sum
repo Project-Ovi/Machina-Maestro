@@ -47,6 +47,8 @@ github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241117153436-4a611b1589f4
 github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241117153436-4a611b1589f4/go.mod h1:5zD8tCbTNwzGj/WXidk8WWChEXkHRG6EKuMqgL2lTvY=
 github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241117174410-53f5452b283a h1:nRZ/uxrkcdOYxgyY6vQFMqbtywrE4WOJXY/HVTDdzuE=
 github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241117174410-53f5452b283a/go.mod h1:+5euBPoGqz+L1y7RZU5k2LUJyyoAZdg3/PCOKbrXgAE=
+github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241119180531-b6f57dfb9ef8 h1:VRf1y9JSbC1hXiBnDEpX9aUnBrjZrCrans2v85D1NrI=
+github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241119180531-b6f57dfb9ef8/go.mod h1:+5euBPoGqz+L1y7RZU5k2LUJyyoAZdg3/PCOKbrXgAE=
 github.com/antihax/optional v1.0.0/go.mod h1:uupD/76wgC+ih3iEmQUL+0Ugr19nfwCT1kdvxnR2qWY=
 github.com/armon/circbuf v0.0.0-20150827004946-bbbad097214e/go.mod h1:3U/XgcO3hCbHZ8TKRvWD2dDTCfh9M9ya+I9JpbB7O8o=
 github.com/armon/go-metrics v0.0.0-20180917152333-f0300d1749da/go.mod h1:Q73ZrmVTwzkszR9V5SSuryQ31EELlFMUz1kKyl939pY=
