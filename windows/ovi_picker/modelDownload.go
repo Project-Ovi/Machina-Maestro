@@ -109,7 +109,12 @@ func convertModelAddToModelDownload(window fyne.Window) {
 	content := container.New(
 		&helper.StackWithNavbar{},
 		titleObj,
-		scrollModelsObj,
+		container.New(
+			layout.NewHBoxLayout(),
+			layout.NewSpacer(),
+			scrollModelsObj,
+			layout.NewSpacer(),
+		),
 	)
 
 	// Display content
