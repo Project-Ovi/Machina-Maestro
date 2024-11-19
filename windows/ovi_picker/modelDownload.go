@@ -129,6 +129,7 @@ func convertModelAddToModelDownload(window fyne.Window) {
 		progressBarObj := widget.NewProgressBarInfinite()
 		progressBarObj.Start()
 		submitBTN = progressBarObj
+		content.Refresh()
 	}
 
 	// Display content
