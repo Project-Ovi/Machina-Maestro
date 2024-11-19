@@ -154,9 +154,6 @@ func convertModelAddToModelDownload(window fyne.Window) {
 	submitBTN.OnTapped = func() {
 		// Make a progress bar
 		progressBarObj := widget.NewProgressBar()
-		progressBarObj.Min = 0
-		progressBarObj.Max = 1
-		progressBarObj.SetValue(0)
 
 		// Replace the button
 		submitBTNWrapper.RemoveAll()
