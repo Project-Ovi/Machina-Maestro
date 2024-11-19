@@ -6,6 +6,8 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"os"
+	"path"
 	"strings"
 
 	"fyne.io/fyne/v2"
@@ -130,8 +132,31 @@ func convertModelAddToModelDownload(window fyne.Window) {
 
 	submitBTN.OnTapped = func() {
 		// Make a progress bar
-		progressBarObj := widget.NewProgressBarInfinite()
-		progressBarObj.Start()
+		progressBarObj := widget.NewProgressBar()
+		progressBarObj.Min = 0
+		progressBarObj.Max = 1
+		progressBarObj.SetValue(0)
+
+		// Start loading
+		for index, value := range userSelectedModelOptions {
+			// Skip unchanged values
+			if modelOptions[index].downloaded == value.downloaded {
+				continue
+			}
+
+			// Manage models
+			if !value.downloaded {
+				err := os.RemoveAll(path.Join(WD, "models", value.name))
+				if err != nil {
+					log.Println("Failed to remove model", value.name, ". Reason:", err)
+				}
+			} else {
+				//TODO: Download models
+			}
+
+			// Update progress bar
+			progressBarObj.SetValue(float64(index) / float64(len(userSelectedModelOptions)))
+		}
 
 		// Replace the button
 		submitBTNWrapper.RemoveAll()
