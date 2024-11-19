@@ -108,9 +108,6 @@ func modelAddWindow() {
 		// Make sure a product is selected
 		if thisModel.ProductName == "" || thisModel.ProductName == "Get more online..." {
 			return
-		} else if thisModel.ProductName == productEntry.Options[len(productEntry.Options)] {
-			convertModelAddToModelDownload(window)
-			return
 		}
 
 		// Validate model specific options
@@ -150,6 +147,7 @@ func modelAddWindow() {
 	// Update model options based on the product select Select
 	productEntry.OnChanged = func(s string) {
 		if s == "Get more online..." {
+			convertModelAddToModelDownload(window)
 			return
 		}
 
