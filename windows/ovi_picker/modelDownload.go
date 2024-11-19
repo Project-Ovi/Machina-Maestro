@@ -1,6 +1,7 @@
 package ovipicker
 
 import (
+	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -53,6 +54,7 @@ func fetchAvailableToDownloadModels() []modelPresentation {
 	// Process response
 	var availableModelsToDownload []modelPresentation
 	for _, val := range strings.Split(string(markdownText), "\n") {
+		fmt.Println(val)
 		// Discard invalid items
 		if len(val) < 1 || val[0] != '-' {
 			continue
