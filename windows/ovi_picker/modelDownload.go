@@ -54,7 +54,7 @@ func fetchAvailableToDownloadModels() []modelPresentation {
 	var availableModelsToDownload []modelPresentation
 	for _, val := range strings.Split(string(markdownText), "\n") {
 		// Discard invalid items
-		if val[0] != '-' {
+		if len(val) < 1 || val[0] != '-' {
 			continue
 		}
 
