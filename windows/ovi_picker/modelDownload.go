@@ -93,7 +93,34 @@ func checkModelsDownloaded(models []modelPresentation) {
 	}
 }
 
+func waitingPage(window fyne.Window) {
+	// Create title
+	window.SetTitle("Please wait...")
+	title := canvas.NewText(window.Title(), theme.Color(theme.ColorNameForeground))
+	title.TextSize = theme.Size(theme.SizeNameHeadingText)
+	title.Alignment = fyne.TextAlignCenter
+
+	// Create progressbar
+	progressbar := widget.NewProgressBarInfinite()
+	progressbar.Start()
+
+	// Create content
+	content := container.New(
+		layout.NewVBoxLayout(),
+		layout.NewSpacer(),
+		title,
+		progressbar,
+		layout.NewSpacer(),
+	)
+
+	// Set window content
+	window.SetContent(content)
+}
+
 func convertModelAddToModelDownload(window fyne.Window) {
+	// Display waiting page
+	waitingPage(window)
+
 	// Fetch models
 	modelOptions := fetchAvailableToDownloadModels()
 	userSelectedModelOptions := make([]modelPresentation, len(modelOptions))
