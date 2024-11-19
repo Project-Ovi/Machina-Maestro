@@ -75,7 +75,7 @@ func fetchAvailableToDownloadModels() []modelPresentation {
 func convertModelAddToModelDownload(window fyne.Window) {
 	// Fetch models
 	modelOptions := fetchAvailableToDownloadModels()
-	var userSelectedModelOptions []modelPresentation
+	userSelectedModelOptions := make([]modelPresentation, len(modelOptions))
 	copy(userSelectedModelOptions, modelOptions)
 
 	// Configure window
