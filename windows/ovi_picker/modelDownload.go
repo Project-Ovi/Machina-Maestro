@@ -158,6 +158,11 @@ func convertModelAddToModelDownload(window fyne.Window) {
 		progressBarObj.Max = 1
 		progressBarObj.SetValue(0)
 
+		// Replace the button
+		submitBTNWrapper.RemoveAll()
+		submitBTNWrapper.Add(progressBarObj)
+		content.Refresh()
+
 		// Start loading
 		for index, value := range userSelectedModelOptions {
 			// Skip unchanged values
@@ -178,11 +183,6 @@ func convertModelAddToModelDownload(window fyne.Window) {
 			// Update progress bar
 			progressBarObj.SetValue(float64(index) / float64(len(userSelectedModelOptions)))
 		}
-
-		// Replace the button
-		submitBTNWrapper.RemoveAll()
-		submitBTNWrapper.Add(progressBarObj)
-		content.Refresh()
 	}
 
 	// Display content
