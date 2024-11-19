@@ -107,6 +107,8 @@ func modelAddWindow() {
 	submitBTN := widget.NewButtonWithIcon("Submit", theme.Icon(theme.IconNameLogin), func() {
 		// Make sure a product is selected
 		if thisModel.ProductName == "" || thisModel.ProductName == "Get more online..." {
+			return
+		} else if thisModel.ProductName == productEntry.Options[len(productEntry.Options)] {
 			convertModelAddToModelDownload(window)
 			return
 		}
