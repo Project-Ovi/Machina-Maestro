@@ -23,12 +23,12 @@ type modelPresentation struct {
 	downloaded bool
 }
 
-const modelRepository = string("https://github.com/Project-Ovi/Maestro-Plugins")
+const modelRepository = string("github.com/Project-Ovi/Maestro-Plugins")
 const modelRepositoryBranch = string("main")
 
 func fetchAvailableToDownloadModels() []modelPresentation {
 	// Build link to model repository markdown file
-	modelRepoMDOrigin, err := url.JoinPath(modelRepository, "refs", "heads", modelRepositoryBranch, "README.md")
+	modelRepoMDOrigin, err := url.JoinPath("http://raw."+modelRepository, "refs", "heads", modelRepositoryBranch, "README.md")
 	if err != nil {
 		log.Println("Error in converting model add to model download. Failed to join URL: ", err)
 		return nil
