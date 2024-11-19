@@ -181,7 +181,7 @@ func convertModelAddToModelDownload(window fyne.Window) {
 			}
 
 			// Update progress bar
-			progressBarObj.SetValue(float64(index) / float64(len(userSelectedModelOptions)))
+			progressBarObj.SetValue(float64(index) / float64(len(userSelectedModelOptions)) * 100)
 		}
 	}
 
