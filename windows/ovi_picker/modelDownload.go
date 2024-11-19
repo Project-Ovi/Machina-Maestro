@@ -1,7 +1,6 @@
 package ovipicker
 
 import (
-	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -35,7 +34,6 @@ func fetchAvailableToDownloadModels() []modelPresentation {
 		log.Println("Error in converting model add to model download. Failed to join URL: ", err)
 		return nil
 	}
-	fmt.Println(modelRepoMDOrigin)
 
 	// Make a HTTP GET request
 	log.Println("Making HTTP GET request to:", modelRepoMDOrigin)
@@ -178,9 +176,11 @@ func convertModelAddToModelDownload(window fyne.Window) {
 			}
 
 			// Update progress bar
-			fmt.Println(float64(index+1) / float64(len(userSelectedModelOptions)) * 100)
 			progressBarObj.SetValue(float64(index+1) / float64(len(userSelectedModelOptions)) * 100)
 		}
+
+		// Close window
+		window.Close()
 	}
 
 	// Display content
