@@ -106,8 +106,11 @@ func convertModelAddToModelDownload(window fyne.Window) {
 	scrollModelsObj := container.NewVScroll(modelListObjs)
 
 	// Create submit button
-	var submitBTN fyne.CanvasObject
-	submitBTN = widget.NewButtonWithIcon("Submit and download", theme.Icon(theme.IconNameDownload), func() {})
+	submitBTN := widget.NewButtonWithIcon("Submit and download", theme.Icon(theme.IconNameDownload), func() {})
+	submitBTNWrapper := container.New(
+		layout.NewStackLayout(),
+		submitBTN,
+	)
 
 	// Assemble UI
 	content := container.New(
@@ -115,7 +118,7 @@ func convertModelAddToModelDownload(window fyne.Window) {
 		titleObj,
 		container.New(
 			&helper.StackWithFooter{},
-			submitBTN,
+			submitBTNWrapper,
 			container.New(
 				layout.NewHBoxLayout(),
 				layout.NewSpacer(),
@@ -125,10 +128,14 @@ func convertModelAddToModelDownload(window fyne.Window) {
 		),
 	)
 
-	submitBTN.(*widget.Button).OnTapped = func() {
+	submitBTN.OnTapped = func() {
+		// Make a progress bar
 		progressBarObj := widget.NewProgressBarInfinite()
 		progressBarObj.Start()
-		submitBTN = progressBarObj
+
+		// Replace the button
+		submitBTNWrapper.RemoveAll()
+		submitBTNWrapper.Add(progressBarObj)
 		content.Refresh()
 	}
 
