@@ -16,6 +16,7 @@ import (
 	"fyne.io/fyne/v2/theme"
 	"fyne.io/fyne/v2/widget"
 	"github.com/Project-Ovi/Machina-Maestro/helper"
+	"github.com/go-git/go-git/v5"
 )
 
 type modelPresentation struct {
@@ -199,7 +200,11 @@ func convertModelAddToModelDownload(window fyne.Window) {
 					log.Println("Failed to remove model", value.name, ". Reason:", err)
 				}
 			} else {
-				//TODO: Download models
+				// Clone repository
+				git.PlainClone(path.Join(WD, "models", value.name), false, &git.CloneOptions{
+					URL:      value.link,
+					Progress: log.Writer(),
+				})
 			}
 
 			// Update progress bar
