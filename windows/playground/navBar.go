@@ -21,6 +21,8 @@ func switchMeasurementSystem() {
 }
 
 func navbar() *fyne.Container {
+	var content *fyne.Container
+
 	// Add sidebar toggle
 	sidebarBTN := widget.NewButtonWithIcon("", theme.Icon(theme.IconNameList), func() {})
 
@@ -34,7 +36,10 @@ func navbar() *fyne.Container {
 	toolsBTN := widget.NewButtonWithIcon("Tools", theme.Icon(theme.IconNameComputer), func() {})
 
 	// Add units button
-	unitsBTN := widget.NewButtonWithIcon(thisMeasurementSystem.Name(), theme.Icon(theme.IconNameSettings), func() {})
+	unitsBTN := widget.NewButtonWithIcon(thisMeasurementSystem.Name(), theme.Icon(theme.IconNameSettings), func() {
+		switchMeasurementSystem()
+		content.Refresh()
+	})
 
 	// Add settings button
 	settingsBTN := widget.NewButtonWithIcon("Settings", theme.Icon(theme.IconNameSettings), func() {})
@@ -60,7 +65,7 @@ func navbar() *fyne.Container {
 	)
 
 	// Add a background
-	content := container.New(
+	content = container.New(
 		layout.NewStackLayout(),
 		canvas.NewRectangle(theme.Color(theme.ColorNameHeaderBackground)),
 		BTNGroup,
