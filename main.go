@@ -49,7 +49,16 @@ picker:
 		goto picker
 	}
 
-	playground.Launch(MainWindow, pickerOutput)
+	playgroundOutput := playground.Launch(MainWindow, pickerOutput)
+	switch playgroundOutput {
+	case "home":
+		goto home
+	case "picker":
+		goto picker
+	}
+
+	log.Println("Finished execution of maini function")
+	App.Quit()
 }
 
 func main() {
