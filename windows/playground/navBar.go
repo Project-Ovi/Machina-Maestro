@@ -29,7 +29,7 @@ func helpWindow() {
 
 	// Get logo
 	logo := getLogo()
-	logo.SetMinSize(fyne.NewSquareSize(200))
+	logo.SetMinSize(fyne.NewSquareSize(150))
 
 	// Make a title
 	title := canvas.NewText("Machina Maestro", theme.Color(theme.ColorNameForeground))
@@ -59,8 +59,10 @@ func helpWindow() {
 			logo,
 			container.New(
 				layout.NewVBoxLayout(),
+				layout.NewSpacer(),
 				title,
 				subtitle,
+				layout.NewSpacer(),
 			),
 			layout.NewSpacer(),
 		),
