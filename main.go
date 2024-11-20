@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
 	"time"
@@ -10,6 +9,7 @@ import (
 	"fyne.io/fyne/v2/app"
 	homescreen "github.com/Project-Ovi/Machina-Maestro/windows/home_screen"
 	ovipicker "github.com/Project-Ovi/Machina-Maestro/windows/ovi_picker"
+	"github.com/Project-Ovi/Machina-Maestro/windows/playground"
 	splashscreen "github.com/Project-Ovi/Machina-Maestro/windows/splash_screen"
 )
 
@@ -49,7 +49,7 @@ picker:
 		goto picker
 	}
 
-	fmt.Println(pickerOutput)
+	playground.Launch(MainWindow, pickerOutput)
 }
 
 func main() {

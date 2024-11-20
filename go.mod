@@ -16,6 +16,7 @@ require (
 	github.com/Microsoft/go-winio v0.6.2 // indirect
 	github.com/Project-Ovi/Machina-Maestro/dialogs v0.0.0-20241120173610-21e908e4739f // indirect
 	github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241120173610-21e908e4739f // indirect
+	github.com/Project-Ovi/Machina-Maestro/windows/playground v0.0.0-20241120175250-077cb26714ce // indirect
 	github.com/ProtonMail/go-crypto v1.1.2 // indirect
 	github.com/cloudflare/circl v1.5.0 // indirect
 	github.com/cyphar/filepath-securejoin v0.3.4 // indirect

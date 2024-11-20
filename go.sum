@@ -58,6 +58,8 @@ github.com/Project-Ovi/Machina-Maestro/windows/home_screen v0.0.0-20241120173610
 github.com/Project-Ovi/Machina-Maestro/windows/home_screen v0.0.0-20241120173610-21e908e4739f/go.mod h1:4SjJPxyId2KZJlSApKy6iMmNzfMFHvH2sCfeoZc3wK0=
 github.com/Project-Ovi/Machina-Maestro/windows/ovi_picker v0.0.0-20241120173610-21e908e4739f h1:qeeB994H053tx9/XfUXlMk4zaTK5GfuoSQlaC0U8BhQ=
 github.com/Project-Ovi/Machina-Maestro/windows/ovi_picker v0.0.0-20241120173610-21e908e4739f/go.mod h1:Jno+9tydfZVSXJYsS9joHbXbwMA3rxcFjReam6hbwUQ=
+github.com/Project-Ovi/Machina-Maestro/windows/playground v0.0.0-20241120175250-077cb26714ce h1:z4NkM3v9foM44ec97xEFzHETMLC4xQQs+IA2Ij1aFJE=
+github.com/Project-Ovi/Machina-Maestro/windows/playground v0.0.0-20241120175250-077cb26714ce/go.mod h1:kGlCoBy4x0pxQJRY1B0gMyj2M5Mg5h3n6bOo/yUaNQs=
 github.com/Project-Ovi/Machina-Maestro/windows/splash_screen v0.0.0-20241120173610-21e908e4739f h1:P9dd/I5etoaCI8AC1QOfp50niMi51Xkb4g5HXJUTgWY=
 github.com/Project-Ovi/Machina-Maestro/windows/splash_screen v0.0.0-20241120173610-21e908e4739f/go.mod h1:cC0+Y+8zM0YzgNsvNz+psz62wtLJS/bye4JXvyR7kX8=
 github.com/ProtonMail/go-crypto v1.1.2 h1:A7JbD57ThNqh7XjmHE+PXpQ3Dqt3BrSAC0AL0Go3KS0=
