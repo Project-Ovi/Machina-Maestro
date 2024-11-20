@@ -29,6 +29,7 @@ func helpWindow() {
 
 	// Get logo
 	logo := getLogo()
+	logo.SetMinSize(fyne.NewSize(100, 100))
 
 	// Make a title
 	title := canvas.NewText("Machina Maestro", theme.Color(theme.ColorNameForeground))
@@ -37,7 +38,7 @@ func helpWindow() {
 	title.TextStyle.Bold = true
 
 	// Make a subtitle
-	subtitle := canvas.NewText("The unified control interface\nfor all of your OVIs", theme.Color(theme.ColorNameForeground))
+	subtitle := canvas.NewText("The unified control interface for all of your OVIs", theme.Color(theme.ColorNameForeground))
 	subtitle.TextSize = theme.Size(theme.SizeNameSubHeadingText)
 	subtitle.Alignment = fyne.TextAlignCenter
 	subtitle.TextStyle.Bold = false
