@@ -9,6 +9,7 @@ import (
 	"fyne.io/fyne/v2/layout"
 	"fyne.io/fyne/v2/theme"
 	"fyne.io/fyne/v2/widget"
+	"github.com/Project-Ovi/Machina-Maestro/dialogs"
 )
 
 func switchMeasurementSystem() {
@@ -106,7 +107,23 @@ func navbar() *fyne.Container {
 	helpBTN := widget.NewButtonWithIcon("Help", theme.Icon(theme.IconNameHelp), helpWindow)
 
 	// Add exit button
-	exitBTN := widget.NewButtonWithIcon("Exit", theme.Icon(theme.IconNameCancel), func() {})
+	exitBTN := widget.NewButtonWithIcon("Exit", theme.Icon(theme.IconNameCancel), func() {
+		dialogs.ButtonDialog("Exit", "Are you sure you want to exit?", []dialogs.ButtonDialogButtons{
+			{
+				Text: "Cancel",
+				Icon: theme.Icon(theme.IconNameCancel),
+				F:    func() {},
+			},
+			{
+				Text: "Exit",
+				Icon: theme.Icon(theme.IconNameLogout),
+				F: func() {
+					toReturn = "home"
+					playgroundExitWaitGroup.Done()
+				},
+			},
+		})
+	})
 
 	// Make button group
 	BTNGroup := container.New(

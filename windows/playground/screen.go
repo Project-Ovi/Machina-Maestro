@@ -1,6 +1,8 @@
 package playground
 
 import (
+	"sync"
+
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/container"
 	"github.com/Project-Ovi/Machina-Maestro/helper"
@@ -8,8 +10,12 @@ import (
 
 var thisModel helper.OVI
 
-func Launch(window fyne.Window, chosenModelDirName string) {
-	// Load model
+var toReturn string
+var playgroundExitWaitGroup sync.WaitGroup
+
+func Launch(window fyne.Window, chosenModelDirName string) string {
+	// Load
+	playgroundExitWaitGroup.Add(1)
 	loadModel(chosenModelDirName)
 
 	// Make content
@@ -18,5 +24,11 @@ func Launch(window fyne.Window, chosenModelDirName string) {
 		navbar(),
 	)
 
+	// Display contents to window
 	window.SetContent(content)
+	window.Show()
+
+	// Wait
+	playgroundExitWaitGroup.Wait()
+	return toReturn
 }

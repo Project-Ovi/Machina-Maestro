@@ -4,6 +4,7 @@ go 1.22.7
 
 require (
 	fyne.io/fyne/v2 v2.5.2
+	github.com/Project-Ovi/Machina-Maestro/dialogs v0.0.0-20241120193003-27fc6517bab1
 	github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241120181336-d716ab63adfe
 )
 
