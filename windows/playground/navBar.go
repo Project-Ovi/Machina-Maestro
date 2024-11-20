@@ -29,7 +29,7 @@ func helpWindow() {
 
 	// Get logo
 	logo := getLogo()
-	logo.SetMinSize(fyne.NewSize(100, 100))
+	logo.SetMinSize(fyne.NewSquareSize(200))
 
 	// Make a title
 	title := canvas.NewText("Machina Maestro", theme.Color(theme.ColorNameForeground))
@@ -52,16 +52,20 @@ func helpWindow() {
 	// Make the content
 	content := container.New(
 		layout.NewVBoxLayout(),
+		layout.NewSpacer(),
 		container.New(
 			layout.NewHBoxLayout(),
+			layout.NewSpacer(),
 			logo,
 			container.New(
 				layout.NewVBoxLayout(),
 				title,
 				subtitle,
 			),
+			layout.NewSpacer(),
 		),
 		githubBTN,
+		layout.NewSpacer(),
 	)
 
 	// Display window
