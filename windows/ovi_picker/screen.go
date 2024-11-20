@@ -15,6 +15,7 @@ import (
 	"fyne.io/fyne/v2/layout"
 	"fyne.io/fyne/v2/theme"
 	"fyne.io/fyne/v2/widget"
+	"github.com/Project-Ovi/Machina-Maestro/dialogs"
 	"github.com/Project-Ovi/Machina-Maestro/helper"
 )
 
@@ -126,11 +127,31 @@ func Launch(window fyne.Window) string {
 				// Disable button to prevent further pressing
 				deleteBTN.Disable()
 
-				// Delete instance
-				err := os.RemoveAll(path.Join(dirName, rawDirName))
-				if err != nil {
-					log.Println("Failed to remove instance", rawDirName)
-				}
+				// Open a confirm dialog
+				var dialogWait sync.WaitGroup
+				dialogWait.Add(1)
+				dialogs.ButtonDialog("Delete "+name, "Confirm deletion", []dialogs.ButtonDialogButtons{
+					{
+						Text: "Cancel",
+						Icon: theme.Icon(theme.IconNameCancel),
+						F:    dialogWait.Done,
+					},
+					{
+						Text: "Delete",
+						Icon: theme.Icon(theme.IconNameDelete),
+						F: func() {
+							// Delete instance
+							err := os.RemoveAll(path.Join(dirName, rawDirName))
+							if err != nil {
+								log.Println("Failed to remove instance", rawDirName)
+							}
+
+							// Resume execution
+							dialogWait.Done()
+						},
+					},
+				})
+				dialogWait.Wait()
 
 				// Restart this window
 				returnedText = "picker"

@@ -48,6 +48,8 @@ github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym
 github.com/Microsoft/go-winio v0.5.2/go.mod h1:WpS1mjBmmwHBEWmogvA2mj8546UReBk4v8QkMxJ6pZY=
 github.com/Microsoft/go-winio v0.6.1 h1:9/kr64B9VUZrLm5YYwbGtUJnMgqWVOdUAXu6Migciow=
 github.com/Microsoft/go-winio v0.6.1/go.mod h1:LRdKpFKfdobln8UmuiYcKPot9D2v6svN5+sAH+4kjUM=
+github.com/Project-Ovi/Machina-Maestro/dialogs v0.0.0-20241120161405-040eebc3a290 h1:SYoL6hWRk8Z4gV32gftCcDWE47WFO5n7OSSSOdzUl34=
+github.com/Project-Ovi/Machina-Maestro/dialogs v0.0.0-20241120161405-040eebc3a290/go.mod h1:+FWN7mLt4xz+7s+0h+SUvMgq95IxsDbUB168JfdwmeQ=
 github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241117153436-4a611b1589f4 h1:CfSYNowisnbSuEBbmR2bf5cch+kngdrcSc8ZF+zDRxg=
 github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241117153436-4a611b1589f4/go.mod h1:5zD8tCbTNwzGj/WXidk8WWChEXkHRG6EKuMqgL2lTvY=
 github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241117174410-53f5452b283a h1:nRZ/uxrkcdOYxgyY6vQFMqbtywrE4WOJXY/HVTDdzuE=
