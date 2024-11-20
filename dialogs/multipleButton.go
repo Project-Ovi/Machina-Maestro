@@ -21,8 +21,9 @@ func ButtonDialog(title string, subtitle string, btnsData []ButtonDialogButtons)
 
 	// Make a new window
 	window := App.NewWindow(title)
+	userClosed := true
 	window.SetOnClosed(func() {
-		if len(btnsData) > 0 {
+		if len(btnsData) > 0 && userClosed {
 			btnsData[0].F()
 		}
 	})
@@ -68,6 +69,7 @@ func ButtonDialog(title string, subtitle string, btnsData []ButtonDialogButtons)
 			val.F()
 
 			// Close window
+			userClosed = false
 			window.Close()
 		}
 
