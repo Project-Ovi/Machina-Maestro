@@ -1,6 +1,8 @@
 package playground
 
 import (
+	"net/url"
+
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/container"
@@ -18,6 +20,52 @@ func switchMeasurementSystem() {
 	case SISystem:
 		thisMeasurementSystem = metricSystem
 	}
+}
+
+func helpWindow() {
+	// Make window
+	App := fyne.CurrentApp()
+	window := App.NewWindow("Help")
+
+	// Get logo
+	logo := getLogo()
+
+	// Make a title
+	title := canvas.NewText("Machina Maestro", theme.Color(theme.ColorNameForeground))
+	title.TextSize = theme.Size(theme.SizeNameHeadingText)
+	title.Alignment = fyne.TextAlignCenter
+	title.TextStyle.Bold = true
+
+	// Make a subtitle
+	subtitle := canvas.NewText("The unified control interface\nfor all of your OVIs", theme.Color(theme.ColorNameForeground))
+	subtitle.TextSize = theme.Size(theme.SizeNameSubHeadingText)
+	subtitle.Alignment = fyne.TextAlignCenter
+	subtitle.TextStyle.Bold = false
+
+	// Make a github button
+	githubBTN := widget.NewButtonWithIcon("Github", theme.Icon(theme.IconNameComputer), func() {
+		githubURL, _ := url.Parse("https://github.com/Project-Ovi/Machina-Maestro")
+		App.OpenURL(githubURL)
+	})
+
+	// Make the content
+	content := container.New(
+		layout.NewVBoxLayout(),
+		container.New(
+			layout.NewHBoxLayout(),
+			logo,
+			container.New(
+				layout.NewVBoxLayout(),
+				title,
+				subtitle,
+			),
+		),
+		githubBTN,
+	)
+
+	// Display window
+	window.SetContent(content)
+	window.Show()
 }
 
 func navbar() *fyne.Container {
@@ -46,7 +94,7 @@ func navbar() *fyne.Container {
 	settingsBTN := widget.NewButtonWithIcon("Settings", theme.Icon(theme.IconNameSettings), func() {})
 
 	// Add help button
-	helpBTN := widget.NewButtonWithIcon("Help", theme.Icon(theme.IconNameHelp), func() {})
+	helpBTN := widget.NewButtonWithIcon("Help", theme.Icon(theme.IconNameHelp), helpWindow)
 
 	// Add exit button
 	exitBTN := widget.NewButtonWithIcon("Exit", theme.Icon(theme.IconNameCancel), func() {})
