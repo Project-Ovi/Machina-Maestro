@@ -72,6 +72,8 @@ func helpWindow() {
 
 	// Display window
 	window.SetContent(content)
+	window.Resize(fyne.NewSize(window.Canvas().Size().Width*1.1, 0))
+	window.SetFixedSize(true)
 	window.Show()
 }
 
