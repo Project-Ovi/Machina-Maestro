@@ -9,6 +9,17 @@ import (
 	"fyne.io/fyne/v2/widget"
 )
 
+func switchMeasurementSystem() {
+	switch thisMeasurementSystem {
+	case metricSystem:
+		thisMeasurementSystem = imperialSystem
+	case imperialSystem:
+		thisMeasurementSystem = SISystem
+	case SISystem:
+		thisMeasurementSystem = metricSystem
+	}
+}
+
 func navbar() *fyne.Container {
 	// Add sidebar toggle
 	sidebarBTN := widget.NewButtonWithIcon("", theme.Icon(theme.IconNameList), func() {})
