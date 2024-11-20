@@ -22,7 +22,9 @@ func ButtonDialog(title string, subtitle string, btnsData []ButtonDialogButtons)
 	// Make a new window
 	window := App.NewWindow(title)
 	window.SetOnClosed(func() {
-		btnsData[0].F()
+		if len(btnsData) > 0 {
+			btnsData[0].F()
+		}
 	})
 
 	// Make title
