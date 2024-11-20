@@ -42,11 +42,40 @@ func ButtonDialog(title string, subtitle string, btnsData []ButtonDialogButtons)
 	// Make buttons
 	BTNContainer := container.New(layout.NewHBoxLayout(), layout.NewSpacer())
 	for _, val := range btnsData {
+		// Make the function for this buton
+		function := func() {
+			// Convert title
+			window.SetTitle("Loading...")
+			titleObj.Text = window.Title()
+
+			// Make a loading bar
+			loadingBar := widget.NewProgressBarInfinite()
+			loadingBar.Start()
+
+			// Make content for the loading
+			content := container.New(
+				layout.NewVBoxLayout(),
+				layout.NewSpacer(),
+				titleObj,
+				loadingBar,
+				layout.NewSpacer(),
+			)
+
+			// Set window content
+			window.SetContent(content)
+
+			// Run function dedicated to this button
+			val.F()
+
+			// Close window
+			window.Close()
+		}
+
 		var btn fyne.CanvasObject
 		if val.Icon == nil {
-			btn = widget.NewButton(val.Text, val.F)
+			btn = widget.NewButton(val.Text, function)
 		} else {
-			btn = widget.NewButtonWithIcon(val.Text, val.Icon, val.F)
+			btn = widget.NewButtonWithIcon(val.Text, val.Icon, function)
 		}
 		BTNContainer.Add(btn)
 		BTNContainer.Add(layout.NewSpacer())
