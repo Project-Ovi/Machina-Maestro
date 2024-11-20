@@ -36,10 +36,11 @@ func navbar() *fyne.Container {
 	toolsBTN := widget.NewButtonWithIcon("Tools", theme.Icon(theme.IconNameComputer), func() {})
 
 	// Add units button
-	unitsBTN := widget.NewButtonWithIcon(thisMeasurementSystem.Name(), theme.Icon(theme.IconNameSettings), func() {
+	unitsBTN := widget.NewButtonWithIcon(thisMeasurementSystem.Name(), theme.Icon(theme.IconNameSettings), func() {})
+	unitsBTN.OnTapped = func() {
 		switchMeasurementSystem()
-		content.Refresh()
-	})
+		unitsBTN.SetText(thisMeasurementSystem.Name())
+	}
 
 	// Add settings button
 	settingsBTN := widget.NewButtonWithIcon("Settings", theme.Icon(theme.IconNameSettings), func() {})
