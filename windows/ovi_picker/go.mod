@@ -4,8 +4,8 @@ go 1.22.7
 
 require (
 	fyne.io/fyne/v2 v2.5.2
-	github.com/Project-Ovi/Machina-Maestro/dialogs v0.0.0-20241120163013-4935ccecdf77
-	github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241120163013-4935ccecdf77
+	github.com/Project-Ovi/Machina-Maestro/dialogs v0.0.0-20241120163303-769a8f26845c
+	github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241120163303-769a8f26845c
 	github.com/go-git/go-git/v5 v5.12.0
 )
 
@@ -38,11 +38,8 @@ require (
 	github.com/yuin/goldmark v1.7.8 // indirect
 	golang.org/x/crypto v0.29.0 // indirect
 	golang.org/x/image v0.22.0 // indirect
-	golang.org/x/mod v0.22.0 // indirect
 	golang.org/x/net v0.31.0 // indirect
-	golang.org/x/sync v0.9.0 // indirect
 	golang.org/x/sys v0.27.0 // indirect
 	golang.org/x/text v0.20.0 // indirect
-	golang.org/x/tools v0.27.0 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 )
