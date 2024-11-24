@@ -15,7 +15,7 @@ func sidebar() *fyne.Container {
 	homeBTN.Alignment = widget.ButtonAlignLeading
 
 	// Make overview button
-	overviewBTN := widget.NewButtonWithIcon("Overview", theme.Icon(theme.IconNameCheckButtonFill), func() {})
+	overviewBTN := widget.NewButtonWithIcon("Overview", theme.Icon(theme.IconNameVisibility), func() {})
 	overviewBTN.Alignment = widget.ButtonAlignLeading
 
 	// Make product button
@@ -38,7 +38,7 @@ func sidebar() *fyne.Container {
 	content := container.New(
 		layout.NewStackLayout(),
 		canvas.NewRectangle(theme.Color(theme.ColorNameHeaderBackground)),
-		container.NewScroll(container.New(
+		container.NewVScroll(container.New(
 			layout.NewVBoxLayout(),
 			homeBTN,
 			overviewBTN,
