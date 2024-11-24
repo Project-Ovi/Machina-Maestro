@@ -32,6 +32,8 @@ func settingsWindow() {
 	// Make title
 	titleObj := canvas.NewText(window.Title(), theme.Color(theme.ColorNameForeground))
 	titleObj.TextSize = theme.Size(theme.SizeNameHeadingText)
+	titleObj.Alignment = fyne.TextAlignCenter
+	titleObj.TextStyle.Bold = true
 
 	// Make a container for all the forms
 	forms := container.New(
