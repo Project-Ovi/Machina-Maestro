@@ -46,6 +46,7 @@ func productPage(content *fyne.Container) {
 	mdFileURL, err := url.Parse(thisModel.MarkdownRefrenceURL)
 	if err != nil {
 		errorPage(content, err)
+		return
 	}
 
 	// Make a HTTP GET request
@@ -53,6 +54,7 @@ func productPage(content *fyne.Container) {
 	resp, err := http.Get(mdFileURL.String())
 	if err != nil {
 		errorPage(content, err)
+		return
 	}
 	defer resp.Body.Close()
 
@@ -60,6 +62,7 @@ func productPage(content *fyne.Container) {
 	markdownText, err := io.ReadAll(resp.Body)
 	if err != nil {
 		errorPage(content, err)
+		return
 	}
 
 	// Create a widget to display the markdown text
