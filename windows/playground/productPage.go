@@ -64,7 +64,7 @@ func productPage(content *fyne.Container) {
 
 	// Create a widget to display the markdown text
 	mdObj := widget.NewRichTextFromMarkdown(string(markdownText))
-	mdObj.Wrapping = fyne.TextWrapBreak
+	mdObj.Wrapping = fyne.TextWrapWord
 
 	// Display the text
 	content.Layout = layout.NewStackLayout()
