@@ -1,6 +1,7 @@
 package playground
 
 import (
+	"log"
 	"net/url"
 
 	"fyne.io/fyne/v2"
@@ -88,6 +89,71 @@ func settingsWindow() {
 	// Make buttons
 	cancelBTN := widget.NewButtonWithIcon("Cancel", theme.Icon(theme.IconNameCancel), func() { window.Close() })
 	saveBTN := widget.NewButtonWithIcon("Save", theme.Icon(theme.IconNameDocumentSave), func() {})
+	saveBTN.OnTapped = func() {
+		// Disable buttons
+		saveBTN.Disable()
+		cancelBTN.Disable()
+
+		// Save settings
+		for i := 0; i < len(forms.Objects); i += 2 {
+			// Save name
+			if i == 0 {
+				nameEntry := forms.Objects[i+1].(*widget.Entry)
+				thisModel.Name = nameEntry.Text
+				if thisModel.Name == "" {
+					thisModel.Name = nameEntry.PlaceHolder
+				}
+				continue
+			}
+
+			// Save description
+			if i == 2 {
+				descriptionEntry := forms.Objects[i+1].(*widget.Entry)
+				thisModel.Name = descriptionEntry.Text
+				if thisModel.Name == "" {
+					thisModel.Name = nameEntry.PlaceHolder
+				}
+				continue
+			}
+
+			// If code execution got this far, it means we are in the model specific form section
+
+			// Get title
+			var title string
+			if val, ok := forms.Objects[i].(*widget.Label); ok {
+				title = val.Text
+			} else {
+				continue
+			}
+
+			// Check entry
+			if val, ok := forms.Objects[i+1].(*widget.Entry); ok {
+				err := val.Validate()
+				if err != nil {
+					log.Println("Failed to validate form:", err)
+					return
+				}
+
+				thisModel.Others[title] = val.Text
+			}
+
+			// Check select
+			if val, ok := forms.Objects[i+1].(*widget.Select); ok {
+				if val.Selected == "" {
+					log.Println("Empty select. Unable to save", title)
+					return
+				}
+
+				thisModel.Others[title] = val.Selected
+			}
+		}
+
+		// Save model
+		//TODO
+
+		// Close window
+		window.Close()
+	}
 
 	// Display window
 	content := container.New(

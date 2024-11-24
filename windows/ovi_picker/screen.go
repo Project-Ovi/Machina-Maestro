@@ -22,7 +22,7 @@ import (
 var waitPressGroup sync.WaitGroup
 var returnedText string
 
-const tFormat = "20060102150405000"
+const TFormat = "20060102150405000"
 
 var WD string
 
