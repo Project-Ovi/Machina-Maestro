@@ -4,9 +4,9 @@ go 1.22.7
 
 require (
 	fyne.io/fyne/v2 v2.5.2
-	github.com/Project-Ovi/Machina-Maestro/dialogs v0.0.0-20241124131237-552a275a41e9
-	github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241124131237-552a275a41e9
-	github.com/Project-Ovi/Machina-Maestro/windows/ovi_picker v0.0.0-20241124131237-552a275a41e9
+	github.com/Project-Ovi/Machina-Maestro/dialogs v0.0.0-20241124132439-947ca39688e5
+	github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241124132439-947ca39688e5
+	github.com/Project-Ovi/Machina-Maestro/windows/ovi_picker v0.0.0-20241124132439-947ca39688e5
 )
 
 require (
