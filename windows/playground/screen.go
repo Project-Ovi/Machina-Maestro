@@ -22,6 +22,10 @@ func Launch(window fyne.Window, chosenModelDirName string) string {
 	content := container.New(
 		&helper.StackWithNavbar{},
 		navbar(),
+		container.New(
+			&helper.StackWithSidebar{},
+			sidebar(),
+		),
 	)
 
 	// Display contents to window
