@@ -163,9 +163,21 @@ func modelAddWindow() {
 }
 
 func saveThisModel() error {
+	// Get md site
+	var config map[string]string
+	f, err := os.ReadFile(path.Join(WD, "models", thisModel.ProductName, "config.json"))
+	if err != nil {
+		return err
+	}
+	err = json.Unmarshal(f, &config)
+	if err != nil {
+		return err
+	}
+	thisModel.MarkdownRefrenceURL = config["mdsite"]
+
 	// Make the directory to save all models
 	saveDirPath := path.Join(WD, "myModels", time.Now().Format(TFormat))
-	err := os.Mkdir(saveDirPath, 0766)
+	err = os.Mkdir(saveDirPath, 0766)
 	if err != nil {
 		return err
 	}
