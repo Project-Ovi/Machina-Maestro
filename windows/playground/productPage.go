@@ -45,21 +45,21 @@ func productPage(content *fyne.Container) {
 	// Build URL to markdown file
 	mdFileURL, err := url.Parse(thisModel.MarkdownRefrenceURL)
 	if err != nil {
-		//TODO
+		errorPage(content, err)
 	}
 
 	// Make a HTTP GET request
 	log.Println("Making a HTPP GET request to:", mdFileURL.String())
 	resp, err := http.Get(mdFileURL.String())
 	if err != nil {
-		//TODO
+		errorPage(content, err)
 	}
 	defer resp.Body.Close()
 
 	// Read response body
 	markdownText, err := io.ReadAll(resp.Body)
 	if err != nil {
-		//TODO
+		errorPage(content, err)
 	}
 
 	// Create a widget to display the markdown text
