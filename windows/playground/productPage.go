@@ -1,6 +1,11 @@
 package playground
 
 import (
+	"io"
+	"log"
+	"net/http"
+	"net/url"
+
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/layout"
@@ -33,4 +38,34 @@ func productPage(content *fyne.Container) {
 		loadingBar,
 		layout.NewSpacer(),
 	}
+	content.Refresh()
+
+	//! Display product page
+	// Build url to markdown file
+	mdFileURL, err := url.Parse(thisModel.MarkdownRefrenceURL)
+	if err != nil {
+		//TODO
+	}
+
+	// Make a HTTP GET request
+	log.Println("Making a HTPP GET request to:", mdFileURL.String())
+	resp, err := http.Get(mdFileURL.String())
+	if err != nil {
+		//TODO
+	}
+	defer resp.Body.Close()
+
+	// Read response body
+	markdownText, err := io.ReadAll(resp.Body)
+	if err != nil {
+		//TODO
+	}
+
+	// Create a widget to display the markdown text
+	mdObj := widget.NewRichTextFromMarkdown(string(markdownText))
+
+	// Display the text
+	content.Layout = layout.NewStackLayout()
+	content.Objects = []fyne.CanvasObject{mdObj}
+	content.Refresh()
 }
