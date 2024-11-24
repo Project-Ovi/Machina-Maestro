@@ -12,6 +12,7 @@ var thisModel helper.OVI
 
 var toReturn string
 var playgroundExitWaitGroup sync.WaitGroup
+var playgroundMainContent *fyne.Container
 
 func Launch(window fyne.Window, chosenModelDirName string) string {
 	// Load
@@ -19,12 +20,14 @@ func Launch(window fyne.Window, chosenModelDirName string) string {
 	loadModel(chosenModelDirName)
 
 	// Make content
+	playgroundMainContent = container.NewWithoutLayout()
 	content := container.New(
 		&helper.StackWithNavbar{},
 		navbar(),
 		container.New(
 			&helper.StackWithSidebar{},
 			sidebar(),
+			playgroundMainContent,
 		),
 	)
 
