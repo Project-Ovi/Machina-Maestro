@@ -12,7 +12,7 @@ import (
 	"fyne.io/fyne/v2/widget"
 )
 
-func returnModelSpecificForm(name string) []fyne.CanvasObject {
+func ReturnModelSpecificForm(name string) []fyne.CanvasObject {
 	// Read the options file
 	f, err := os.ReadFile(path.Join(WD, "models", name, "options.json"))
 	if err != nil {

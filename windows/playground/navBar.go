@@ -23,6 +23,64 @@ func switchMeasurementSystem() {
 	}
 }
 
+func settingsWindow() {
+	// Make window
+	App := fyne.CurrentApp()
+	window := App.NewWindow("Settings")
+
+	// Make title
+	titleObj := canvas.NewText(window.Title(), theme.Color(theme.ColorNameForeground))
+	titleObj.TextSize = theme.Size(theme.SizeNameHeadingText)
+
+	// Make a container for all the forms
+	forms := container.New(
+		layout.NewFormLayout(),
+	)
+
+	// Make name form
+	nameTitle := widget.NewLabel("Name:")
+	nameEntry := widget.NewEntry()
+	nameEntry.PlaceHolder = "My OVI"
+	nameEntry.Text = thisModel.Name
+	forms.Add(nameTitle)
+	forms.Add(nameEntry)
+
+	// Make description form
+	descriptionTitle := widget.NewLabel("Description:")
+	descriptionEntry := widget.NewEntry()
+	descriptionEntry.PlaceHolder = "My beloved OVI"
+	descriptionEntry.Text = thisModel.Description
+	forms.Add(descriptionTitle)
+	forms.Add(descriptionEntry)
+
+	// Make other forms
+	//TODO
+
+	// Make buttons
+	cancelBTN := widget.NewButtonWithIcon("Cancel", theme.Icon(theme.IconNameCancel), func() { window.Close() })
+	saveBTN := widget.NewButtonWithIcon("Save", theme.Icon(theme.IconNameDocumentSave), func() {})
+
+	// Display window
+	content := container.New(
+		layout.NewVBoxLayout(),
+		titleObj,
+		layout.NewSpacer(),
+		forms,
+		layout.NewSpacer(),
+		container.New(
+			layout.NewHBoxLayout(),
+			layout.NewSpacer(),
+			cancelBTN,
+			layout.NewSpacer(),
+			saveBTN,
+			layout.NewSpacer(),
+		),
+		layout.NewSpacer(),
+	)
+	window.SetContent(content)
+	window.Show()
+}
+
 func helpWindow() {
 	// Make window
 	App := fyne.CurrentApp()
@@ -101,7 +159,7 @@ func navbar() *fyne.Container {
 	}
 
 	// Add settings button
-	settingsBTN := widget.NewButtonWithIcon("Settings", theme.Icon(theme.IconNameSettings), func() {})
+	settingsBTN := widget.NewButtonWithIcon("Settings", theme.Icon(theme.IconNameSettings), settingsWindow)
 
 	// Add help button
 	helpBTN := widget.NewButtonWithIcon("Help", theme.Icon(theme.IconNameHelp), helpWindow)
