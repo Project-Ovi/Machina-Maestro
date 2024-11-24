@@ -56,7 +56,7 @@ func settingsWindow() {
 	forms.Add(descriptionEntry)
 
 	// Make other forms
-	otherForms := ovipicker.ReturnModelSpecificForm(thisModel.ProductName)
+	otherForms := ovipicker.ReturnModelSpecificForm(thisModel.ProductName, false)
 	for i := 0; i < len(otherForms); i += 2 {
 		// Get title
 		var title *widget.Label

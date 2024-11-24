@@ -151,7 +151,7 @@ func modelAddWindow() {
 			return
 		}
 
-		modelOptions.Objects = ReturnModelSpecificForm(s)
+		modelOptions.Objects = ReturnModelSpecificForm(s, true)
 		thisModel.ProductName = s
 		content.Refresh()
 
