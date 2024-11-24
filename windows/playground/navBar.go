@@ -55,7 +55,7 @@ func settingsWindow() {
 	forms.Add(descriptionEntry)
 
 	// Make other forms
-	otherForms := []fyne.CanvasObject{}
+	otherForms := returnModelSpecificForm(thisModel.ProductName)
 	for i := 0; i < len(otherForms); i += 2 {
 		// Get title
 		var title *widget.Label
