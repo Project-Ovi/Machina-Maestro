@@ -5,9 +5,12 @@ import (
 	"log"
 	"os"
 	"path"
+
+	lua "github.com/yuin/gopher-lua"
 )
 
 var WD string
+var LuaVM *lua.LState
 
 func loadModel(dirName string) {
 	// Get working directory
@@ -29,5 +32,14 @@ func loadModel(dirName string) {
 	// Unmarshal config file
 	if err := json.Unmarshal(f, &thisModel); err != nil {
 		log.Panic("Failed to unmarshal config file:", err)
+	}
+
+	// Create the Lua VM
+	LuaVM = lua.NewState()
+
+	// Execute model-specific loader
+	err = LuaVM.DoFile(path.Join(WD, "models", thisModel.ProductName, "loader.lua"))
+	if err != nil {
+		log.Println("Failed to run Lua loader for", thisModel.ProductName, ". Reason: ", err)
 	}
 }
