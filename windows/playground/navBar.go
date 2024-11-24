@@ -109,9 +109,9 @@ func settingsWindow() {
 			// Save description
 			if i == 2 {
 				descriptionEntry := forms.Objects[i+1].(*widget.Entry)
-				thisModel.Name = descriptionEntry.Text
-				if thisModel.Name == "" {
-					thisModel.Name = nameEntry.PlaceHolder
+				thisModel.Description = descriptionEntry.Text
+				if thisModel.Description == "" {
+					thisModel.Description = descriptionEntry.PlaceHolder
 				}
 				continue
 			}
