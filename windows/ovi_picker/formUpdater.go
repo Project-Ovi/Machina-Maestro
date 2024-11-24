@@ -12,7 +12,7 @@ import (
 	"fyne.io/fyne/v2/widget"
 )
 
-func ReturnModelSpecificForm(name string, internallyCalled bool) []fyne.CanvasObject {
+func returnModelSpecificForm(name string) []fyne.CanvasObject {
 	// Read the options file
 	f, err := os.ReadFile(path.Join(WD, "models", name, "options.json"))
 	if err != nil {
@@ -39,10 +39,8 @@ func ReturnModelSpecificForm(name string, internallyCalled bool) []fyne.CanvasOb
 		if v, ok := value.(string); ok {
 			objEntry = widget.NewEntry()
 			objEntry.(*widget.Entry).Validator = validation.NewRegexp(v, "Invalid text")
-			if !internallyCalled {
-				objEntry.(*widget.Entry).OnChanged = func(s string) {
-					thisModel.Others[key] = s
-				}
+			objEntry.(*widget.Entry).OnChanged = func(s string) {
+				thisModel.Others[key] = s
 			}
 		}
 
@@ -58,10 +56,8 @@ func ReturnModelSpecificForm(name string, internallyCalled bool) []fyne.CanvasOb
 			}
 
 			objEntry = widget.NewSelect(selectOptions, func(s string) {})
-			if !internallyCalled {
-				objEntry.(*widget.Entry).OnChanged = func(s string) {
-					thisModel.Others[key] = s
-				}
+			objEntry.(*widget.Entry).OnChanged = func(s string) {
+				thisModel.Others[key] = s
 			}
 		}
 
