@@ -71,11 +71,13 @@ func settingsWindow() {
 		// Populate entry
 		if val, ok := otherForms[i+1].(*widget.Entry); ok {
 			val.SetText(currentValue)
+			val.OnChanged = func(s string) {}
 		}
 
 		// Populate select
 		if val, ok := otherForms[i+1].(*widget.Select); ok {
 			val.SetSelected(currentValue)
+			val.OnChanged = func(s string) {}
 		}
 
 		// Append to the form
