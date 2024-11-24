@@ -10,6 +10,7 @@ import (
 	"fyne.io/fyne/v2/theme"
 	"fyne.io/fyne/v2/widget"
 	"github.com/Project-Ovi/Machina-Maestro/dialogs"
+	ovipicker "github.com/Project-Ovi/Machina-Maestro/windows/ovi_picker"
 )
 
 func switchMeasurementSystem() {
@@ -54,7 +55,33 @@ func settingsWindow() {
 	forms.Add(descriptionEntry)
 
 	// Make other forms
-	//TODO
+	otherForms := ovipicker.ReturnModelSpecificForm(thisModel.ProductName)
+	for i := 0; i < len(otherForms); i += 2 {
+		// Get title
+		var title *widget.Label
+		if val, ok := otherForms[i].(*widget.Label); ok {
+			title = val
+		} else {
+			continue
+		}
+
+		// Get current value
+		currentValue := thisModel.Others[title.Text]
+
+		// Populate entry
+		if val, ok := otherForms[i+1].(*widget.Entry); ok {
+			val.SetText(currentValue)
+		}
+
+		// Populate select
+		if val, ok := otherForms[i+1].(*widget.Select); ok {
+			val.SetSelected(currentValue)
+		}
+
+		// Append to the form
+		forms.Add(otherForms[i])
+		forms.Add(otherForms[i+1])
+	}
 
 	// Make buttons
 	cancelBTN := widget.NewButtonWithIcon("Cancel", theme.Icon(theme.IconNameCancel), func() { window.Close() })
