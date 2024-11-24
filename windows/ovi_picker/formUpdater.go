@@ -90,7 +90,7 @@ func isCalledFromOutside() bool {
 	}
 
 	frames := runtime.CallersFrames(pc[:n])
-	mypkg := "github.com/Project-Ovi/Machina-Maestro/windows/ovi_picker"
+	mypkg := "ovipicker"
 
 	for {
 		frame, more := frames.Next()
