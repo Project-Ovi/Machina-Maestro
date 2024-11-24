@@ -6,6 +6,8 @@ import (
 	"os"
 	"path"
 	"reflect"
+	"runtime"
+	"strings"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/data/validation"
@@ -39,8 +41,10 @@ func ReturnModelSpecificForm(name string) []fyne.CanvasObject {
 		if v, ok := value.(string); ok {
 			objEntry = widget.NewEntry()
 			objEntry.(*widget.Entry).Validator = validation.NewRegexp(v, "Invalid text")
-			objEntry.(*widget.Entry).OnChanged = func(s string) {
-				thisModel.Others[key] = s
+			if !isCalledFromOutside() {
+				objEntry.(*widget.Entry).OnChanged = func(s string) {
+					thisModel.Others[key] = s
+				}
 			}
 		}
 
@@ -56,8 +60,10 @@ func ReturnModelSpecificForm(name string) []fyne.CanvasObject {
 			}
 
 			objEntry = widget.NewSelect(selectOptions, func(s string) {})
-			objEntry.(*widget.Select).OnChanged = func(s string) {
-				thisModel.Others[key] = s
+			if !isCalledFromOutside() {
+				objEntry.(*widget.Entry).OnChanged = func(s string) {
+					thisModel.Others[key] = s
+				}
 			}
 		}
 
@@ -73,4 +79,29 @@ func ReturnModelSpecificForm(name string) []fyne.CanvasObject {
 	}
 
 	return toReturn
+}
+
+func isCalledFromOutside() bool {
+	// Get the call stack
+	pc := make([]uintptr, 10) // limit stack to 10 frames
+	n := runtime.Callers(2, pc)
+	if n == 0 {
+		return false // no callers
+	}
+
+	frames := runtime.CallersFrames(pc[:n])
+	mypkg := "mypackage"
+
+	for {
+		frame, more := frames.Next()
+		// Check the package name in the function name
+		if !strings.Contains(frame.Function, mypkg) {
+			// The first frame not in `mypackage` indicates an external caller
+			return true
+		}
+		if !more {
+			break
+		}
+	}
+	return false // All callers are from `mypackage`
 }
