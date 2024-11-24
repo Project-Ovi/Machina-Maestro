@@ -4,14 +4,14 @@ go 1.22.7
 
 require (
 	fyne.io/fyne/v2 v2.5.2
-	github.com/Project-Ovi/Machina-Maestro/dialogs v0.0.0-20241120193003-27fc6517bab1
-	github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241120181336-d716ab63adfe
+	github.com/Project-Ovi/Machina-Maestro/dialogs v0.0.0-20241124130443-59489b5bae2d
+	github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241124130443-59489b5bae2d
+	github.com/Project-Ovi/Machina-Maestro/windows/ovi_picker v0.0.0-20241124130443-59489b5bae2d
 )
 
 require (
 	dario.cat/mergo v1.0.1 // indirect
 	github.com/Microsoft/go-winio v0.6.2 // indirect
-	github.com/Project-Ovi/Machina-Maestro/windows/ovi_picker v0.0.0-20241124120828-0edfaa195150 // indirect
 	github.com/ProtonMail/go-crypto v1.1.2 // indirect
 	github.com/cloudflare/circl v1.5.0 // indirect
 	github.com/cyphar/filepath-securejoin v0.3.4 // indirect

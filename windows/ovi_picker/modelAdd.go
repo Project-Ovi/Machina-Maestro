@@ -164,7 +164,7 @@ func modelAddWindow() {
 
 func saveThisModel() error {
 	// Make the directory to save all models
-	saveDirPath := path.Join(WD, "myModels", time.Now().Format(tFormat))
+	saveDirPath := path.Join(WD, "myModels", time.Now().Format(TFormat))
 	err := os.Mkdir(saveDirPath, 0766)
 	if err != nil {
 		return err

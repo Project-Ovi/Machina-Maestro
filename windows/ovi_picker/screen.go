@@ -86,7 +86,7 @@ func Launch(window fyne.Window) string {
 			rawDirName = val.Name()
 
 			// Find the dateCreated
-			dateCreated, err = time.Parse(tFormat, rawDirName)
+			dateCreated, err = time.Parse(TFormat, rawDirName)
 			if err != nil {
 				log.Println("Failed to parse: ", rawDirName)
 				continue
