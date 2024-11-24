@@ -11,7 +11,6 @@ import (
 	"fyne.io/fyne/v2/theme"
 	"fyne.io/fyne/v2/widget"
 	"github.com/Project-Ovi/Machina-Maestro/dialogs"
-	ovipicker "github.com/Project-Ovi/Machina-Maestro/windows/ovi_picker"
 )
 
 func switchMeasurementSystem() {
@@ -56,7 +55,7 @@ func settingsWindow() {
 	forms.Add(descriptionEntry)
 
 	// Make other forms
-	otherForms := ovipicker.ReturnModelSpecificForm(thisModel.ProductName, false)
+	otherForms := []fyne.CanvasObject{}
 	for i := 0; i < len(otherForms); i += 2 {
 		// Get title
 		var title *widget.Label
