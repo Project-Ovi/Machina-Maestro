@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"net/url"
 
+	"fyne.io/fyne/container"
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/layout"
@@ -41,7 +42,7 @@ func productPage(content *fyne.Container) {
 	content.Refresh()
 
 	//! Display product page
-	// Build url to markdown file
+	// Build URL to markdown file
 	mdFileURL, err := url.Parse(thisModel.MarkdownRefrenceURL)
 	if err != nil {
 		//TODO
@@ -63,9 +64,10 @@ func productPage(content *fyne.Container) {
 
 	// Create a widget to display the markdown text
 	mdObj := widget.NewRichTextFromMarkdown(string(markdownText))
+	mdObj.Wrapping = fyne.TextWrapBreak
 
 	// Display the text
 	content.Layout = layout.NewStackLayout()
-	content.Objects = []fyne.CanvasObject{mdObj}
+	content.Objects = []fyne.CanvasObject{container.NewVScroll(mdObj)}
 	content.Refresh()
 }
