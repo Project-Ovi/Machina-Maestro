@@ -14,6 +14,8 @@ var WD string
 var LuaVM *lua.LState
 var BuiltinFunctions []helper.BuiltinFunction
 
+var loadedModelDirPath string
+
 func loadModel(dirName string) {
 	//! Misc
 	// Get working directory
@@ -24,12 +26,12 @@ func loadModel(dirName string) {
 	}
 
 	// Create dir path
-	dirPath := path.Join(WD, "myModels", dirName)
+	loadedModelDirPath = path.Join(WD, "myModels", dirName)
 
 	//!----------------------------------------!
 	//!Config file
 	// Read config file
-	f, err := os.ReadFile(path.Join(dirPath, "config.json"))
+	f, err := os.ReadFile(path.Join(loadedModelDirPath, "config.json"))
 	if err != nil {
 		log.Panic("Failed to read config file:", err)
 	}
@@ -41,11 +43,11 @@ func loadModel(dirName string) {
 
 	//!Actions file
 	// Read actions file
-	f, err = os.ReadFile(path.Join(dirPath, "actions.json"))
+	f, err = os.ReadFile(path.Join(loadedModelDirPath, "actions.json"))
 	if err != nil {
 		log.Println("Failed to read actions file:", err)
 		log.Println("Attempting to create actions file")
-		err = os.WriteFile(path.Join(dirPath, "config.json"), []byte("[]"), 0766)
+		err = os.WriteFile(path.Join(loadedModelDirPath, "config.json"), []byte("[]"), 0766)
 		if err != nil {
 			log.Panic(err)
 		}
@@ -83,4 +85,8 @@ func loadModel(dirName string) {
 	if err != nil {
 		log.Println("Failed to run Lua loader for", thisModel.ProductName, ". Reason: ", err)
 	}
+
+	//!----------------------------------------!
+	//!Misc
+	enableAutoSave(100)
 }
