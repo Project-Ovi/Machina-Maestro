@@ -145,6 +145,10 @@ func actionsPage(content *fyne.Container) {
 
 		// Make edit button
 		editBTN := widget.NewButtonWithIcon("Edit", theme.Icon(theme.IconNameSettings), func() {})
+		editBTN.OnTapped = func() {
+			editBTN.Disable()
+			actionsEditor(content, &val)
+		}
 
 		// Make play button
 		var playBTN *widget.Button
