@@ -137,6 +137,11 @@ func actionsPage(content *fyne.Container) {
 
 		// Make delete button
 		deleteBTN := widget.NewButtonWithIcon("Delete", theme.Icon(theme.IconNameDelete), func() {})
+		deleteBTN.OnTapped = func() {
+			deleteBTN.Disable()
+			actionsCollection = append(actionsCollection[:i], actionsCollection[i+1:]...)
+			actionsPage(content)
+		}
 
 		// Make edit button
 		editBTN := widget.NewButtonWithIcon("Edit", theme.Icon(theme.IconNameSettings), func() {})
