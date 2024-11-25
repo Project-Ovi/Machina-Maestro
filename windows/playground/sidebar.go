@@ -23,7 +23,7 @@ func sidebar() *fyne.Container {
 	productBTN.Alignment = widget.ButtonAlignLeading
 
 	// Make actions button
-	actionsBTN := widget.NewButtonWithIcon("Actions", theme.Icon(theme.IconNameMediaPlay), func() {})
+	actionsBTN := widget.NewButtonWithIcon("Actions", theme.Icon(theme.IconNameMediaPlay), func() { actionsPage(playgroundMainContent) })
 	actionsBTN.Alignment = widget.ButtonAlignLeading
 
 	// Make scripting button

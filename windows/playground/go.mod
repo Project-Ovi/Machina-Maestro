@@ -4,8 +4,9 @@ go 1.22.7
 
 require (
 	fyne.io/fyne/v2 v2.5.2
-	github.com/Project-Ovi/Machina-Maestro/dialogs v0.0.0-20241124132439-947ca39688e5
-	github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241124132439-947ca39688e5
+	github.com/Project-Ovi/Machina-Maestro/dialogs v0.0.0-20241125154958-33854d26c198
+	github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241125154958-33854d26c198
+	github.com/yuin/gopher-lua v1.1.1
 )
 
 require (
@@ -21,7 +22,6 @@ require (
 	github.com/srwiley/rasterx v0.0.0-20220730225603-2ab79fcdd4ef // indirect
 	github.com/stretchr/testify v1.9.0 // indirect
 	github.com/yuin/goldmark v1.7.8 // indirect
-	github.com/yuin/gopher-lua v1.1.1 // indirect
 	golang.org/x/image v0.22.0 // indirect
 	golang.org/x/net v0.31.0 // indirect
 	golang.org/x/sys v0.27.0 // indirect

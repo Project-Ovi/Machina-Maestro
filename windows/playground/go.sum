@@ -45,8 +45,12 @@ github.com/BurntSushi/toml v1.4.0/go.mod h1:ukJfTF/6rtPPRCnwkur4qwRxa8vTRFBF0uk2
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
 github.com/Project-Ovi/Machina-Maestro/dialogs v0.0.0-20241124132439-947ca39688e5 h1:pry/ZTvbB35n9ebbXhaELfIfXkHexbn3JL6LY5bqXfk=
 github.com/Project-Ovi/Machina-Maestro/dialogs v0.0.0-20241124132439-947ca39688e5/go.mod h1:IMgVfLQOMJA1JNP09H1Cg/7cvX7re6JFoAOLQBA0G0A=
+github.com/Project-Ovi/Machina-Maestro/dialogs v0.0.0-20241125154958-33854d26c198 h1:b6dRqbWG46ZpldK6VStVap2aQhSaihkzUNpjA7d7elA=
+github.com/Project-Ovi/Machina-Maestro/dialogs v0.0.0-20241125154958-33854d26c198/go.mod h1:IMgVfLQOMJA1JNP09H1Cg/7cvX7re6JFoAOLQBA0G0A=
 github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241124132439-947ca39688e5 h1:0gRX0QVm055ZU5XEm/IuGxXhNQ5ebjsSEQp1eMhbV14=
 github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241124132439-947ca39688e5/go.mod h1:+5euBPoGqz+L1y7RZU5k2LUJyyoAZdg3/PCOKbrXgAE=
+github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241125154958-33854d26c198 h1:MAIEI/ClJJfR+AdlbmIR/kvQpEzdb5gdsvobcKdurXw=
+github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241125154958-33854d26c198/go.mod h1:+5euBPoGqz+L1y7RZU5k2LUJyyoAZdg3/PCOKbrXgAE=
 github.com/antihax/optional v1.0.0/go.mod h1:uupD/76wgC+ih3iEmQUL+0Ugr19nfwCT1kdvxnR2qWY=
 github.com/armon/circbuf v0.0.0-20150827004946-bbbad097214e/go.mod h1:3U/XgcO3hCbHZ8TKRvWD2dDTCfh9M9ya+I9JpbB7O8o=
 github.com/armon/go-metrics v0.0.0-20180917152333-f0300d1749da/go.mod h1:Q73ZrmVTwzkszR9V5SSuryQ31EELlFMUz1kKyl939pY=
