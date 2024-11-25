@@ -4,10 +4,10 @@ go 1.22.7
 
 require (
 	fyne.io/fyne/v2 v2.5.2
-	github.com/Project-Ovi/Machina-Maestro/windows/home_screen v0.0.0-20241124170847-f68eb8eefec2
-	github.com/Project-Ovi/Machina-Maestro/windows/ovi_picker v0.0.0-20241124170847-f68eb8eefec2
-	github.com/Project-Ovi/Machina-Maestro/windows/playground v0.0.0-20241124170847-f68eb8eefec2
-	github.com/Project-Ovi/Machina-Maestro/windows/splash_screen v0.0.0-20241124170847-f68eb8eefec2
+	github.com/Project-Ovi/Machina-Maestro/windows/home_screen v0.0.0-20241124190103-b0fee8d4218d
+	github.com/Project-Ovi/Machina-Maestro/windows/ovi_picker v0.0.0-20241124190103-b0fee8d4218d
+	github.com/Project-Ovi/Machina-Maestro/windows/playground v0.0.0-20241124190103-b0fee8d4218d
+	github.com/Project-Ovi/Machina-Maestro/windows/splash_screen v0.0.0-20241124190103-b0fee8d4218d
 )
 
 require (
@@ -15,8 +15,8 @@ require (
 	fyne.io/systray v1.11.0 // indirect
 	github.com/BurntSushi/toml v1.4.0 // indirect
 	github.com/Microsoft/go-winio v0.6.2 // indirect
-	github.com/Project-Ovi/Machina-Maestro/dialogs v0.0.0-20241124170847-f68eb8eefec2 // indirect
-	github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241124170847-f68eb8eefec2 // indirect
+	github.com/Project-Ovi/Machina-Maestro/dialogs v0.0.0-20241124190103-b0fee8d4218d // indirect
+	github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241124190103-b0fee8d4218d // indirect
 	github.com/ProtonMail/go-crypto v1.1.2 // indirect
 	github.com/cloudflare/circl v1.5.0 // indirect
 	github.com/cyphar/filepath-securejoin v0.3.4 // indirect
@@ -52,6 +52,7 @@ require (
 	github.com/stretchr/testify v1.10.0 // indirect
 	github.com/xanzy/ssh-agent v0.3.3 // indirect
 	github.com/yuin/goldmark v1.7.8 // indirect
+	github.com/yuin/gopher-lua v1.1.1 // indirect
 	golang.org/x/crypto v0.29.0 // indirect
 	golang.org/x/image v0.22.0 // indirect
 	golang.org/x/mobile v0.0.0-20241108191957-fa514ef75a0f // indirect
