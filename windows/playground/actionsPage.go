@@ -45,7 +45,9 @@ func actionCreateDialog() {
 	// Create create button
 	createBTN := widget.NewButtonWithIcon("Create", theme.Icon(theme.IconNameContentAdd), func() {})
 	createBTN.OnTapped = func() {
+		// Disable button in order to prevent further pressing
 		createBTN.Disable()
+		defer createBTN.Enable()
 
 		// Validate name
 		if nameEntryObj.Text == "" {
