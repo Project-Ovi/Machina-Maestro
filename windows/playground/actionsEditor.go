@@ -47,10 +47,12 @@ func actionsEditor(content *fyne.Container, act *helper.Action) {
 
 		// Make form
 		argsForm := container.New(layout.NewFormLayout())
-		var args map[string]string
+		var args = make(map[string]string)
 		for _, val2 := range BuiltinFunctions {
 			if val2.Name == val.FunctionName {
-				args = val2.Arguments
+				for keys, values := range val2.Arguments {
+					args[keys] = values
+				}
 				break
 			}
 		}
@@ -70,7 +72,7 @@ func actionsEditor(content *fyne.Container, act *helper.Action) {
 				argEntryObj = widget.NewEntry()
 				argEntryObj.(*widget.Entry).Validator = validation.NewRegexp("(?:\\d+(?:\\.\\d*)?|\\.\\d+)", "Not a number")
 				argEntryObj.(*widget.Entry).OnChanged = func(s string) {
-					// (*act).Functions[findex].Arguments[argName] = s
+					(*act).Functions[findex].Arguments[argName] = s
 					log.Println("Changed ", argName, "to:", s)
 				}
 			case "Slider":
