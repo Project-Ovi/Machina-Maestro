@@ -4,10 +4,10 @@ go 1.22.7
 
 require (
 	fyne.io/fyne/v2 v2.5.2
-	github.com/Project-Ovi/Machina-Maestro/windows/home_screen v0.0.0-20241125190606-0f82e57a84f2
-	github.com/Project-Ovi/Machina-Maestro/windows/ovi_picker v0.0.0-20241125190606-0f82e57a84f2
-	github.com/Project-Ovi/Machina-Maestro/windows/playground v0.0.0-20241125190606-0f82e57a84f2
-	github.com/Project-Ovi/Machina-Maestro/windows/splash_screen v0.0.0-20241125190606-0f82e57a84f2
+	github.com/Project-Ovi/Machina-Maestro/windows/home_screen v0.0.0-20241125193417-9072976ce37f
+	github.com/Project-Ovi/Machina-Maestro/windows/ovi_picker v0.0.0-20241125193417-9072976ce37f
+	github.com/Project-Ovi/Machina-Maestro/windows/playground v0.0.0-20241125193417-9072976ce37f
+	github.com/Project-Ovi/Machina-Maestro/windows/splash_screen v0.0.0-20241125193417-9072976ce37f
 )
 
 require (
@@ -15,8 +15,8 @@ require (
 	fyne.io/systray v1.11.0 // indirect
 	github.com/BurntSushi/toml v1.4.0 // indirect
 	github.com/Microsoft/go-winio v0.6.2 // indirect
-	github.com/Project-Ovi/Machina-Maestro/dialogs v0.0.0-20241125190606-0f82e57a84f2 // indirect
-	github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241125190606-0f82e57a84f2 // indirect
+	github.com/Project-Ovi/Machina-Maestro/dialogs v0.0.0-20241125193417-9072976ce37f // indirect
+	github.com/Project-Ovi/Machina-Maestro/helper v0.0.0-20241125193417-9072976ce37f // indirect
 	github.com/ProtonMail/go-crypto v1.1.3 // indirect
 	github.com/cloudflare/circl v1.5.0 // indirect
 	github.com/cyphar/filepath-securejoin v0.3.4 // indirect
@@ -25,7 +25,7 @@ require (
 	github.com/fredbi/uri v1.1.0 // indirect
 	github.com/fsnotify/fsnotify v1.8.0 // indirect
 	github.com/fyne-io/gl-js v0.0.0-20230506162202-1fdaa286a934 // indirect
-	github.com/fyne-io/glfw-js v0.0.0-20240101223322-6e1efdc71b7a // indirect
+	github.com/fyne-io/glfw-js v0.0.0-20241126112943-313d8a0fe1d0 // indirect
 	github.com/fyne-io/image v0.0.0-20240417123036-dc0ee9e7c964 // indirect
 	github.com/go-git/gcfg v1.5.1-0.20230307220236-3a3c6141e376 // indirect
 	github.com/go-git/go-billy/v5 v5.6.0 // indirect
@@ -35,10 +35,10 @@ require (
 	github.com/go-text/render v0.2.0 // indirect
 	github.com/go-text/typesetting v0.2.0 // indirect
 	github.com/godbus/dbus/v5 v5.1.0 // indirect
-	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
+	github.com/golang/groupcache v0.0.0-20241129210726-2c02b8208cf8 // indirect
 	github.com/gopherjs/gopherjs v1.17.2 // indirect
 	github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 // indirect
-	github.com/jeandeaual/go-locale v0.0.0-20240223122105-ce5225dcaa49 // indirect
+	github.com/jeandeaual/go-locale v0.0.0-20241203095717-3de5a96e0d6d // indirect
 	github.com/jsummers/gobmp v0.0.0-20230614200233-a9de23ed2e25 // indirect
 	github.com/kevinburke/ssh_config v1.2.0 // indirect
 	github.com/nicksnyder/go-i18n/v2 v2.4.1 // indirect
