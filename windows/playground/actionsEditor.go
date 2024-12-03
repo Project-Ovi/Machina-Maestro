@@ -56,12 +56,12 @@ func actionsEditor(content *fyne.Container, act *helper.Action) {
 				break
 			}
 		}
-		for argName, argValue := range args {
+		for argName, _ := range args {
 			// Make argument title
 			argTitleObj := widget.NewLabel(argName)
 
 			// Extract argument value
-			argValueName, ArgValueValue, _ := strings.Cut(argValue, "/")
+			argValueName, ArgValueValue, _ := strings.Cut(args[argName], "/")
 
 			// Make argument entry
 			var argEntryObj fyne.CanvasObject
