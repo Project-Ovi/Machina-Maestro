@@ -89,18 +89,18 @@ func actionsEditor(content *fyne.Container, act *helper.Action) {
 						if err == nil {
 							// Make widget
 							argEntryObj = widget.NewSlider(minVal, maxVal)
-							argEntryObj.(*widget.Slider).OnChanged = func(f float64) { (*act).Functions[findex].Arguments[argName] = fmt.Sprint(f) }
+							argEntryObj.(*widget.Slider).OnChanged = func(f float64) { act.Functions[findex].Arguments[argName] = fmt.Sprint(f) }
 						}
 					}
 				}
 			case "Bool":
 				argEntryObj = widget.NewCheck("", func(b bool) {
-					(*act).Functions[findex].Arguments[argName] = fmt.Sprint(b)
+					act.Functions[findex].Arguments[argName] = fmt.Sprint(b)
 				})
 			case "String":
 				argEntryObj = widget.NewEntry()
 				argEntryObj.(*widget.Entry).OnChanged = func(s string) {
-					(*act).Functions[findex].Arguments[argName] = s
+					act.Functions[findex].Arguments[argName] = s
 				}
 			default:
 				log.Println("Failed to match arg value name:", argValueName)
