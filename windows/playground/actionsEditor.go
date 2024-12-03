@@ -74,6 +74,9 @@ func actionsEditor(content *fyne.Container, act *helper.Action) {
 				argEntryObj = widget.NewEntry()
 				argEntryObj.(*widget.Entry).Validator = validation.NewRegexp("(?:\\d+(?:\\.\\d*)?|\\.\\d+)", "Not a number")
 				argEntryObj.(*widget.Entry).OnChanged = func(s string) {
+					if err := argEntryObj.(*widget.Entry).Validate(); err != nil {
+						log.Println("Error at value:", argName, err)
+					}
 					act.Functions[findex].Arguments[argName] = s
 				}
 				argEntryObj.(*widget.Entry).Text = act.Functions[findex].Arguments[argName]
@@ -90,6 +93,7 @@ func actionsEditor(content *fyne.Container, act *helper.Action) {
 							// Make widget
 							argEntryObj = widget.NewSlider(minVal, maxVal)
 							argEntryObj.(*widget.Slider).OnChanged = func(f float64) { act.Functions[findex].Arguments[argName] = fmt.Sprint(f) }
+							argEntryObj.(*widget.Slider).Value, _ = strconv.ParseFloat(act.Functions[findex].Arguments[argName], 64)
 						}
 					}
 				}
@@ -97,11 +101,13 @@ func actionsEditor(content *fyne.Container, act *helper.Action) {
 				argEntryObj = widget.NewCheck("", func(b bool) {
 					act.Functions[findex].Arguments[argName] = fmt.Sprint(b)
 				})
+				argEntryObj.(*widget.Check).Checked, _ = strconv.ParseBool(act.Functions[findex].Arguments[argName])
 			case "String":
 				argEntryObj = widget.NewEntry()
 				argEntryObj.(*widget.Entry).OnChanged = func(s string) {
 					act.Functions[findex].Arguments[argName] = s
 				}
+				argEntryObj.(*widget.Entry).Text = act.Functions[findex].Arguments[argName]
 			default:
 				log.Println("Failed to match arg value name:", argValueName)
 			}
