@@ -130,7 +130,7 @@ func actionsEditor(content *fyne.Container, act *helper.Action) {
 		// Create a dropdown
 		var availableFunctionNames []string
 		for _, val := range BuiltinFunctions {
-			availableFunctionNames = append(availableFunctionNames, val.DisplayName)
+			availableFunctionNames = append(availableFunctionNames, val.Name)
 		}
 		dropdownObj := widget.NewSelect(availableFunctionNames, func(s string) {})
 
