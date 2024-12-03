@@ -74,11 +74,8 @@ func actionsEditor(content *fyne.Container, act *helper.Action) {
 				argEntryObj.(*widget.Entry).Validator = validation.NewRegexp("(?:\\d+(?:\\.\\d*)?|\\.\\d+)", "Not a number")
 				argEntryObj.(*widget.Entry).OnChanged = func(s string) {
 					act.Functions[findex].Arguments[argName] = s
-					log.Println("Changed ", argName, "to:", s)
-					log.Println("Value in action collection:", act.Functions[findex].Arguments[argName])
-					log.Println("Value in global functions:", args[argName])
-					SaveAll()
 				}
+				argEntryObj.(*widget.Entry).Text = act.Functions[findex].Arguments[argName]
 			case "Slider":
 				// Split min-max
 				vals := strings.Split(ArgValueValue, "-")
