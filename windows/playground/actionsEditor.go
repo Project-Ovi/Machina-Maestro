@@ -70,7 +70,7 @@ func actionsEditor(content *fyne.Container, act *helper.Action) {
 				argEntryObj = widget.NewEntry()
 				argEntryObj.(*widget.Entry).Validator = validation.NewRegexp("(?:\\d+(?:\\.\\d*)?|\\.\\d+)", "Not a number")
 				argEntryObj.(*widget.Entry).OnChanged = func(s string) {
-					(*act).Functions[findex].Arguments[argName] = s
+					// (*act).Functions[findex].Arguments[argName] = s
 					log.Println("Changed ", argName, "to:", s)
 				}
 			case "Slider":
