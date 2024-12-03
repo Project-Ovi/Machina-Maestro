@@ -17,6 +17,7 @@ import (
 )
 
 func actionsEditor(content *fyne.Container, act *helper.Action) {
+	log.Printf("Pointer address: %p\n", act)
 	// Make navbar
 	editorNavbar := container.New(
 		layout.NewStackLayout(),
