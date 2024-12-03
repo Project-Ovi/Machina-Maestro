@@ -165,7 +165,11 @@ func actionsEditor(content *fyne.Container, act *helper.Action) {
 			this.FunctionName = dropdownObj.Selected
 			for _, val := range BuiltinFunctions {
 				if val.Name == this.FunctionName {
-					this.Arguments = val.Arguments
+					// this.Arguments = val.Arguments
+					this.Arguments = make(map[string]string)
+					for keys, values := range val.Arguments {
+						this.Arguments[keys] = values
+					}
 					break
 				}
 			}
