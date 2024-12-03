@@ -167,7 +167,7 @@ func actionsEditor(content *fyne.Container, act *helper.Action) {
 			}
 
 			// Add function to the action
-			(*act).Functions = append((*act).Functions, this)
+			act.Functions = append(act.Functions, this)
 
 			// Reload
 			actionsEditor(content, act)
