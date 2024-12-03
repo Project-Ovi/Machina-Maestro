@@ -2,6 +2,7 @@ package playground
 
 import (
 	"fmt"
+	"log"
 	"strconv"
 	"strings"
 
@@ -94,6 +95,8 @@ func actionsEditor(content *fyne.Container, act *helper.Action) {
 				argEntryObj.(*widget.Entry).OnChanged = func(s string) {
 					(*act).Functions[findex].Arguments[argName] = s
 				}
+			default:
+				log.Println("Failed to match arg value name:", argValueName)
 			}
 
 			// Add values to the form
