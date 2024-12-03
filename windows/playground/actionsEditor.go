@@ -77,6 +77,7 @@ func actionsEditor(content *fyne.Container, act *helper.Action) {
 					log.Println("Changed ", argName, "to:", s)
 					log.Println("Value in action collection:", act.Functions[findex].Arguments[argName])
 					log.Println("Value in global functions:", args[argName])
+					SaveAll()
 				}
 			case "Slider":
 				// Split min-max
